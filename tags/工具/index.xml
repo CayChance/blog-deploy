@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Fri, 26 Apr 2019 16:21:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 21 Jul 2019 20:06:14 +0800</lastBuildDate>
     
 	<atom:link href="https://caychance.github.io/tags/%E5%B7%A5%E5%85%B7/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>持续集成服务Travis CI</title>
+      <link>https://caychance.github.io/posts/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%9C%8D%E5%8A%A1travisci/</link>
+      <pubDate>Sun, 21 Jul 2019 20:06:14 +0800</pubDate>
+      
+      <guid>https://caychance.github.io/posts/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%9C%8D%E5%8A%A1travisci/</guid>
+      <description>今天下午一直在捣鼓如何hugo的自动部署。</description>
+    </item>
     
     <item>
       <title>webpack4.0学习笔记</title>

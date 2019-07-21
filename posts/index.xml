@@ -7,8 +7,21 @@
 		<generator>Hugo -- gohugo.io</generator>
 		<language>en-us</language>
 		<copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-		<lastBuildDate>Mon, 15 Jul 2019 20:25:14 +0800</lastBuildDate>
+		<lastBuildDate>Sun, 21 Jul 2019 20:06:14 +0800</lastBuildDate>
 		<atom:link href="https://caychance.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>持续集成服务Travis CI</title>
+			<link>https://caychance.github.io/posts/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%9C%8D%E5%8A%A1travisci/</link>
+			<pubDate>Sun, 21 Jul 2019 20:06:14 +0800</pubDate>
+			
+			<guid>https://caychance.github.io/posts/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%9C%8D%E5%8A%A1travisci/</guid>
+			<description>今天下午一直在捣鼓如何hugo的自动部署。</description>
+			<content type="html"><![CDATA[<hr />
+
+<p>今天下午一直在捣鼓如何hugo的自动部署。</p>
+]]></content>
+		</item>
 		
 		<item>
 			<title>Socket</title>
@@ -1241,22 +1254,6 @@ position的属性值包括：absolute-绝对定位、relative-相对定位、fix
   <span class="k">return</span> <span class="nx">fetch</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">opts</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>]]></content>
-		</item>
-		
-		<item>
-			<title>随感2019-06</title>
-			<link>https://caychance.github.io/posts/%E9%9A%8F%E6%84%9F2019-06/</link>
-			<pubDate>Wed, 05 Jun 2019 20:11:34 +0800</pubDate>
-			
-			<guid>https://caychance.github.io/posts/%E9%9A%8F%E6%84%9F2019-06/</guid>
-			<description>辗转许久，最终还是换了份工作。
-希望可以在新公司和新岗位上更进一步成长。</description>
-			<content type="html"><![CDATA[<hr />
-
-<p>辗转许久，最终还是换了份工作。</p>
-
-<p>希望可以在新公司和新岗位上更进一步成长。</p>
-]]></content>
 		</item>
 		
 	</channel>

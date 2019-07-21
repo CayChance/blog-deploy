@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Mon, 15 Jul 2019 20:25:14 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 21 Jul 2019 20:06:14 +0800</lastBuildDate>
     
 	<atom:link href="https://caychance.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>持续集成服务Travis CI</title>
+      <link>https://caychance.github.io/posts/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%9C%8D%E5%8A%A1travisci/</link>
+      <pubDate>Sun, 21 Jul 2019 20:06:14 +0800</pubDate>
+      
+      <guid>https://caychance.github.io/posts/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%9C%8D%E5%8A%A1travisci/</guid>
+      <description>今天下午一直在捣鼓如何hugo的自动部署。</description>
+    </item>
     
     <item>
       <title>Socket</title>
@@ -133,16 +142,6 @@ div { width:100px; height:100px; background:red; animation:myfirst 5s; } @keyfra
       <guid>https://caychance.github.io/posts/todolist/</guid>
       <description>刚接触新项目，有不少疑惑。在此列出来，后续做完项目或者做项目的过程当中，要把这些问题弄明白。
  之前都是用vue做的spa应用，这边使用vue做的是单/多页模板。这一块怎么配置的 使用的是hash的路由配置规则 脚手架是在vue cli3的基础上做的。需要深入学习一下vue cli3 项目中的sass只需要 npm install -D sass-loader node-sass 即可用。不需要webpack手动配置？ 改进一下自己的编程风格。主要就是平时写代码的时候，加上详细的注释。  /** * get 提交 * @param {String} url 请求的url * @param {any} params 请求的参数 * @param {Obejct} config 请求配置 * @returns Promise */ export function get(url, params = {}, config = {}) { let opts = {...config} opts.params = params return fetch.get(url, opts) } </description>
-    </item>
-    
-    <item>
-      <title>随感2019-06</title>
-      <link>https://caychance.github.io/posts/%E9%9A%8F%E6%84%9F2019-06/</link>
-      <pubDate>Wed, 05 Jun 2019 20:11:34 +0800</pubDate>
-      
-      <guid>https://caychance.github.io/posts/%E9%9A%8F%E6%84%9F2019-06/</guid>
-      <description>辗转许久，最终还是换了份工作。
-希望可以在新公司和新岗位上更进一步成长。</description>
     </item>
     
   </channel>
