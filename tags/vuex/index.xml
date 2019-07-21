@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Vuex on CayChance の Blog</title>
+    <link>https://caychance.github.io/tags/vuex/</link>
+    <description>Recent content in Vuex on CayChance の Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Fri, 05 Jul 2019 18:48:17 +0800</lastBuildDate>
+    
+	<atom:link href="https://caychance.github.io/tags/vuex/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Vue组件间通信的方式总结</title>
+      <link>https://caychance.github.io/posts/vue%E7%BB%84%E4%BB%B6%E9%97%B4%E9%80%9A%E4%BF%A1%E7%9A%84%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Fri, 05 Jul 2019 18:48:17 +0800</pubDate>
+      
+      <guid>https://caychance.github.io/posts/vue%E7%BB%84%E4%BB%B6%E9%97%B4%E9%80%9A%E4%BF%A1%E7%9A%84%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93/</guid>
+      <description>Vue组件之间通讯的常见方法总结
+1. props/$emit 最常用的一种方法。
+ 父组件传值给子组件  子组件中通过声明props传递itemList，父组件引入子组件以后，传入itemList为fruitList
+ 子组件传值给父组件  子组件中传递值通过$emit的第二个参数。父组件接受值通过声明方法addItem，并获取其中的参数。
+// 父组件 &amp;lt;template&amp;gt; &amp;lt;div class=&amp;#34;test&amp;#34;&amp;gt; &amp;lt;h3&amp;gt;this is parents page&amp;lt;/h3&amp;gt; &amp;lt;cChildA v-on:changeItemList=&amp;#39;addItem&amp;#39; v-bind:itemList=&amp;#34;fruitList&amp;#34; /&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/template&amp;gt; &amp;lt;script&amp;gt; import cChildA from &amp;#34;./a&amp;#34;; export default { data() { return { fruitList: [&amp;#34;peach&amp;#34;, &amp;#34;banana&amp;#34;, &amp;#34;lemon&amp;#34;] }; }, methods:{ addItem(item){ console.log(item); } }, components: { cChildA } }; //子组件 &amp;lt;template&amp;gt; &amp;lt;div&amp;gt; &amp;lt;h3&amp;gt;{{childTitle}}&amp;lt;/h3&amp;gt; &amp;lt;ul&amp;gt; &amp;lt;li v-on:click=&amp;#34;changeItemList&amp;#34; v-for=&amp;#34;(item,index) in itemList&amp;#34; v-bind:key=&amp;#34;index&amp;#34;&amp;gt;{{item}}&amp;lt;/li&amp;gt; &amp;lt;/ul&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/template&amp;gt; &amp;lt;script&amp;gt; export default { props: { itemList: { type: Array } }, data() { return { childTitle: `this is child page` }; }, methods: { changeItemList() { this.</description>
+    </item>
+    
+    <item>
+      <title>Vuex笔记</title>
+      <link>https://caychance.github.io/posts/vuex%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Thu, 28 Mar 2019 16:21:30 +0000</pubDate>
+      
+      <guid>https://caychance.github.io/posts/vuex%E7%AC%94%E8%AE%B0/</guid>
+      <description>Vuex概述 Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。
+简单来说，就是存储页面中的各种数据。
+为什么要用Vuex Vuex的使用并不是必要的。
+Vue.js中，数据之间都是在组件之间进行传递的，但是当你的应用变的很大或者很复杂的时候，会有两个问题。
+1、当组件嵌套很深的时候，数据的传递，修改，其实都不太方便，很容易导致出错。
+2、这些状态可能会在任何组件中被修改，不方便统一管理。尤其是多人合作开发的时候。
+Vuex也是为了解决这两个问题而生的。
+当然，有人可能会想到使用一个全局对象，再去上层封装了一些数据存取的接口来解决。Vuex和单纯的全局对象有以下2点不同：
+ Vuex 的状态存储是响应式的。当 Vue 组件从 store 中读取状态的时候，若store中的状态发生变化，那么相应的组件也会相应地得到高效更新。
+ 不能直接改变store中的状态。改变store中的状态的唯一途径就是显式地提交(commit)mutation。这样使得我们可以方便地跟踪每一个状态的变化。
+  Vuex详细介绍 Vuex中有五个核心的概念：
+ State
+ 用于存储数据
+ Getter
+ 可理解为store的（computed）计算属性
+Getter可接受state和getter两个参数。
+ Mutation
+ 更改 Vuex 的 store 中的状态的唯一方法是提交 mutation。
+mutation 都是同步事务
+ Action
+ Action类似mutation。
+区别有两点：1.Action可以包含异步操作；2.Action 提交的是 mutation，而不是直接变更状态。
+ Module
+ 由于使用单一状态树，应用的所有状态会集中到一个比较大的对象。当应用变得非常复杂时，store 对象就有可能变得相当臃肿。Vuex 允许我们将 store 分割成模块（module,每个模块拥有自己的state、mutation、action、getter以及嵌套子模块。
+  总结  每一个 Vuex 应用的核心就是store（仓库）。“store”基本上就是一个容器，它包含着你的应用中大部分的状态(state)。 想修改state只能提交（commit）mutation。 mutation中只能进行同步操作。 异步操作可以分发（dispatch）action，当然，action的实质还是提交（commit）mutation。  一句话总结 Vuex的数据流向： State 渲染到Vue Components,分发(Dispatch) Actions,提交(Commit) Mutations，修改(Mutate) State。</description>
+    </item>
+    
+    <item>
+      <title>Vuex存储的时候遇到的问题及解决方案</title>
+      <link>https://caychance.github.io/posts/vuex%E5%AD%98%E5%82%A8%E7%9A%84%E6%97%B6%E5%80%99%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</link>
+      <pubDate>Tue, 22 Jan 2019 19:40:06 +0000</pubDate>
+      
+      <guid>https://caychance.github.io/posts/vuex%E5%AD%98%E5%82%A8%E7%9A%84%E6%97%B6%E5%80%99%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</guid>
+      <description>引子 使用Vuex遇到过两个问题。
+ 页面刷新或者跳转到第三方再回来，数据是会丢掉的。即Vuex持久化存储问题。 在Vuex中存储一个Falsey值（PS：false,&amp;ldquo;,null,undefined,NaN）的时候，Vuex中存储不了。  解决 第一个问题，网上有很多解决方案。使用vuex-persistedstate。具体看文档，我就不细说了，可以使用localStorage,也可以使用cookie。
+第二个问题，其实并不是Vuex本身的问题，而是因为我们项目中统一为每一个state字段生成了mutations方法。
+generate方法中的语句state[name] = value || state[name];判断，value为false的时候，确实存不进来。
+然后自己重新写了一个
+updateToken(state,newToken){ state.token = newToken; } ... const options = { // 多页面共享数据  state: { aaa: &amp;#39;&amp;#39;, bbb:&amp;#39;&amp;#39;, ccc: &amp;#39;&amp;#39;, }, // 数据变更  mutations: { updateToken(state,newToken){ state.token = newToken; } }, } // 生成 mutations 方法 function generate(name) { return function (state, value) { state[name] = value || state[name]; } } // 为每个 state 字段生成对应的 mutations 方法 Object.</description>
+    </item>
+    
+  </channel>
+</rss>

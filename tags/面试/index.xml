@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>面试 on CayChance の Blog</title>
+    <link>https://caychance.github.io/tags/%E9%9D%A2%E8%AF%95/</link>
+    <description>Recent content in 面试 on CayChance の Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Fri, 12 Apr 2019 23:53:48 +0000</lastBuildDate>
+    
+	<atom:link href="https://caychance.github.io/tags/%E9%9D%A2%E8%AF%95/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>面试小记</title>
+      <link>https://caychance.github.io/posts/%E9%9D%A2%E8%AF%95%E5%B0%8F%E8%AE%B0/</link>
+      <pubDate>Fri, 12 Apr 2019 23:53:48 +0000</pubDate>
+      
+      <guid>https://caychance.github.io/posts/%E9%9D%A2%E8%AF%95%E5%B0%8F%E8%AE%B0/</guid>
+      <description>CSS部分 css三列布局，两边固定宽度，中间自适应 两栏布局(至少三种，float/absolute/flex) 三栏布局(双飞翼/圣杯/flex) BFC(产生条件、用途) 产生条件：
+ body根元素 float元素 float不等于none 绝对定位 absolute fixed display等于inline-block、table-cells、flex overflow除了visible以外的值hidden、auto、scroll  BFC的用途/特性：
+ 同一个BFC中的margin会重叠 浮动的元素会脱离普通文档流，但是BFC却可以包含浮动的元素，即消除浮动。 BFC可以阻止元素被浮动元素覆盖。  传送门-BFC详细了解
+用border画一个半圆/三角形  三角形  width: 0; height: 0; border-top: 50px solid blue; border-right: 50px solid red; border-bottom: 50px solid green; border-left: 50px solid yellow;  半圆  width: 100px; height: 50px; border-radius: 50px 50px 0 0; background: pink; 弹出框 实现向内旋转的效果(transform: rotateY) css3如何开启动画的GPU加速(translate3d(0, 0, 0)) 行内元素padding margin有用吗  padding有用 margin左右有用，上下无效。  盒模型有哪两种，区别是啥  IE盒模型 border-box width = content宽度+padding+border W3C盒模型 content-box width = content宽度  常用移动端适配方案，border 1px在dpr比较大的手机上咋解决  传送门-掘金-移动端适配总结 感觉这篇文章里的适配代码是个无敌的答案  css水平垂直居中  table-cell absolute transform:translate flex grid  flex align-item align-content的区别  容器属性  flex-direction 主轴的方向 flex-wrap 主轴一行展示不下，如何换行 justify-content 项目在主轴上的对齐方式 align-items 项目在交叉轴上的对齐方式 align-content 多根轴线如何对齐  项目属性  order 项目的排列顺序 越小越靠前 默认0 flex-grow 项目的放大比例 默认为0 等于0不会放大。大于0，如果有剩余空间的情况下，项目1为x1，项目2为x2，则项目1占剩余空间的x1/(x1+x2) flex-shrink 项目的缩小比例 默认为1 等于0不参与缩小。ul width 100px。两个li宽100px，默认每个li都会被缩小1/(1+1)=1/2。第一个li 2，第二个li 3，则第一个li被缩小2/(2+3)=2/5，被缩小的实际宽度为2/5*100=40，剩余宽度为60。第一个li 为0，如果第二个li为0，那么两者都不缩小，第二个li 大于0，那么li实际宽度，第一个li不缩小。 flex-basis 项目的占据主轴的空间 默认auto flex-self 该项目单独的对齐方式   单行，多行文本超出省略号  单行文本溢出  width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;  多行文本溢出  :和::代表啥  :伪类 ::伪元素  JS部分 基本类型和引用类型在内存中是如何存储的  基本类型存储在栈内存 引用类型存储在堆内存 栈内存中存的是引用类型在堆内存中的地址 或者说存的是引用类型的引用  事件委托和事件代理 一个ul里面有很多个li的时候，如果想让每个li都有一个点击事件，不需要给每个li都去添加，只需要给ul添加一个就行了。</description>
+    </item>
+    
+  </channel>
+</rss>

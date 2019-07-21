@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>七牛云 on CayChance の Blog</title>
+    <link>https://caychance.github.io/tags/%E4%B8%83%E7%89%9B%E4%BA%91/</link>
+    <description>Recent content in 七牛云 on CayChance の Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Sat, 05 Jan 2019 23:59:38 +0000</lastBuildDate>
+    
+	<atom:link href="https://caychance.github.io/tags/%E4%B8%83%E7%89%9B%E4%BA%91/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>如何使用七牛云</title>
+      <link>https://caychance.github.io/posts/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E4%B8%83%E7%89%9B%E4%BA%91/</link>
+      <pubDate>Sat, 05 Jan 2019 23:59:38 +0000</pubDate>
+      
+      <guid>https://caychance.github.io/posts/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E4%B8%83%E7%89%9B%E4%BA%91/</guid>
+      <description>最近做了一个需求，使用七牛云的sdk来上传图片。 七牛云的文档写的可以更好一点。
+html部分
+&amp;lt;input ref=&amp;#39;imageUrl&amp;#39; type=&amp;#34;file&amp;#34; @click=&amp;#34;uploadImage(&amp;#39;imageUrl&amp;#39;)&amp;#34;&amp;gt; 这个用的是vue做的，所以会有一个ref标签，直接用原生html写的可以忽略。
+//上传图片 uploadImage(ref) { //选中input元素  let input = undefined; if(ref === &amp;#39;imageUrl&amp;#39;){ input = this.$refs[ref]; } else{ input = this.$refs[ref][0]; } //input在onchange的时候触发  input.onchange = ()=&amp;gt;{ let _this = this; //localFileName 文件的本地名，一般是一个绝对地址的路径  let localFileName = input.value; //文件名  let suffix = localFileName.substring(localFileName.lastIndexOf(&amp;#34;.&amp;#34;),localFileName.length);//后缀名  let fileName = localFileName.substring(localFileName.lastIndexOf(&amp;#34;\\&amp;#34;)+1, let file = input.files[0]; //需要先获取上传七牛云的token  axios.get(`${GET_UPLOAD_TOKEN}?fileName=${fileName}`).then((response)=&amp;gt;{ if(response.code === 2000){ //七牛云token  const token = response.</description>
+    </item>
+    
+  </channel>
+</rss>

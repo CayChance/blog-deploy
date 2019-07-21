@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Swiper on CayChance の Blog</title>
+    <link>https://caychance.github.io/tags/swiper/</link>
+    <description>Recent content in Swiper on CayChance の Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Sun, 16 Jun 2019 16:40:47 +0800</lastBuildDate>
+    
+	<atom:link href="https://caychance.github.io/tags/swiper/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>在vue中使用swiper遇到的一些问题</title>
+      <link>https://caychance.github.io/posts/%E5%9C%A8vue%E4%B8%AD%E4%BD%BF%E7%94%A8swiper%E9%81%87%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Sun, 16 Jun 2019 16:40:47 +0800</pubDate>
+      
+      <guid>https://caychance.github.io/posts/%E5%9C%A8vue%E4%B8%AD%E4%BD%BF%E7%94%A8swiper%E9%81%87%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/</guid>
+      <description>最近做需求，需要做一个轮播图，由于项(ben)目(ren)时(bi)间(jiao)紧(lan)，所以没有自己去写，而是去选择找了一个现成的，用的是swiper。
+swiper官网上的不是针对vue的，但是API是一样的。vue中的用的是——vue-awesome-swiper。
+有两件事情需要解决：
+ 分页器pagination的样式需要单独设定； 给分页器添加事件，做到点击分页器跳转至其对应的轮播图。  思路1：刚开始我的思路是可以使用swiper提供的api，来配置分页器,配置如图(PS:不知道还有没有别的办法)。然后再在页面mounted钩子的时候，操作dom给每个分页器添加方法。
+但是，这个思路的问题： 开启自动轮播以后，轮播图的每次轮播，都会执行renderCustom方法来重新生成dom，总不能一直给dom添加方法吧。
+... data() { return { swiperOption: { //分页器  pagination: { el: &amp;#34;.swiper-pagination&amp;#34;, type: &amp;#34;custom&amp;#34;, paginationClickable: true, renderCustom: function(swiper, current, total) { const activeOpacity = 0.7; const normalOpacity = 0.3; let opacity = &amp;#34;&amp;#34;; let paginationStyle = &amp;#34;&amp;#34;; let html = &amp;#34;&amp;#34;; for (let i = 1; i &amp;lt;= total; i++) { if (i === current) { opacity = activeOpacity; } else { opacity = normalOpacity; } paginationStyle = `background:#fff;border-radius:0;opacity:${opacity};width:45px;height:5px;margin-right:10px;border:3px solid;`; html += `&amp;lt;span class=&amp;#34;swiper-pagination-bullet&amp;#34; style=${paginationStyle}&amp;gt;&amp;lt;/span&amp;gt;`; } return html; } }, //前端后退按钮  // navigation: {  // nextEl: &amp;#34;.</description>
+    </item>
+    
+  </channel>
+</rss>

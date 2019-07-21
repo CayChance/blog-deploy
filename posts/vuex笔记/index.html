@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="theme-color" content="#494f5c">
+	<meta name="msapplication-TileColor" content="#494f5c">
+
+<meta itemprop="name" content="Vuex笔记">
+<meta itemprop="description" content="Vuex概述 Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。
+简单来说，就是存储页面中的各种数据。
+为什么要用Vuex Vuex的使用并不是必要的。
+Vue.js中，数据之间都是在组件之间进行传递的，但是当你的应用变的很大或者很复杂的时候，会有两个问题。
+1、当组件嵌套很深的时候，数据的传递，修改，其实都不太方便，很容易导致出错。
+2、这些状态可能会在任何组件中被修改，不方便统一管理。尤其是多人合作开发的时候。
+Vuex也是为了解决这两个问题而生的。
+当然，有人可能会想到使用一个全局对象，再去上层封装了一些数据存取的接口来解决。Vuex和单纯的全局对象有以下2点不同：
+ Vuex 的状态存储是响应式的。当 Vue 组件从 store 中读取状态的时候，若store中的状态发生变化，那么相应的组件也会相应地得到高效更新。
+ 不能直接改变store中的状态。改变store中的状态的唯一途径就是显式地提交(commit)mutation。这样使得我们可以方便地跟踪每一个状态的变化。
+  Vuex详细介绍 Vuex中有五个核心的概念：
+ State
+ 用于存储数据
+ Getter
+ 可理解为store的（computed）计算属性
+Getter可接受state和getter两个参数。
+ Mutation
+ 更改 Vuex 的 store 中的状态的唯一方法是提交 mutation。
+mutation 都是同步事务
+ Action
+ Action类似mutation。
+区别有两点：1.Action可以包含异步操作；2.Action 提交的是 mutation，而不是直接变更状态。
+ Module
+ 由于使用单一状态树，应用的所有状态会集中到一个比较大的对象。当应用变得非常复杂时，store 对象就有可能变得相当臃肿。Vuex 允许我们将 store 分割成模块（module,每个模块拥有自己的state、mutation、action、getter以及嵌套子模块。
+  总结  每一个 Vuex 应用的核心就是store（仓库）。“store”基本上就是一个容器，它包含着你的应用中大部分的状态(state)。 想修改state只能提交（commit）mutation。 mutation中只能进行同步操作。 异步操作可以分发（dispatch）action，当然，action的实质还是提交（commit）mutation。  一句话总结 Vuex的数据流向： State 渲染到Vue Components,分发(Dispatch) Actions,提交(Commit) Mutations，修改(Mutate) State。">
+
+
+<meta itemprop="datePublished" content="2019-03-28T16:21:30&#43;00:00" />
+<meta itemprop="dateModified" content="2019-03-28T16:21:30&#43;00:00" />
+<meta itemprop="wordCount" content="62">
+
+
+
+<meta itemprop="keywords" content="vuex," />
+<meta property="og:title" content="Vuex笔记" />
+<meta property="og:description" content="Vuex概述 Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。
+简单来说，就是存储页面中的各种数据。
+为什么要用Vuex Vuex的使用并不是必要的。
+Vue.js中，数据之间都是在组件之间进行传递的，但是当你的应用变的很大或者很复杂的时候，会有两个问题。
+1、当组件嵌套很深的时候，数据的传递，修改，其实都不太方便，很容易导致出错。
+2、这些状态可能会在任何组件中被修改，不方便统一管理。尤其是多人合作开发的时候。
+Vuex也是为了解决这两个问题而生的。
+当然，有人可能会想到使用一个全局对象，再去上层封装了一些数据存取的接口来解决。Vuex和单纯的全局对象有以下2点不同：
+ Vuex 的状态存储是响应式的。当 Vue 组件从 store 中读取状态的时候，若store中的状态发生变化，那么相应的组件也会相应地得到高效更新。
+ 不能直接改变store中的状态。改变store中的状态的唯一途径就是显式地提交(commit)mutation。这样使得我们可以方便地跟踪每一个状态的变化。
+  Vuex详细介绍 Vuex中有五个核心的概念：
+ State
+ 用于存储数据
+ Getter
+ 可理解为store的（computed）计算属性
+Getter可接受state和getter两个参数。
+ Mutation
+ 更改 Vuex 的 store 中的状态的唯一方法是提交 mutation。
+mutation 都是同步事务
+ Action
+ Action类似mutation。
+区别有两点：1.Action可以包含异步操作；2.Action 提交的是 mutation，而不是直接变更状态。
+ Module
+ 由于使用单一状态树，应用的所有状态会集中到一个比较大的对象。当应用变得非常复杂时，store 对象就有可能变得相当臃肿。Vuex 允许我们将 store 分割成模块（module,每个模块拥有自己的state、mutation、action、getter以及嵌套子模块。
+  总结  每一个 Vuex 应用的核心就是store（仓库）。“store”基本上就是一个容器，它包含着你的应用中大部分的状态(state)。 想修改state只能提交（commit）mutation。 mutation中只能进行同步操作。 异步操作可以分发（dispatch）action，当然，action的实质还是提交（commit）mutation。  一句话总结 Vuex的数据流向： State 渲染到Vue Components,分发(Dispatch) Actions,提交(Commit) Mutations，修改(Mutate) State。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://caychance.github.io/posts/vuex%E7%AC%94%E8%AE%B0/" /><meta property="article:published_time" content="2019-03-28T16:21:30&#43;00:00"/>
+<meta property="article:modified_time" content="2019-03-28T16:21:30&#43;00:00"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Vuex笔记"/>
+<meta name="twitter:description" content="Vuex概述 Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。
+简单来说，就是存储页面中的各种数据。
+为什么要用Vuex Vuex的使用并不是必要的。
+Vue.js中，数据之间都是在组件之间进行传递的，但是当你的应用变的很大或者很复杂的时候，会有两个问题。
+1、当组件嵌套很深的时候，数据的传递，修改，其实都不太方便，很容易导致出错。
+2、这些状态可能会在任何组件中被修改，不方便统一管理。尤其是多人合作开发的时候。
+Vuex也是为了解决这两个问题而生的。
+当然，有人可能会想到使用一个全局对象，再去上层封装了一些数据存取的接口来解决。Vuex和单纯的全局对象有以下2点不同：
+ Vuex 的状态存储是响应式的。当 Vue 组件从 store 中读取状态的时候，若store中的状态发生变化，那么相应的组件也会相应地得到高效更新。
+ 不能直接改变store中的状态。改变store中的状态的唯一途径就是显式地提交(commit)mutation。这样使得我们可以方便地跟踪每一个状态的变化。
+  Vuex详细介绍 Vuex中有五个核心的概念：
+ State
+ 用于存储数据
+ Getter
+ 可理解为store的（computed）计算属性
+Getter可接受state和getter两个参数。
+ Mutation
+ 更改 Vuex 的 store 中的状态的唯一方法是提交 mutation。
+mutation 都是同步事务
+ Action
+ Action类似mutation。
+区别有两点：1.Action可以包含异步操作；2.Action 提交的是 mutation，而不是直接变更状态。
+ Module
+ 由于使用单一状态树，应用的所有状态会集中到一个比较大的对象。当应用变得非常复杂时，store 对象就有可能变得相当臃肿。Vuex 允许我们将 store 分割成模块（module,每个模块拥有自己的state、mutation、action、getter以及嵌套子模块。
+  总结  每一个 Vuex 应用的核心就是store（仓库）。“store”基本上就是一个容器，它包含着你的应用中大部分的状态(state)。 想修改state只能提交（commit）mutation。 mutation中只能进行同步操作。 异步操作可以分发（dispatch）action，当然，action的实质还是提交（commit）mutation。  一句话总结 Vuex的数据流向： State 渲染到Vue Components,分发(Dispatch) Actions,提交(Commit) Mutations，修改(Mutate) State。"/>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
+	<link rel="shortcut icon" href="/favicon.ico">
+
+	<title>Vuex笔记</title>
+	<link rel="stylesheet" href="https://caychance.github.io/css/style.min.568c54a56780af2a70c45272522247710b69dbfc080b315211fb98381e3796f8.css" integrity="sha256-VoxUpWeArypwxFJyUiJHcQtp2/wICzFSEfuYOB43lvg=">
+	
+</head>
+
+<body id="page">
+	
+	<header id="site-header" class="animated slideInUp faster">
+		<div class="hdr-wrapper section-inner">
+			<div class="hdr-left">
+				<div class="site-branding">
+					<a href="https://caychance.github.io">CayChance の Blog</a>
+				</div>
+				<nav class="site-nav hide-in-mobile">
+					
+				<a href="https://caychance.github.io/posts/">Posts</a>
+				<a href="https://caychance.github.io/about-hugo/">About</a>
+
+				</nav>
+			</div>
+			<div class="hdr-right hdr-icons">
+				<span class="hdr-social hide-in-mobile"><a href="https://twitter.com/" target="_blank" rel="noopener me" title="Twitter"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg></a><a href="https://instagram.com/" target="_blank" rel="noopener me" title="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-instagram"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line></svg></a><a href="https://github.com/" target="_blank" rel="noopener me" title="Github"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a></span><button id="menu-btn" class="hdr-btn" title="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+			</div>
+		</div>
+	</header>
+	<div id="mobile-menu" class="animated fast">
+		<ul>
+			<li><a href="https://caychance.github.io/posts/">Posts</a></li>
+			<li><a href="https://caychance.github.io/about-hugo/">About</a></li>
+		</ul>
+	</div>
+
+
+	<main class="site-main section-inner animated fadeIn faster">
+		<article class="thin">
+			<header class="post-header">
+				<div class="post-meta"><span>Mar 28, 2019</span></div>
+				<h1>Vuex笔记</h1>
+			</header>
+			<div class="content">
+				
+
+<hr />
+
+<h3 id="vuex概述">Vuex概述<a href="#vuex概述" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>Vuex 是一个专为 Vue.js 应用程序开发的<strong>状态管理</strong>模式。</p>
+
+<p>简单来说，就是存储页面中的各种数据。</p>
+
+<h3 id="为什么要用vuex">为什么要用Vuex<a href="#为什么要用vuex" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>Vuex的使用并不是必要的。</p>
+
+<p>Vue.js中，数据之间都是在组件之间进行传递的，但是当你的应用变的很大或者很复杂的时候，会有两个问题。</p>
+
+<p>1、当组件嵌套很深的时候，数据的传递，修改，其实都不太方便，很容易导致出错。</p>
+
+<p>2、这些状态可能会在任何组件中被修改，不方便统一管理。尤其是多人合作开发的时候。</p>
+
+<p>Vuex也是为了解决这两个问题而生的。</p>
+
+<p>当然，有人可能会想到使用一个全局对象，再去上层封装了一些数据存取的接口来解决。Vuex和单纯的全局对象有以下2点不同：</p>
+
+<ul>
+<li><p>Vuex 的状态存储是响应式的。当 Vue 组件从 store 中读取状态的时候，若store中的状态发生变化，那么相应的组件也会相应地得到高效更新。</p></li>
+
+<li><p>不能直接改变store中的状态。改变store中的状态的唯一途径就是显式地提交(commit)mutation。这样使得我们可以方便地跟踪每一个状态的变化。</p></li>
+</ul>
+
+<h3 id="vuex详细介绍">Vuex详细介绍<a href="#vuex详细介绍" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>Vuex中有五个核心的概念：</p>
+
+<ul>
+<li><p>State</p>
+
+<blockquote>
+<p>用于存储数据</p>
+</blockquote></li>
+
+<li><p>Getter</p>
+
+<blockquote>
+<p>可理解为store的（computed）计算属性</p>
+
+<p>Getter可接受state和getter两个参数。</p>
+</blockquote></li>
+
+<li><p>Mutation</p>
+
+<blockquote>
+<p>更改 Vuex 的 store 中的状态的唯一方法是提交 mutation。</p>
+
+<p>mutation 都是同步事务</p>
+</blockquote></li>
+
+<li><p>Action</p>
+
+<blockquote>
+<p>Action类似mutation。</p>
+
+<p>区别有两点：1.Action可以包含异步操作；2.Action 提交的是 mutation，而不是直接变更状态。</p>
+</blockquote></li>
+
+<li><p>Module</p>
+
+<blockquote>
+<p>由于使用单一状态树，应用的所有状态会集中到一个比较大的对象。当应用变得非常复杂时，store 对象就有可能变得相当臃肿。Vuex 允许我们将 store 分割成模块（module,每个模块拥有自己的state、mutation、action、getter以及嵌套子模块。</p>
+</blockquote></li>
+</ul>
+
+<h3 id="总结">总结<a href="#总结" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>每一个 Vuex 应用的核心就是store（仓库）。“store”基本上就是一个容器，它包含着你的应用中大部分的状态(state)。</li>
+<li>想修改state只能提交（commit）mutation。</li>
+<li>mutation中只能进行同步操作。</li>
+<li>异步操作可以分发（dispatch）action，当然，action的实质还是提交（commit）mutation。</li>
+</ul>
+
+<p><img src="https://blog-pics.pek3b.qingstor.com/006tKfTcly1g1io1c6idkj30jh0fbwef.jpg" alt="" /></p>
+
+<h3 id="一句话总结">一句话总结<a href="#一句话总结" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>Vuex的数据流向：
+State 渲染到Vue Components,分发(Dispatch) Actions,提交(Commit) Mutations，修改(Mutate) State。</p>
+
+			</div>
+			<hr class="post-end">
+			<footer class="post-info">
+				<p>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://caychance.github.io/tags/vuex">vuex</a></span>
+				</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>62 Words</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2019-03-28 16:21 &#43;0000</p>
+			</footer>
+		</article>
+		<div class="post-nav thin">
+			<a class="next-post" href="https://caychance.github.io/posts/diff%E7%AE%97%E6%B3%95/">
+				<span class="post-nav-label"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>&nbsp;Newer</span><br><span>diff算法</span>
+			</a>
+			<a class="prev-post" href="https://caychance.github.io/posts/vue%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90%E7%AC%94%E8%AE%B0/">
+				<span class="post-nav-label">Older&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span><br><span>Vue原理解析笔记</span>
+			</a>
+		</div>
+		<div id="comments" class="thin">
+</div>
+	</main>
+
+	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
+		<p>&copy; 2019 <a href="https://caychance.github.io">CayChance</a> &#183; <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></p>
+		<p>
+			Made with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &#183; Theme <a href="https://github.com/Track3/hermit" target="_blank" rel="noopener">Hermit</a> &#183; <a href="https://caychance.github.io/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a>
+		</p>
+	</footer>
+
+
+	<script src="https://caychance.github.io/js/main.min.35ccbf1cdceb91e4c64c06b5d009d6e2977fafe56beda7762febd4e67528d2ac.js" integrity="sha256-Ncy/HNzrkeTGTAa10AnW4pd/r+Vr7ad2L+vU5nUo0qw="></script>
+
+</body>
+
+</html>

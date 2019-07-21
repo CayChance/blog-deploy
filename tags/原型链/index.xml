@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>原型链 on CayChance の Blog</title>
+    <link>https://caychance.github.io/tags/%E5%8E%9F%E5%9E%8B%E9%93%BE/</link>
+    <description>Recent content in 原型链 on CayChance の Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Tue, 26 Feb 2019 17:10:20 +0000</lastBuildDate>
+    
+	<atom:link href="https://caychance.github.io/tags/%E5%8E%9F%E5%9E%8B%E9%93%BE/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>原型与原型链</title>
+      <link>https://caychance.github.io/posts/%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE/</link>
+      <pubDate>Tue, 26 Feb 2019 17:10:20 +0000</pubDate>
+      
+      <guid>https://caychance.github.io/posts/%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE/</guid>
+      <description>原型  每个函数都有一个特殊的属性叫作原型（prototype） 每个实例对象（object）都有一个私有属性（称之为__proto__）指向它的原型对象（prototype） 该原型对象也有一个自己的原型对象(__proto__) ，层层向上直到一个对象的原型对象为 null。根据定义，null 没有原型，并作为这个原型链中的最后一个环节。  构造函数，原型和实例三者之间的关系
+function Father(){}; var f = new Father(); Father.prototype === f.__proto__ //true Father.prototype.constructor === Father //true  原型链  原型链的最顶端是null 所有的原型的_proto_都是Object的原型 所有的构造函数的_proto_都是Function的原型 Function的_proto_和prototype都是Function的原型  Object.prototype.__proto__ //null 1 Function.prototype === Function.__proto__ //true 4 Object.__proto__.__proto__ === Object.prototype //true Function.__proto__.__proto__ === Object.prototype //true function Father(){} Father.__proto__ === Function.prototype //true 3 Father.prototype.__proto__ === Object.prototype //true 2 String.__proto__ === Function.prototype //true 3 String.prototype.__proto__ === Object.prototype //true 2  后记 理解，每个函数（构造函数，或者普通函数）都有一个属性叫做原型（prototype）, 每个实例对象都有一个私有属性（__proto__），每个实例对象之间的__proto__指向就是原型链。</description>
+    </item>
+    
+  </channel>
+</rss>

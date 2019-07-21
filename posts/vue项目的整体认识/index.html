@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="theme-color" content="#494f5c">
+	<meta name="msapplication-TileColor" content="#494f5c">
+
+<meta itemprop="name" content="Vue项目的整体认识">
+<meta itemprop="description" content="引子 其实从16年11月28日进公司实习至今，已经两年多了。刚去公司的时候，我们当时前端就3个人，那会也是第一次接触Vue的。刚接触的感觉，就是，这玩意，这么神奇。然后平时做需求也是，能把需求做了就行。至今还记得第一次前后端联调，第一次项目上线。
+虽然很早就接触了，但是我们项目的很多东西，我都没有认真的静下来去看。导致很多东西都是一知半解的。直到自己有一天幡然醒悟。
+我们的项目是我们前端小组长搭建的一个脚手架,包括vue cli&#43;webpack配置&#43;node(express)。使用 node 代替 NGINX 提供请求代理、WebViewJavaScriptbridge 与客户端交互、Vue 全家桶作为开发框架，并且用 express 搭建了 mock 框架。
+正题 首先，Vue没有什么神奇的，最后上线的东西就是一个dist文件，里面一个入口文件index.html&#43;一个static文件，static文件里面是打包后的图片，css和js。
+以本地开发为例，npm run dev 以后，正常情况下会启动一个本地服务，然后当用户访问localhost:8080/login，本地服务器会返回打包后的index.html文件，index文件里面引入了main.js即js代码的主入口文件。
+这部分是Vue项目中的node服务器处理的，这也是node服务器的第一个作用，方便本地调试。服务器会把收到的请求转到index.html。具体可参考作用1。
+main.js文件里面其实会实例化一个Vue对象，并挂载在某个dom元素下。实例化的Vue对象里面有Vue Router和Vuex。Vuex按需要来决定要不要引用。Vue Router会在你访问某个路径的时候，比对当前的location.pathname和Vue Router中的某一个path是否可以匹配上，能够匹配上的话，会渲染对应的组件页面。
+以上就是对Vue整个项目的一个认识。Vue项目中用到了node，说一下node的作用吧。
+作用1 服务器会把收到的请求转到index.html。（PS：test环境和production环境是这样处理的。）
+app.use(function (req, res) { res.sendFile(webpackConfig.output.path &#43; &#39;/index.html&#39;, { headers: { &#39;Content-Type&#39;: &#39;text/html; charset=UTF-8&#39; } }); });  其中，dev环境下使用webpack-dev-middleware中间件来做。这么做的其中一个好处是，不在磁盘中存储文件，而是直接生成在内存中。
+var devMiddleware = require(&#39;webpack-dev-middleware&#39;)(compiler, { publicPath: webpackConfig.output.publicPath, stats: { colors: true, chunks: false } }) // serve webpack bundle output app.use(devMiddleware)  作用2 使用中间件代理解决跨域问题，我们用了一个proxy-middleware的中间件。">
+
+
+<meta itemprop="datePublished" content="2019-01-25T21:08:20&#43;00:00" />
+<meta itemprop="dateModified" content="2019-01-25T21:08:20&#43;00:00" />
+<meta itemprop="wordCount" content="167">
+
+
+
+<meta itemprop="keywords" content="vue," />
+<meta property="og:title" content="Vue项目的整体认识" />
+<meta property="og:description" content="引子 其实从16年11月28日进公司实习至今，已经两年多了。刚去公司的时候，我们当时前端就3个人，那会也是第一次接触Vue的。刚接触的感觉，就是，这玩意，这么神奇。然后平时做需求也是，能把需求做了就行。至今还记得第一次前后端联调，第一次项目上线。
+虽然很早就接触了，但是我们项目的很多东西，我都没有认真的静下来去看。导致很多东西都是一知半解的。直到自己有一天幡然醒悟。
+我们的项目是我们前端小组长搭建的一个脚手架,包括vue cli&#43;webpack配置&#43;node(express)。使用 node 代替 NGINX 提供请求代理、WebViewJavaScriptbridge 与客户端交互、Vue 全家桶作为开发框架，并且用 express 搭建了 mock 框架。
+正题 首先，Vue没有什么神奇的，最后上线的东西就是一个dist文件，里面一个入口文件index.html&#43;一个static文件，static文件里面是打包后的图片，css和js。
+以本地开发为例，npm run dev 以后，正常情况下会启动一个本地服务，然后当用户访问localhost:8080/login，本地服务器会返回打包后的index.html文件，index文件里面引入了main.js即js代码的主入口文件。
+这部分是Vue项目中的node服务器处理的，这也是node服务器的第一个作用，方便本地调试。服务器会把收到的请求转到index.html。具体可参考作用1。
+main.js文件里面其实会实例化一个Vue对象，并挂载在某个dom元素下。实例化的Vue对象里面有Vue Router和Vuex。Vuex按需要来决定要不要引用。Vue Router会在你访问某个路径的时候，比对当前的location.pathname和Vue Router中的某一个path是否可以匹配上，能够匹配上的话，会渲染对应的组件页面。
+以上就是对Vue整个项目的一个认识。Vue项目中用到了node，说一下node的作用吧。
+作用1 服务器会把收到的请求转到index.html。（PS：test环境和production环境是这样处理的。）
+app.use(function (req, res) { res.sendFile(webpackConfig.output.path &#43; &#39;/index.html&#39;, { headers: { &#39;Content-Type&#39;: &#39;text/html; charset=UTF-8&#39; } }); });  其中，dev环境下使用webpack-dev-middleware中间件来做。这么做的其中一个好处是，不在磁盘中存储文件，而是直接生成在内存中。
+var devMiddleware = require(&#39;webpack-dev-middleware&#39;)(compiler, { publicPath: webpackConfig.output.publicPath, stats: { colors: true, chunks: false } }) // serve webpack bundle output app.use(devMiddleware)  作用2 使用中间件代理解决跨域问题，我们用了一个proxy-middleware的中间件。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://caychance.github.io/posts/vue%E9%A1%B9%E7%9B%AE%E7%9A%84%E6%95%B4%E4%BD%93%E8%AE%A4%E8%AF%86/" /><meta property="article:published_time" content="2019-01-25T21:08:20&#43;00:00"/>
+<meta property="article:modified_time" content="2019-01-25T21:08:20&#43;00:00"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Vue项目的整体认识"/>
+<meta name="twitter:description" content="引子 其实从16年11月28日进公司实习至今，已经两年多了。刚去公司的时候，我们当时前端就3个人，那会也是第一次接触Vue的。刚接触的感觉，就是，这玩意，这么神奇。然后平时做需求也是，能把需求做了就行。至今还记得第一次前后端联调，第一次项目上线。
+虽然很早就接触了，但是我们项目的很多东西，我都没有认真的静下来去看。导致很多东西都是一知半解的。直到自己有一天幡然醒悟。
+我们的项目是我们前端小组长搭建的一个脚手架,包括vue cli&#43;webpack配置&#43;node(express)。使用 node 代替 NGINX 提供请求代理、WebViewJavaScriptbridge 与客户端交互、Vue 全家桶作为开发框架，并且用 express 搭建了 mock 框架。
+正题 首先，Vue没有什么神奇的，最后上线的东西就是一个dist文件，里面一个入口文件index.html&#43;一个static文件，static文件里面是打包后的图片，css和js。
+以本地开发为例，npm run dev 以后，正常情况下会启动一个本地服务，然后当用户访问localhost:8080/login，本地服务器会返回打包后的index.html文件，index文件里面引入了main.js即js代码的主入口文件。
+这部分是Vue项目中的node服务器处理的，这也是node服务器的第一个作用，方便本地调试。服务器会把收到的请求转到index.html。具体可参考作用1。
+main.js文件里面其实会实例化一个Vue对象，并挂载在某个dom元素下。实例化的Vue对象里面有Vue Router和Vuex。Vuex按需要来决定要不要引用。Vue Router会在你访问某个路径的时候，比对当前的location.pathname和Vue Router中的某一个path是否可以匹配上，能够匹配上的话，会渲染对应的组件页面。
+以上就是对Vue整个项目的一个认识。Vue项目中用到了node，说一下node的作用吧。
+作用1 服务器会把收到的请求转到index.html。（PS：test环境和production环境是这样处理的。）
+app.use(function (req, res) { res.sendFile(webpackConfig.output.path &#43; &#39;/index.html&#39;, { headers: { &#39;Content-Type&#39;: &#39;text/html; charset=UTF-8&#39; } }); });  其中，dev环境下使用webpack-dev-middleware中间件来做。这么做的其中一个好处是，不在磁盘中存储文件，而是直接生成在内存中。
+var devMiddleware = require(&#39;webpack-dev-middleware&#39;)(compiler, { publicPath: webpackConfig.output.publicPath, stats: { colors: true, chunks: false } }) // serve webpack bundle output app.use(devMiddleware)  作用2 使用中间件代理解决跨域问题，我们用了一个proxy-middleware的中间件。"/>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
+	<link rel="shortcut icon" href="/favicon.ico">
+
+	<title>Vue项目的整体认识</title>
+	<link rel="stylesheet" href="https://caychance.github.io/css/style.min.568c54a56780af2a70c45272522247710b69dbfc080b315211fb98381e3796f8.css" integrity="sha256-VoxUpWeArypwxFJyUiJHcQtp2/wICzFSEfuYOB43lvg=">
+	
+</head>
+
+<body id="page">
+	
+	<header id="site-header" class="animated slideInUp faster">
+		<div class="hdr-wrapper section-inner">
+			<div class="hdr-left">
+				<div class="site-branding">
+					<a href="https://caychance.github.io">CayChance の Blog</a>
+				</div>
+				<nav class="site-nav hide-in-mobile">
+					
+				<a href="https://caychance.github.io/posts/">Posts</a>
+				<a href="https://caychance.github.io/about-hugo/">About</a>
+
+				</nav>
+			</div>
+			<div class="hdr-right hdr-icons">
+				<span class="hdr-social hide-in-mobile"><a href="https://twitter.com/" target="_blank" rel="noopener me" title="Twitter"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg></a><a href="https://instagram.com/" target="_blank" rel="noopener me" title="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-instagram"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line></svg></a><a href="https://github.com/" target="_blank" rel="noopener me" title="Github"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a></span><button id="menu-btn" class="hdr-btn" title="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+			</div>
+		</div>
+	</header>
+	<div id="mobile-menu" class="animated fast">
+		<ul>
+			<li><a href="https://caychance.github.io/posts/">Posts</a></li>
+			<li><a href="https://caychance.github.io/about-hugo/">About</a></li>
+		</ul>
+	</div>
+
+
+	<main class="site-main section-inner animated fadeIn faster">
+		<article class="thin">
+			<header class="post-header">
+				<div class="post-meta"><span>Jan 25, 2019</span></div>
+				<h1>Vue项目的整体认识</h1>
+			</header>
+			<div class="content">
+				
+
+<hr />
+
+<h3 id="引子">引子<a href="#引子" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>其实从16年11月28日进公司实习至今，已经两年多了。刚去公司的时候，我们当时前端就3个人，那会也是第一次接触Vue的。刚接触的感觉，就是，这玩意，这么神奇。然后平时做需求也是，能把需求做了就行。至今还记得第一次前后端联调，第一次项目上线。</p>
+
+<p>虽然很早就接触了，但是我们项目的很多东西，我都没有认真的静下来去看。导致很多东西都是一知半解的。直到自己有一天幡然醒悟。</p>
+
+<p>我们的项目是我们前端小组长搭建的一个脚手架,包括vue cli+webpack配置+node(express)。使用 node 代替 NGINX 提供请求代理、WebViewJavaScriptbridge 与客户端交互、Vue 全家桶作为开发框架，并且用 express 搭建了 mock 框架。</p>
+
+<h3 id="正题">正题<a href="#正题" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>首先，Vue没有什么神奇的，最后上线的东西就是一个dist文件，里面一个入口文件index.html+一个static文件，static文件里面是打包后的图片，css和js。</p>
+
+<p><img src="https://blog-pics.pek3b.qingstor.com/006tNc79ly1fzj6d8fhqvj30hk0k40ue.jpg" alt="" /></p>
+
+<p>以本地开发为例，<code>npm run dev</code> 以后，正常情况下会启动一个本地服务，然后当用户访问<code>localhost:8080/login</code>，本地服务器会返回打包后的<code>index.html</code>文件，index文件里面引入了main.js即js代码的主入口文件。</p>
+
+<p>这部分是Vue项目中的node服务器处理的，这也是node服务器的第一个作用，方便本地调试。服务器会把收到的请求转到index.html。具体可参考作用1。</p>
+
+<p>main.js文件里面其实会实例化一个Vue对象，并挂载在某个dom元素下。实例化的Vue对象里面有Vue Router和Vuex。Vuex按需要来决定要不要引用。Vue Router会在你访问某个路径的时候，比对当前的location.pathname和Vue Router中的某一个path是否可以匹配上，能够匹配上的话，会渲染对应的组件页面。</p>
+
+<p>以上就是对Vue整个项目的一个认识。Vue项目中用到了node，说一下node的作用吧。</p>
+
+<h4 id="作用1">作用1<a href="#作用1" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h4>
+
+<p>服务器会把收到的请求转到index.html。（PS：test环境和production环境是这样处理的。）</p>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">sendFile</span><span class="p">(</span><span class="nx">webpackConfig</span><span class="p">.</span><span class="nx">output</span><span class="p">.</span><span class="nx">path</span> <span class="o">+</span> <span class="s1">&#39;/index.html&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span> <span class="s1">&#39;text/html; charset=UTF-8&#39;</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>其中，dev环境下使用webpack-dev-middleware中间件来做。这么做的其中一个好处是，不在磁盘中存储文件，而是直接生成在内存中。</p>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">devMiddleware</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;webpack-dev-middleware&#39;</span><span class="p">)(</span><span class="nx">compiler</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">publicPath</span><span class="o">:</span> <span class="nx">webpackConfig</span><span class="p">.</span><span class="nx">output</span><span class="p">.</span><span class="nx">publicPath</span><span class="p">,</span>
+  <span class="nx">stats</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">colors</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nx">chunks</span><span class="o">:</span> <span class="kc">false</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+
+<span class="c1">// serve webpack bundle output
+</span><span class="c1"></span><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">devMiddleware</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="作用2">作用2<a href="#作用2" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h4>
+
+<p>使用中间件代理解决跨域问题，我们用了一个proxy-middleware的中间件。</p>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// proxy api requests
+</span><span class="c1"></span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">apiMap</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">key</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">apiMap</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span>
+  <span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">api</span><span class="p">.</span><span class="nx">path</span><span class="p">,</span> <span class="nx">proxy</span><span class="p">(</span><span class="nx">api</span><span class="p">.</span><span class="nx">proxy</span><span class="p">));</span>
+<span class="p">});</span>
+</code></pre></div>
+<h4 id="作用3">作用3<a href="#作用3" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h4>
+
+<p>请求一些静态资源，或者本地不经过webpack编译的图片。</p>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// serve pure static assets
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">staticPath</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">posix</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">config</span><span class="p">.</span><span class="nx">dev</span><span class="p">.</span><span class="nx">assetsPublicPath</span><span class="p">,</span> <span class="nx">config</span><span class="p">.</span><span class="nx">dev</span><span class="p">.</span><span class="nx">assetsSubDirectory</span><span class="p">);</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">staticPath</span><span class="p">,</span> <span class="nx">express</span><span class="p">.</span><span class="kr">static</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;../static&#39;</span><span class="p">)))</span>
+</code></pre></div>
+<h4 id="作用4">作用4<a href="#作用4" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h4>
+
+<p>本地调试的时候mock数据 else部分</p>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">if</span> <span class="p">(</span><span class="nx">argv</span><span class="p">.</span><span class="nx">proxy</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">apiMap</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">key</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">apiMap</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span>
+    <span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">api</span><span class="p">.</span><span class="nx">path</span><span class="p">,</span> <span class="nx">proxy</span><span class="p">(</span><span class="nx">api</span><span class="p">.</span><span class="nx">proxy</span><span class="p">));</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+<span class="c1">// mock api requests
+</span><span class="c1"></span><span class="k">else</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">mockDir</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;../mock&#39;</span><span class="p">);</span>
+  <span class="p">(</span><span class="kd">function</span> <span class="nx">setMock</span><span class="p">(</span><span class="nx">mockDir</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">fs</span><span class="p">.</span><span class="nx">readdirSync</span><span class="p">(</span><span class="nx">mockDir</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">file</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">filePath</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">mockDir</span><span class="p">,</span> <span class="nx">file</span><span class="p">);</span>
+      <span class="kd">var</span> <span class="nx">mock</span><span class="p">;</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">fs</span><span class="p">.</span><span class="nx">statSync</span><span class="p">(</span><span class="nx">filePath</span><span class="p">).</span><span class="nx">isDirectory</span><span class="p">())</span> <span class="p">{</span>
+        <span class="nx">setMock</span><span class="p">(</span><span class="nx">filePath</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="k">else</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="sr">/\.js$/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">file</span><span class="p">))</span> <span class="p">{</span>
+          <span class="nx">mock</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="nx">filePath</span><span class="p">);</span>
+          <span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">mock</span><span class="p">.</span><span class="nx">api</span><span class="p">,</span> <span class="nx">mock</span><span class="p">.</span><span class="nx">response</span><span class="p">);</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">});</span>
+  <span class="p">})(</span><span class="nx">mockDir</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="后记">后记<a href="#后记" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>这些话是说给自己的。</p>
+
+<p>首先鼓励的话，从最开始看到项目那一堆代码时的一脸懵逼，到现在基本都明白了。（不说全部都明白了，但是就算有不知道的，也知道去搜索然后了解对应的部分是做什么的）。当然，这个经历的时间有些长，包括自己学习node，koa+express。这个过程也是很美好的，收获也不少。</p>
+
+<p>然后警钟的话，</p>
+
+<p><strong>爱一行，干一行；干一行，爱一行。</strong>最开始虽然说是为了互联网行业的高薪来的，但是起码当时选的是你感兴趣的前端，（PS：这话说得可能就不对，因为真正的程序员眼里是不分前后端的），所以，爱一行，干一行。</p>
+
+<p><strong>时刻保持着对知识的好奇以及极强的求知欲。</strong> 这句话，自己好好反思。</p>
+
+<p>最后，没有最后。加油！！！</p>
+
+			</div>
+			<hr class="post-end">
+			<footer class="post-info">
+				<p>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://caychance.github.io/tags/vue">vue</a></span>
+				</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>167 Words</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2019-01-25 21:08 &#43;0000</p>
+			</footer>
+		</article>
+		<div class="post-nav thin">
+			<a class="next-post" href="https://caychance.github.io/posts/mongodb%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/">
+				<span class="post-nav-label"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>&nbsp;Newer</span><br><span>MongoDB基础入门</span>
+			</a>
+			<a class="prev-post" href="https://caychance.github.io/posts/vuex%E5%AD%98%E5%82%A8%E7%9A%84%E6%97%B6%E5%80%99%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">
+				<span class="post-nav-label">Older&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span><br><span>Vuex存储的时候遇到的问题及解决方案</span>
+			</a>
+		</div>
+		<div id="comments" class="thin">
+</div>
+	</main>
+
+	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
+		<p>&copy; 2019 <a href="https://caychance.github.io">CayChance</a> &#183; <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></p>
+		<p>
+			Made with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &#183; Theme <a href="https://github.com/Track3/hermit" target="_blank" rel="noopener">Hermit</a> &#183; <a href="https://caychance.github.io/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a>
+		</p>
+	</footer>
+
+
+	<script src="https://caychance.github.io/js/main.min.35ccbf1cdceb91e4c64c06b5d009d6e2977fafe56beda7762febd4e67528d2ac.js" integrity="sha256-Ncy/HNzrkeTGTAa10AnW4pd/r+Vr7ad2L+vU5nUo0qw="></script>
+
+</body>
+
+</html>

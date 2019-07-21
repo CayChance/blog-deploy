@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CayChance の Blog</title>
+    <link>https://caychance.github.io/</link>
+    <description>Recent content on CayChance の Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Mon, 15 Jul 2019 20:25:14 +0800</lastBuildDate>
+    
+	<atom:link href="https://caychance.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Socket</title>
+      <link>https://caychance.github.io/posts/socket/</link>
+      <pubDate>Mon, 15 Jul 2019 20:25:14 +0800</pubDate>
+      
+      <guid>https://caychance.github.io/posts/socket/</guid>
+      <description>test blog
+之前在做业务的时候，有一种情况，前端需要写一个定时器，每个2秒去请求一遍后台的接口，这样子做其实很耗费性能的，现在计划改成使用socket的形式。
+其实之前就简单了解一下WebSocket的基本概念，并没有深入的去做过。此处并不会记录一些基本的概念，而且介绍在实际的业务中，如何使用现成的工具去处理。
+sockjs-client和stompjs sockjs-client和stompjs是两个现成的库，配合使用，可以帮助我们省很多事情。这样子的不好的地方也很明显，开发变得只是去使用现成的库。
+/** * 背景：由于业务需求，多个模块需要每隔2s去轮询一下接口 * 方案：使用socket来通讯，可避免前端耗费性能的去轮询接口 */ import SockJS from &amp;#34;sockjs-client&amp;#34;; import Stomp from &amp;#34;stompjs&amp;#34;; import Bus from &amp;#34;./bus&amp;#34;; let socket = {}; let stompClient = null; // 建立通讯地址 const DefaultConnectUrl = &amp;#34;http://xxx.com/endpointWisely&amp;#34;; const SubscribePath = &amp;#34;/topic/pod1&amp;#34; /** * connect 建立连接 */ socket.connect = () =&amp;gt; { // 声明一个stomp客户端  stompClient = Stomp.over(new SockJS(DefaultConnectUrl)); // stomp客户端建立通讯  stompClient.connect({}, frame =&amp;gt; { // stomp订阅  stompClient.</description>
+    </item>
+    
+    <item>
+      <title>PostMessage使用</title>
+      <link>https://caychance.github.io/posts/postmessage%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Thu, 11 Jul 2019 16:47:15 +0800</pubDate>
+      
+      <guid>https://caychance.github.io/posts/postmessage%E4%BD%BF%E7%94%A8/</guid>
+      <description>跨域的问题有一种postMessage的解决方案，之前也一直是听过但是没有用过。
+用法  发送消息:otherWindow.postMessage(message, targetOrigin, [transfer]); 接收消息:window.addEventListener(&amp;ldquo;message&amp;rdquo;, (event)=&amp;gt;{}, false); postMessage方法的入参:  message:要发送的数据 targetOrigin:数据接收方。设置为&amp;rsquo;*&amp;lsquo;，则不限制。不建议这么设置。 transfer:可选参数。是一串和message 同时传递的 Transferable 对象.这些对象的所有权将被转移给消息的接收方，而发送一方将不再保有所有权。  event对象的几个属性:  data:从其他窗口发送过来的消息对象 type:发型消息的类型 source:发送消息的窗口对象 origin:发送消息的窗口的源   举个栗子🌰 下面的写了一个小demo，page one (http://10.161.114.80:8080/index.html/#/test) 和page two (http://10.161.114.80:8082/index.html/#/test)。
+ page one在mounted的时候，新打开了一个窗口，然后8秒后了一条消息给page two； page one在mounted的时候，监听postMessage回来的消息；并判断如果当前发消息的窗口对象，不是当前窗口对象(window)的话，就发送一条消息给page two。 page two在mounted的时候，监听postMessage回来的消息。 page two在mounted的时候，发送一个消息给page one。  //page one &amp;lt;template&amp;gt; &amp;lt;div&amp;gt; &amp;lt;h3&amp;gt;page one&amp;lt;/h3&amp;gt; &amp;lt;input v-model=&amp;#34;message&amp;#34; placeholder=&amp;#34;edit me&amp;#34; /&amp;gt; &amp;lt;button @click=&amp;#34;handleClick&amp;#34;&amp;gt;sendMessage&amp;lt;/button&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/template&amp;gt; &amp;lt;script&amp;gt; export default { data() { return { message: &amp;#34;&amp;#34;, popup: null }; }, methods: { /** * 打开新窗口 */ openWindow() { this.</description>
+    </item>
+    
+    <item>
+      <title>Vue组件间通信的方式总结</title>
+      <link>https://caychance.github.io/posts/vue%E7%BB%84%E4%BB%B6%E9%97%B4%E9%80%9A%E4%BF%A1%E7%9A%84%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Fri, 05 Jul 2019 18:48:17 +0800</pubDate>
+      
+      <guid>https://caychance.github.io/posts/vue%E7%BB%84%E4%BB%B6%E9%97%B4%E9%80%9A%E4%BF%A1%E7%9A%84%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93/</guid>
+      <description>Vue组件之间通讯的常见方法总结
+1. props/$emit 最常用的一种方法。
+ 父组件传值给子组件  子组件中通过声明props传递itemList，父组件引入子组件以后，传入itemList为fruitList
+ 子组件传值给父组件  子组件中传递值通过$emit的第二个参数。父组件接受值通过声明方法addItem，并获取其中的参数。
+// 父组件 &amp;lt;template&amp;gt; &amp;lt;div class=&amp;#34;test&amp;#34;&amp;gt; &amp;lt;h3&amp;gt;this is parents page&amp;lt;/h3&amp;gt; &amp;lt;cChildA v-on:changeItemList=&amp;#39;addItem&amp;#39; v-bind:itemList=&amp;#34;fruitList&amp;#34; /&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/template&amp;gt; &amp;lt;script&amp;gt; import cChildA from &amp;#34;./a&amp;#34;; export default { data() { return { fruitList: [&amp;#34;peach&amp;#34;, &amp;#34;banana&amp;#34;, &amp;#34;lemon&amp;#34;] }; }, methods:{ addItem(item){ console.log(item); } }, components: { cChildA } }; //子组件 &amp;lt;template&amp;gt; &amp;lt;div&amp;gt; &amp;lt;h3&amp;gt;{{childTitle}}&amp;lt;/h3&amp;gt; &amp;lt;ul&amp;gt; &amp;lt;li v-on:click=&amp;#34;changeItemList&amp;#34; v-for=&amp;#34;(item,index) in itemList&amp;#34; v-bind:key=&amp;#34;index&amp;#34;&amp;gt;{{item}}&amp;lt;/li&amp;gt; &amp;lt;/ul&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/template&amp;gt; &amp;lt;script&amp;gt; export default { props: { itemList: { type: Array } }, data() { return { childTitle: `this is child page` }; }, methods: { changeItemList() { this.</description>
+    </item>
+    
+    <item>
+      <title>项目总结</title>
+      <link>https://caychance.github.io/posts/%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Fri, 21 Jun 2019 08:03:50 +0800</pubDate>
+      
+      <guid>https://caychance.github.io/posts/%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/</guid>
+      <description>本来想总结一下刚来做的这个项目中，遇到的一些问题，或者说，下次在做类似的项目，有哪些地方可以做的更好。结果周五周六团建两天再回来，发现忘得差不多了。(PS:下次应该随手就记下来)
+暂时能想到的：
+ 常用的简单动画，最好使用css去完成，不要一想起来动画就想到js。 页面的内容部分，左右padding最好有一些留白，这样子可以保证页面在小屏幕上，左右也会有一些留白。 页面header添加scroll事件，监听页面滚动距离来动态修改header的透明度。监听页面的子元素页面溢出，监听页面设置overflow-y: scroll;，获取该页面的scrollTop值。(PS:这一块老忘记)  this.$refs.home.scrollIntoView(true); const homeParent = this.$refs.home.parentElement; const header = this.$refs.home.firstChild; homeParent.addEventListener(&amp;#34;scroll&amp;#34;, () =&amp;gt; { if (homeParent.scrollTop &amp;lt; 80) { header.style.background = &amp;#34;none&amp;#34;; } else { header.style.backgroundImage = &amp;#34;url(&amp;#39;http://******/swiper.png&amp;#39;)&amp;#34;; } });   使用transform: scale(0.5);，即使你配合transform-origin: 0 0;一起使用，虽然元素被缩小了一倍，但是原本的位置还是在的，会自动预留出来，周围的元素并不能覆盖上去。(PS:这里挺疑惑的)   为啥会用到transform: scale(0.5);？设计童鞋在切图的时候，同一个功能块切出来的图大小不一，导致我们需要给每个img标签设定尺寸。(PS:就算同一个功能块，设计的icon大小不一，但是切图的时候，还是可以切成尺寸一样的，就是切出来的icon周围留白多少的问题了)  </description>
+    </item>
+    
+    <item>
+      <title>Vue中相同页面跳转的问题及解决方案</title>
+      <link>https://caychance.github.io/posts/vue%E4%B8%AD%E7%9B%B8%E5%90%8C%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC%E7%9A%84%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</link>
+      <pubDate>Wed, 19 Jun 2019 17:31:40 +0800</pubDate>
+      
+      <guid>https://caychance.github.io/posts/vue%E4%B8%AD%E7%9B%B8%E5%90%8C%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC%E7%9A%84%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</guid>
+      <description>问题 也是最近做需求遇到的一个问题。首页的一个总台系统。如图页面顶部的导航条，其中*解决方案*这一项下面的四项一期都暂时不做，等下一个排期再做。
+为了考虑用户体验，这四个点进去，都会进入同一个页面——敬请期待页面。
+当然了，Vue中为了提高性能，相同的组件会被复用，也就是说，组件的生命周期钩子不会再次被调用。详细可参考-响应路由参数的变化
+ 提醒一下，当使用路由参数时，例如从 /user/foo 导航到 /user/bar，原来的组件实例会被复用。因为两个路由都渲染同个组件，比起销毁再创建，复用则显得更加高效。不过，这也意味着组件的生命周期钩子不会再被调用。
+ 解决方案 当然，文档中也给出了对应的解决方案。
+方案1： 必须要设置该页面对应的router为动态路由。 path: &#39;/user/:id&#39;，否则也不会生效。
+const User = { template: &amp;#39;...&amp;#39;, watch: { &amp;#39;$route&amp;#39; (to, from) { // 对路由变化作出响应...  } } }  方案2： 不知道是不是我用法不对：这个导航守卫只会触发一次。
+const User = { template: &amp;#39;...&amp;#39;, beforeRouteUpdate (to, from, next) { // react to route changes...  // don&amp;#39;t forget to call next()  } }  方案3： 这个自己想了一个方法。
+方法的弊端就是，如果多出页面涉及到该问题，需要依次去添加。
+navigateTo (path) { if (!</description>
+    </item>
+    
+    <item>
+      <title>在vue中使用swiper遇到的一些问题</title>
+      <link>https://caychance.github.io/posts/%E5%9C%A8vue%E4%B8%AD%E4%BD%BF%E7%94%A8swiper%E9%81%87%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Sun, 16 Jun 2019 16:40:47 +0800</pubDate>
+      
+      <guid>https://caychance.github.io/posts/%E5%9C%A8vue%E4%B8%AD%E4%BD%BF%E7%94%A8swiper%E9%81%87%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/</guid>
+      <description>最近做需求，需要做一个轮播图，由于项(ben)目(ren)时(bi)间(jiao)紧(lan)，所以没有自己去写，而是去选择找了一个现成的，用的是swiper。
+swiper官网上的不是针对vue的，但是API是一样的。vue中的用的是——vue-awesome-swiper。
+有两件事情需要解决：
+ 分页器pagination的样式需要单独设定； 给分页器添加事件，做到点击分页器跳转至其对应的轮播图。  思路1：刚开始我的思路是可以使用swiper提供的api，来配置分页器,配置如图(PS:不知道还有没有别的办法)。然后再在页面mounted钩子的时候，操作dom给每个分页器添加方法。
+但是，这个思路的问题： 开启自动轮播以后，轮播图的每次轮播，都会执行renderCustom方法来重新生成dom，总不能一直给dom添加方法吧。
+... data() { return { swiperOption: { //分页器  pagination: { el: &amp;#34;.swiper-pagination&amp;#34;, type: &amp;#34;custom&amp;#34;, paginationClickable: true, renderCustom: function(swiper, current, total) { const activeOpacity = 0.7; const normalOpacity = 0.3; let opacity = &amp;#34;&amp;#34;; let paginationStyle = &amp;#34;&amp;#34;; let html = &amp;#34;&amp;#34;; for (let i = 1; i &amp;lt;= total; i++) { if (i === current) { opacity = activeOpacity; } else { opacity = normalOpacity; } paginationStyle = `background:#fff;border-radius:0;opacity:${opacity};width:45px;height:5px;margin-right:10px;border:3px solid;`; html += `&amp;lt;span class=&amp;#34;swiper-pagination-bullet&amp;#34; style=${paginationStyle}&amp;gt;&amp;lt;/span&amp;gt;`; } return html; } }, //前端后退按钮  // navigation: {  // nextEl: &amp;#34;.</description>
+    </item>
+    
+    <item>
+      <title>css3的动画</title>
+      <link>https://caychance.github.io/posts/css3%E7%9A%84%E5%8A%A8%E7%94%BB/</link>
+      <pubDate>Thu, 13 Jun 2019 19:54:06 +0800</pubDate>
+      
+      <guid>https://caychance.github.io/posts/css3%E7%9A%84%E5%8A%A8%E7%94%BB/</guid>
+      <description> 最近在做一个中台门户网站，其中首页有不少动画效果。列举几个：
+ 鼠标悬浮div整体放大 鼠标悬浮整个div上移 鼠标悬浮第二个div向上运动覆盖第一个div  前公司有同事分享过css3中，2D转换，3D转换，过渡，动画之间的区别。
+2D转换 2D转换主要用到transform属性，常用的值包括移动translate(x,y),旋转rotate(),缩放scale(x,y),倾斜skew(x,y),前四者合集matrix。
+3D转换 3D转换用的也是transform属性。 主要是移动，旋转，缩放三者从X，Y，Z轴进行变换，或者X，Y，Z的合集。
+过渡 transition 用途：从一种样式转变到另一种样式。
+使用注意的点：
+ 常用于添加hover触发动画，哪个元素是动画的触发点，hover就加给该元素。 运动的元素需要添加transition:width|all 3s; 。 两元素之间的关系可以是同级兄弟元素，也可以是父子元素。  动画 用途：创建动画。
+使用：
+div { width:100px; height:100px; background:red; animation:myfirst 5s; } @keyframes myfirst { from {background:red;} to {background:yellow;} } 区别 列一下三者的区别，其实一看他们的英文意思，区别也就显而易见了。
+ transform并不算真正意义上的动画，只是单纯做一下转变，你甚至都看不到这个转变的过程。 transition常用于hover的简单动画，一般就hover前后的两个状态。 animation属于真正意义上的动画，一般可以做复杂的动画。     属性 词义 异同 关注点 强调 帧动画     transform 转变 非动画 忽略 忽略 忽略   transition 过渡 简单动画 更关注css property的变化 强调过渡 只有两个关键帧   animation 动画 复杂动画 作用于元素本身而非样式属性 强调流程与控制 很多个关键帧    </description>
+    </item>
+    
+    <item>
+      <title>关于css中的z-index的使用</title>
+      <link>https://caychance.github.io/posts/%E5%85%B3%E4%BA%8Ecss%E4%B8%AD%E7%9A%84z-index%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Wed, 12 Jun 2019 10:05:20 +0800</pubDate>
+      
+      <guid>https://caychance.github.io/posts/%E5%85%B3%E4%BA%8Ecss%E4%B8%AD%E7%9A%84z-index%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
+      <description>&amp;lt;header&amp;gt; &amp;lt;div class=&amp;#34;nav&amp;#34;&amp;gt; &amp;lt;ul&amp;gt; &amp;lt;li&amp;gt; 产品服务 &amp;lt;div class=&amp;#34;content&amp;#34;&amp;gt;&amp;lt;/div&amp;gt; &amp;lt;/li&amp;gt; &amp;lt;/ul&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/header&amp;gt; &amp;lt;div class=&amp;#34;swiper&amp;#34;&amp;gt;&amp;lt;/div&amp;gt; 如上代码，这几天在做一个需求的时候，突然发现z-index不生效了。
+以上结构，header是网站的头部，div.swiper是header下面的轮播图。div.nav是头部的导航条，li是其中一个导航，li被鼠标hover的时候，显示div.content。最后的效果如图参考。
+轮播图直接使用的swiper，还没有做swiper部分之前，hover那一块是没有问题的，swiper做了以后，发现hover就有问题了。后来排查了一下，是因为swiper的z-index设置为1。我心想这下好办了，把li的z-index设置成2不就好了。然而，并不好使。
+ z-index只对定位元素有效果 position的属性值包括：absolute-绝对定位、relative-相对定位、fixed-固定定位、inherit-继承父元素定位，static-静态定位。前三者肯定有效；inherit取决于父元素；静态定位-static，否则z-index会无效。
+ 同一个父元素下的元素的层叠效果会受父元素的z-index影响 如果父元素的z-index值很小,那么子元素的z-index值很大也不起作用
+ 当前标签不能含有float属性 这个是在网上找到的，我自己验证了一下结论正好相反。
+  </description>
+    </item>
+    
+    <item>
+      <title>Todolist</title>
+      <link>https://caychance.github.io/posts/todolist/</link>
+      <pubDate>Thu, 06 Jun 2019 13:07:46 +0800</pubDate>
+      
+      <guid>https://caychance.github.io/posts/todolist/</guid>
+      <description>刚接触新项目，有不少疑惑。在此列出来，后续做完项目或者做项目的过程当中，要把这些问题弄明白。
+ 之前都是用vue做的spa应用，这边使用vue做的是单/多页模板。这一块怎么配置的 使用的是hash的路由配置规则 脚手架是在vue cli3的基础上做的。需要深入学习一下vue cli3 项目中的sass只需要 npm install -D sass-loader node-sass 即可用。不需要webpack手动配置？ 改进一下自己的编程风格。主要就是平时写代码的时候，加上详细的注释。  /** * get 提交 * @param {String} url 请求的url * @param {any} params 请求的参数 * @param {Obejct} config 请求配置 * @returns Promise */ export function get(url, params = {}, config = {}) { let opts = {...config} opts.params = params return fetch.get(url, opts) } </description>
+    </item>
+    
+    <item>
+      <title>随感2019-06</title>
+      <link>https://caychance.github.io/posts/%E9%9A%8F%E6%84%9F2019-06/</link>
+      <pubDate>Wed, 05 Jun 2019 20:11:34 +0800</pubDate>
+      
+      <guid>https://caychance.github.io/posts/%E9%9A%8F%E6%84%9F2019-06/</guid>
+      <description>辗转许久，最终还是换了份工作。
+希望可以在新公司和新岗位上更进一步成长。</description>
+    </item>
+    
+  </channel>
+</rss>

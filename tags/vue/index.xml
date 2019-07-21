@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Vue on CayChance の Blog</title>
+    <link>https://caychance.github.io/tags/vue/</link>
+    <description>Recent content in Vue on CayChance の Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Fri, 05 Jul 2019 18:48:17 +0800</lastBuildDate>
+    
+	<atom:link href="https://caychance.github.io/tags/vue/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Vue组件间通信的方式总结</title>
+      <link>https://caychance.github.io/posts/vue%E7%BB%84%E4%BB%B6%E9%97%B4%E9%80%9A%E4%BF%A1%E7%9A%84%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Fri, 05 Jul 2019 18:48:17 +0800</pubDate>
+      
+      <guid>https://caychance.github.io/posts/vue%E7%BB%84%E4%BB%B6%E9%97%B4%E9%80%9A%E4%BF%A1%E7%9A%84%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93/</guid>
+      <description>Vue组件之间通讯的常见方法总结
+1. props/$emit 最常用的一种方法。
+ 父组件传值给子组件  子组件中通过声明props传递itemList，父组件引入子组件以后，传入itemList为fruitList
+ 子组件传值给父组件  子组件中传递值通过$emit的第二个参数。父组件接受值通过声明方法addItem，并获取其中的参数。
+// 父组件 &amp;lt;template&amp;gt; &amp;lt;div class=&amp;#34;test&amp;#34;&amp;gt; &amp;lt;h3&amp;gt;this is parents page&amp;lt;/h3&amp;gt; &amp;lt;cChildA v-on:changeItemList=&amp;#39;addItem&amp;#39; v-bind:itemList=&amp;#34;fruitList&amp;#34; /&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/template&amp;gt; &amp;lt;script&amp;gt; import cChildA from &amp;#34;./a&amp;#34;; export default { data() { return { fruitList: [&amp;#34;peach&amp;#34;, &amp;#34;banana&amp;#34;, &amp;#34;lemon&amp;#34;] }; }, methods:{ addItem(item){ console.log(item); } }, components: { cChildA } }; //子组件 &amp;lt;template&amp;gt; &amp;lt;div&amp;gt; &amp;lt;h3&amp;gt;{{childTitle}}&amp;lt;/h3&amp;gt; &amp;lt;ul&amp;gt; &amp;lt;li v-on:click=&amp;#34;changeItemList&amp;#34; v-for=&amp;#34;(item,index) in itemList&amp;#34; v-bind:key=&amp;#34;index&amp;#34;&amp;gt;{{item}}&amp;lt;/li&amp;gt; &amp;lt;/ul&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/template&amp;gt; &amp;lt;script&amp;gt; export default { props: { itemList: { type: Array } }, data() { return { childTitle: `this is child page` }; }, methods: { changeItemList() { this.</description>
+    </item>
+    
+    <item>
+      <title>Vue中相同页面跳转的问题及解决方案</title>
+      <link>https://caychance.github.io/posts/vue%E4%B8%AD%E7%9B%B8%E5%90%8C%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC%E7%9A%84%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</link>
+      <pubDate>Wed, 19 Jun 2019 17:31:40 +0800</pubDate>
+      
+      <guid>https://caychance.github.io/posts/vue%E4%B8%AD%E7%9B%B8%E5%90%8C%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC%E7%9A%84%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</guid>
+      <description>问题 也是最近做需求遇到的一个问题。首页的一个总台系统。如图页面顶部的导航条，其中*解决方案*这一项下面的四项一期都暂时不做，等下一个排期再做。
+为了考虑用户体验，这四个点进去，都会进入同一个页面——敬请期待页面。
+当然了，Vue中为了提高性能，相同的组件会被复用，也就是说，组件的生命周期钩子不会再次被调用。详细可参考-响应路由参数的变化
+ 提醒一下，当使用路由参数时，例如从 /user/foo 导航到 /user/bar，原来的组件实例会被复用。因为两个路由都渲染同个组件，比起销毁再创建，复用则显得更加高效。不过，这也意味着组件的生命周期钩子不会再被调用。
+ 解决方案 当然，文档中也给出了对应的解决方案。
+方案1： 必须要设置该页面对应的router为动态路由。 path: &#39;/user/:id&#39;，否则也不会生效。
+const User = { template: &amp;#39;...&amp;#39;, watch: { &amp;#39;$route&amp;#39; (to, from) { // 对路由变化作出响应...  } } }  方案2： 不知道是不是我用法不对：这个导航守卫只会触发一次。
+const User = { template: &amp;#39;...&amp;#39;, beforeRouteUpdate (to, from, next) { // react to route changes...  // don&amp;#39;t forget to call next()  } }  方案3： 这个自己想了一个方法。
+方法的弊端就是，如果多出页面涉及到该问题，需要依次去添加。
+navigateTo (path) { if (!</description>
+    </item>
+    
+    <item>
+      <title>在vue中使用swiper遇到的一些问题</title>
+      <link>https://caychance.github.io/posts/%E5%9C%A8vue%E4%B8%AD%E4%BD%BF%E7%94%A8swiper%E9%81%87%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Sun, 16 Jun 2019 16:40:47 +0800</pubDate>
+      
+      <guid>https://caychance.github.io/posts/%E5%9C%A8vue%E4%B8%AD%E4%BD%BF%E7%94%A8swiper%E9%81%87%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/</guid>
+      <description>最近做需求，需要做一个轮播图，由于项(ben)目(ren)时(bi)间(jiao)紧(lan)，所以没有自己去写，而是去选择找了一个现成的，用的是swiper。
+swiper官网上的不是针对vue的，但是API是一样的。vue中的用的是——vue-awesome-swiper。
+有两件事情需要解决：
+ 分页器pagination的样式需要单独设定； 给分页器添加事件，做到点击分页器跳转至其对应的轮播图。  思路1：刚开始我的思路是可以使用swiper提供的api，来配置分页器,配置如图(PS:不知道还有没有别的办法)。然后再在页面mounted钩子的时候，操作dom给每个分页器添加方法。
+但是，这个思路的问题： 开启自动轮播以后，轮播图的每次轮播，都会执行renderCustom方法来重新生成dom，总不能一直给dom添加方法吧。
+... data() { return { swiperOption: { //分页器  pagination: { el: &amp;#34;.swiper-pagination&amp;#34;, type: &amp;#34;custom&amp;#34;, paginationClickable: true, renderCustom: function(swiper, current, total) { const activeOpacity = 0.7; const normalOpacity = 0.3; let opacity = &amp;#34;&amp;#34;; let paginationStyle = &amp;#34;&amp;#34;; let html = &amp;#34;&amp;#34;; for (let i = 1; i &amp;lt;= total; i++) { if (i === current) { opacity = activeOpacity; } else { opacity = normalOpacity; } paginationStyle = `background:#fff;border-radius:0;opacity:${opacity};width:45px;height:5px;margin-right:10px;border:3px solid;`; html += `&amp;lt;span class=&amp;#34;swiper-pagination-bullet&amp;#34; style=${paginationStyle}&amp;gt;&amp;lt;/span&amp;gt;`; } return html; } }, //前端后退按钮  // navigation: {  // nextEl: &amp;#34;.</description>
+    </item>
+    
+    <item>
+      <title>diff算法</title>
+      <link>https://caychance.github.io/posts/diff%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Tue, 02 Apr 2019 19:08:09 +0000</pubDate>
+      
+      <guid>https://caychance.github.io/posts/diff%E7%AE%97%E6%B3%95/</guid>
+      <description>Virtual DOM 因为如果在项目中大量的操作dom会很影响性能，所以Vue和React都尝试使用虚拟dom（virtual dom）。虚拟dom的本质其实就是用一个对象去描述整个dom结构，包括：当前dom的tag标签，data，children子节点，text文本，elm，key等等等，属性很多，就不一一列举了。
+virtual dom真的比DOM操作效率高吗？不一定，那使用virtual dom的优势是什么呢？
+使用虚拟dom的优势：
+ 不用手动频繁操作dom 框架跨平台 可以更好的实现SSR，同构渲染 组件的高度抽象化  总之，大大的提高了我们的工作效率。
+export default class VNode { tag: string | void; data: VNodeData | void; children: ?Array&amp;lt;VNode&amp;gt;; text: string | void; elm: Node | void; ns: string | void; context: Component | void; // rendered in this component&amp;#39;s scope  key: string | number | void; componentOptions: VNodeComponentOptions | void; componentInstance: Component | void; // component instance  parent: VNode | void; // component placeholder node  // strictly internal  raw: boolean; // contains raw HTML?</description>
+    </item>
+    
+    <item>
+      <title>Vue原理解析笔记</title>
+      <link>https://caychance.github.io/posts/vue%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Wed, 27 Mar 2019 19:09:06 +0000</pubDate>
+      
+      <guid>https://caychance.github.io/posts/vue%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90%E7%AC%94%E8%AE%B0/</guid>
+      <description>把数据渲染到页面发生了什么？
+new Vue() init初始化 作用： 合并配置、初始化生命周期、初始化事件中心、初始化渲染、data、 props、 methods、 computed 与 watcher 等
+ 通过 Object.defineProperty 设置 setter 与 getter 函数，用来实现「响应式」以及「依赖收集」 如果有el属性，就调用vm.$mount方法挂载vm。(PS:vm就是Vue的实例)  $mount挂载组件 作用： 挂载的目标就是把模板渲染成最终的 DOM
+ 限制el，Vue不能挂载在body或者html这样的根节点上。 如果没有render方法，会把el或template字符串转换成render方法。(PS:把模板template/el编译生成render,详见compile步骤) $mount 方法实际上会去调用 mountComponent mountComponent 核心就是先实例化一个渲染Watcher mountComponent 的回调函数中会调用 updateComponent 方法 updateComponent 方法中调用 vm._render 方法先生成虚拟 Node，最终调用 vm._update 更新 DOM。 核心方法 vm._render和vm._update Watcher 在这里起到两个作用，一个是初始化的时候会执行回调函数，另一个是当 vm 实例中的监测的数据发生变化的时候执行回调函数。  compile编译 (PS:compile编译步骤不一定是必有的。如果没有使用template，统一都用的render，那么就会跳过此步骤。) 作用： 把模板template解析为AST，优化AST，把优化后的AST转换成可执行的代码。(PS:抽象语法树)
+ parse 作用： 把 template 模板字符串转换成 AST 树 optimize 作用： 优化语法树 1.把一些 AST 节点优化成静态节点(1.</description>
+    </item>
+    
+    <item>
+      <title>Vue项目的整体认识</title>
+      <link>https://caychance.github.io/posts/vue%E9%A1%B9%E7%9B%AE%E7%9A%84%E6%95%B4%E4%BD%93%E8%AE%A4%E8%AF%86/</link>
+      <pubDate>Fri, 25 Jan 2019 21:08:20 +0000</pubDate>
+      
+      <guid>https://caychance.github.io/posts/vue%E9%A1%B9%E7%9B%AE%E7%9A%84%E6%95%B4%E4%BD%93%E8%AE%A4%E8%AF%86/</guid>
+      <description>引子 其实从16年11月28日进公司实习至今，已经两年多了。刚去公司的时候，我们当时前端就3个人，那会也是第一次接触Vue的。刚接触的感觉，就是，这玩意，这么神奇。然后平时做需求也是，能把需求做了就行。至今还记得第一次前后端联调，第一次项目上线。
+虽然很早就接触了，但是我们项目的很多东西，我都没有认真的静下来去看。导致很多东西都是一知半解的。直到自己有一天幡然醒悟。
+我们的项目是我们前端小组长搭建的一个脚手架,包括vue cli+webpack配置+node(express)。使用 node 代替 NGINX 提供请求代理、WebViewJavaScriptbridge 与客户端交互、Vue 全家桶作为开发框架，并且用 express 搭建了 mock 框架。
+正题 首先，Vue没有什么神奇的，最后上线的东西就是一个dist文件，里面一个入口文件index.html+一个static文件，static文件里面是打包后的图片，css和js。
+以本地开发为例，npm run dev 以后，正常情况下会启动一个本地服务，然后当用户访问localhost:8080/login，本地服务器会返回打包后的index.html文件，index文件里面引入了main.js即js代码的主入口文件。
+这部分是Vue项目中的node服务器处理的，这也是node服务器的第一个作用，方便本地调试。服务器会把收到的请求转到index.html。具体可参考作用1。
+main.js文件里面其实会实例化一个Vue对象，并挂载在某个dom元素下。实例化的Vue对象里面有Vue Router和Vuex。Vuex按需要来决定要不要引用。Vue Router会在你访问某个路径的时候，比对当前的location.pathname和Vue Router中的某一个path是否可以匹配上，能够匹配上的话，会渲染对应的组件页面。
+以上就是对Vue整个项目的一个认识。Vue项目中用到了node，说一下node的作用吧。
+作用1 服务器会把收到的请求转到index.html。（PS：test环境和production环境是这样处理的。）
+app.use(function (req, res) { res.sendFile(webpackConfig.output.path + &amp;#39;/index.html&amp;#39;, { headers: { &amp;#39;Content-Type&amp;#39;: &amp;#39;text/html; charset=UTF-8&amp;#39; } }); });  其中，dev环境下使用webpack-dev-middleware中间件来做。这么做的其中一个好处是，不在磁盘中存储文件，而是直接生成在内存中。
+var devMiddleware = require(&amp;#39;webpack-dev-middleware&amp;#39;)(compiler, { publicPath: webpackConfig.output.publicPath, stats: { colors: true, chunks: false } }) // serve webpack bundle output app.use(devMiddleware)  作用2 使用中间件代理解决跨域问题，我们用了一个proxy-middleware的中间件。</description>
+    </item>
+    
+  </channel>
+</rss>

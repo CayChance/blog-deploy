@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="theme-color" content="#494f5c">
+	<meta name="msapplication-TileColor" content="#494f5c">
+
+<meta itemprop="name" content="Vue组件间通信的方式总结">
+<meta itemprop="description" content="Vue组件之间通讯的常见方法总结
+1. props/$emit 最常用的一种方法。
+ 父组件传值给子组件  子组件中通过声明props传递itemList，父组件引入子组件以后，传入itemList为fruitList
+ 子组件传值给父组件  子组件中传递值通过$emit的第二个参数。父组件接受值通过声明方法addItem，并获取其中的参数。
+// 父组件 &lt;template&gt; &lt;div class=&#34;test&#34;&gt; &lt;h3&gt;this is parents page&lt;/h3&gt; &lt;cChildA v-on:changeItemList=&#39;addItem&#39; v-bind:itemList=&#34;fruitList&#34; /&gt; &lt;/div&gt; &lt;/template&gt; &lt;script&gt; import cChildA from &#34;./a&#34;; export default { data() { return { fruitList: [&#34;peach&#34;, &#34;banana&#34;, &#34;lemon&#34;] }; }, methods:{ addItem(item){ console.log(item); } }, components: { cChildA } }; //子组件 &lt;template&gt; &lt;div&gt; &lt;h3&gt;{{childTitle}}&lt;/h3&gt; &lt;ul&gt; &lt;li v-on:click=&#34;changeItemList&#34; v-for=&#34;(item,index) in itemList&#34; v-bind:key=&#34;index&#34;&gt;{{item}}&lt;/li&gt; &lt;/ul&gt; &lt;/div&gt; &lt;/template&gt; &lt;script&gt; export default { props: { itemList: { type: Array } }, data() { return { childTitle: `this is child page` }; }, methods: { changeItemList() { this.">
+
+
+<meta itemprop="datePublished" content="2019-07-05T18:48:17&#43;08:00" />
+<meta itemprop="dateModified" content="2019-07-05T18:48:17&#43;08:00" />
+<meta itemprop="wordCount" content="677">
+
+
+
+<meta itemprop="keywords" content="vue,vuex,组件通信," />
+<meta property="og:title" content="Vue组件间通信的方式总结" />
+<meta property="og:description" content="Vue组件之间通讯的常见方法总结
+1. props/$emit 最常用的一种方法。
+ 父组件传值给子组件  子组件中通过声明props传递itemList，父组件引入子组件以后，传入itemList为fruitList
+ 子组件传值给父组件  子组件中传递值通过$emit的第二个参数。父组件接受值通过声明方法addItem，并获取其中的参数。
+// 父组件 &lt;template&gt; &lt;div class=&#34;test&#34;&gt; &lt;h3&gt;this is parents page&lt;/h3&gt; &lt;cChildA v-on:changeItemList=&#39;addItem&#39; v-bind:itemList=&#34;fruitList&#34; /&gt; &lt;/div&gt; &lt;/template&gt; &lt;script&gt; import cChildA from &#34;./a&#34;; export default { data() { return { fruitList: [&#34;peach&#34;, &#34;banana&#34;, &#34;lemon&#34;] }; }, methods:{ addItem(item){ console.log(item); } }, components: { cChildA } }; //子组件 &lt;template&gt; &lt;div&gt; &lt;h3&gt;{{childTitle}}&lt;/h3&gt; &lt;ul&gt; &lt;li v-on:click=&#34;changeItemList&#34; v-for=&#34;(item,index) in itemList&#34; v-bind:key=&#34;index&#34;&gt;{{item}}&lt;/li&gt; &lt;/ul&gt; &lt;/div&gt; &lt;/template&gt; &lt;script&gt; export default { props: { itemList: { type: Array } }, data() { return { childTitle: `this is child page` }; }, methods: { changeItemList() { this." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://caychance.github.io/posts/vue%E7%BB%84%E4%BB%B6%E9%97%B4%E9%80%9A%E4%BF%A1%E7%9A%84%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93/" /><meta property="article:published_time" content="2019-07-05T18:48:17&#43;08:00"/>
+<meta property="article:modified_time" content="2019-07-05T18:48:17&#43;08:00"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Vue组件间通信的方式总结"/>
+<meta name="twitter:description" content="Vue组件之间通讯的常见方法总结
+1. props/$emit 最常用的一种方法。
+ 父组件传值给子组件  子组件中通过声明props传递itemList，父组件引入子组件以后，传入itemList为fruitList
+ 子组件传值给父组件  子组件中传递值通过$emit的第二个参数。父组件接受值通过声明方法addItem，并获取其中的参数。
+// 父组件 &lt;template&gt; &lt;div class=&#34;test&#34;&gt; &lt;h3&gt;this is parents page&lt;/h3&gt; &lt;cChildA v-on:changeItemList=&#39;addItem&#39; v-bind:itemList=&#34;fruitList&#34; /&gt; &lt;/div&gt; &lt;/template&gt; &lt;script&gt; import cChildA from &#34;./a&#34;; export default { data() { return { fruitList: [&#34;peach&#34;, &#34;banana&#34;, &#34;lemon&#34;] }; }, methods:{ addItem(item){ console.log(item); } }, components: { cChildA } }; //子组件 &lt;template&gt; &lt;div&gt; &lt;h3&gt;{{childTitle}}&lt;/h3&gt; &lt;ul&gt; &lt;li v-on:click=&#34;changeItemList&#34; v-for=&#34;(item,index) in itemList&#34; v-bind:key=&#34;index&#34;&gt;{{item}}&lt;/li&gt; &lt;/ul&gt; &lt;/div&gt; &lt;/template&gt; &lt;script&gt; export default { props: { itemList: { type: Array } }, data() { return { childTitle: `this is child page` }; }, methods: { changeItemList() { this."/>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
+	<link rel="shortcut icon" href="/favicon.ico">
+
+	<title>Vue组件间通信的方式总结</title>
+	<link rel="stylesheet" href="https://caychance.github.io/css/style.min.568c54a56780af2a70c45272522247710b69dbfc080b315211fb98381e3796f8.css" integrity="sha256-VoxUpWeArypwxFJyUiJHcQtp2/wICzFSEfuYOB43lvg=">
+	
+</head>
+
+<body id="page">
+	
+	<header id="site-header" class="animated slideInUp faster">
+		<div class="hdr-wrapper section-inner">
+			<div class="hdr-left">
+				<div class="site-branding">
+					<a href="https://caychance.github.io">CayChance の Blog</a>
+				</div>
+				<nav class="site-nav hide-in-mobile">
+					
+				<a href="https://caychance.github.io/posts/">Posts</a>
+				<a href="https://caychance.github.io/about-hugo/">About</a>
+
+				</nav>
+			</div>
+			<div class="hdr-right hdr-icons">
+				<span class="hdr-social hide-in-mobile"><a href="https://twitter.com/" target="_blank" rel="noopener me" title="Twitter"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg></a><a href="https://instagram.com/" target="_blank" rel="noopener me" title="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-instagram"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line></svg></a><a href="https://github.com/" target="_blank" rel="noopener me" title="Github"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a></span><button id="menu-btn" class="hdr-btn" title="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+			</div>
+		</div>
+	</header>
+	<div id="mobile-menu" class="animated fast">
+		<ul>
+			<li><a href="https://caychance.github.io/posts/">Posts</a></li>
+			<li><a href="https://caychance.github.io/about-hugo/">About</a></li>
+		</ul>
+	</div>
+
+
+	<main class="site-main section-inner animated fadeIn faster">
+		<article class="thin">
+			<header class="post-header">
+				<div class="post-meta"><span>Jul 5, 2019</span></div>
+				<h1>Vue组件间通信的方式总结</h1>
+			</header>
+			<div class="content">
+				
+
+<hr />
+
+<p>Vue组件之间通讯的常见方法总结</p>
+
+<h3 id="1-props-emit">1. props/$emit<a href="#1-props-emit" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>最常用的一种方法。</p>
+
+<ul>
+<li>父组件传值给子组件</li>
+</ul>
+
+<p>子组件中通过声明<code>props</code>传递<code>itemList</code>，父组件引入子组件以后，传入<code>itemList</code>为<code>fruitList</code></p>
+
+<ul>
+<li>子组件传值给父组件</li>
+</ul>
+
+<p>子组件中传递值通过<code>$emit</code>的第二个参数。父组件接受值通过声明方法<code>addItem</code>，并获取其中的参数。</p>
+<div class="highlight"><pre class="chroma"><code class="language-JavaScript" data-lang="JavaScript"><span class="c1">// 父组件
+</span><span class="c1"></span><span class="o">&lt;</span><span class="nx">template</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">div</span> <span class="k">class</span><span class="o">=</span><span class="s2">&#34;test&#34;</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">h3</span><span class="o">&gt;</span><span class="k">this</span> <span class="nx">is</span> <span class="nx">parents</span> <span class="nx">page</span><span class="o">&lt;</span><span class="err">/h3&gt;</span>
+    <span class="o">&lt;</span><span class="nx">cChildA</span> <span class="nx">v</span><span class="o">-</span><span class="nx">on</span><span class="o">:</span><span class="nx">changeItemList</span><span class="o">=</span><span class="s1">&#39;addItem&#39;</span> <span class="nx">v</span><span class="o">-</span><span class="nx">bind</span><span class="o">:</span><span class="nx">itemList</span><span class="o">=</span><span class="s2">&#34;fruitList&#34;</span> <span class="err">/&gt;</span>
+  <span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="o">&lt;</span><span class="err">/template&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+<span class="k">import</span> <span class="nx">cChildA</span> <span class="nx">from</span> <span class="s2">&#34;./a&#34;</span><span class="p">;</span>
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="nx">fruitList</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;peach&#34;</span><span class="p">,</span> <span class="s2">&#34;banana&#34;</span><span class="p">,</span> <span class="s2">&#34;lemon&#34;</span><span class="p">]</span>
+    <span class="p">};</span>
+  <span class="p">},</span>
+  <span class="nx">methods</span><span class="o">:</span><span class="p">{</span>
+    <span class="nx">addItem</span><span class="p">(</span><span class="nx">item</span><span class="p">){</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">item</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nx">components</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">cChildA</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="c1">//子组件
+</span><span class="c1"></span><span class="o">&lt;</span><span class="nx">template</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">h3</span><span class="o">&gt;</span><span class="p">{{</span><span class="nx">childTitle</span><span class="p">}}</span><span class="o">&lt;</span><span class="err">/h3&gt;</span>
+    <span class="o">&lt;</span><span class="nx">ul</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">li</span> <span class="nx">v</span><span class="o">-</span><span class="nx">on</span><span class="o">:</span><span class="nx">click</span><span class="o">=</span><span class="s2">&#34;changeItemList&#34;</span> <span class="nx">v</span><span class="o">-</span><span class="k">for</span><span class="o">=</span><span class="s2">&#34;(item,index) in itemList&#34;</span> <span class="nx">v</span><span class="o">-</span><span class="nx">bind</span><span class="o">:</span><span class="nx">key</span><span class="o">=</span><span class="s2">&#34;index&#34;</span><span class="o">&gt;</span><span class="p">{{</span><span class="nx">item</span><span class="p">}}</span><span class="o">&lt;</span><span class="err">/li&gt;</span>
+    <span class="o">&lt;</span><span class="err">/ul&gt;</span>
+  <span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="o">&lt;</span><span class="err">/template&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">props</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">itemList</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="nb">Array</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="nx">childTitle</span><span class="o">:</span> <span class="sb">`this is child page`</span>
+    <span class="p">};</span>
+  <span class="p">},</span>
+  <span class="nx">methods</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">changeItemList</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">$emit</span><span class="p">(</span><span class="s2">&#34;changeItemList&#34;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">childTitle</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+</code></pre></div>
+<h3 id="2-vuex">2. Vuex<a href="#2-vuex" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<blockquote>
+<p>Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。它采用集中式存储管理应用的所有组件的状态，并以相应的规则保证状态以一种可预测的方式发生变化。</p>
+</blockquote>
+
+<p>在网上看到有人把这个也归类到Vue组件间通信的方法。这么说肯定没错的哈。但是看一下Vuex的定义，它是Vue中用来管理所有组件的状态的。它都可以用于管理所有组件的状态了，父子组件之间肯定可以使用它进行通讯。杀鸡焉用牛刀，所以该方法并不适用父子组件通讯这个场景。</p>
+
+<p>具体使用方法就不详细说了，具体可以参考看一下<a href="https://vuex.vuejs.org/zh/">Vuex文档</a>。</p>
+
+<p>平时使用Vuex的时候，需要注意的一个问题，是Vuex的数据不是持久化的，也就是说，页面刷新，或者跳转到第三方页面的时候，Vuex中的数据会清空，所以一般都会配套使用<a href="https://github.com/robinvdvleuten/vuex-persistedstate">vuex-persistedstate</a>。</p>
+
+<h3 id="3-emit-on">3. $emit/$on<a href="#3-emit-on" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>该方法的思路是通过一个空的Vue实例作为事件中心，用来触发事件和监听事件。</p>
+
+<p>假设index页面引入了a，b，c三个组件。a和b组件需要传值给c组件。bus.js就是new了一个空的Vue并暴露出来。</p>
+
+<p>这个方法之前没有接触过，所以就详细的写出来具体的用法。总结一下：</p>
+
+<ul>
+<li>使用<strong>一个</strong>空的Vue实例作为中央事件总线(事件中心)</li>
+<li>把事件暴露出去使用 <code>Bus.$emit(&quot;event-name&quot;, this.data);</code>，就可以把<code>this.data</code>暴露出去</li>
+<li>接收方接受数据使用<code>Bus.$on(&quot;event-name&quot;, data =&gt; {this.data = data;});</code></li>
+<li>暴露和接受方法使用的<code>event-name</code>相同即可</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">//index.vue
+</span><span class="c1"></span><span class="o">&lt;</span><span class="nx">template</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">div</span> <span class="k">class</span><span class="o">=</span><span class="s2">&#34;test&#34;</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">h3</span><span class="o">&gt;</span><span class="k">this</span> <span class="nx">is</span> <span class="nx">parents</span> <span class="nx">page</span><span class="o">&lt;</span><span class="err">/h3&gt;</span>
+    <span class="o">&lt;</span><span class="nx">c</span><span class="o">-</span><span class="nx">child</span><span class="o">-</span><span class="nx">a</span><span class="o">&gt;&lt;</span><span class="err">/c-child-a&gt;</span>
+    <span class="o">&lt;</span><span class="nx">c</span><span class="o">-</span><span class="nx">child</span><span class="o">-</span><span class="nx">b</span><span class="o">&gt;&lt;</span><span class="err">/c-child-b&gt;</span>
+    <span class="o">&lt;</span><span class="nx">c</span><span class="o">-</span><span class="nx">child</span><span class="o">-</span><span class="nx">c</span><span class="o">&gt;&lt;</span><span class="err">/c-child-c&gt;</span>
+  <span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="o">&lt;</span><span class="err">/template&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+<span class="k">import</span> <span class="nx">cChildA</span> <span class="nx">from</span> <span class="s2">&#34;./a&#34;</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">cChildB</span> <span class="nx">from</span> <span class="s2">&#34;./b&#34;</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">cChildC</span> <span class="nx">from</span> <span class="s2">&#34;./c&#34;</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+    <span class="p">};</span>
+  <span class="p">},</span>
+  <span class="nx">methods</span><span class="o">:</span><span class="p">{</span>
+    
+  <span class="p">},</span>
+  <span class="nx">components</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">cChildA</span><span class="p">,</span>
+    <span class="nx">cChildB</span><span class="p">,</span>
+    <span class="nx">cChildC</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+
+<span class="c1">// a.vue
+</span><span class="c1"></span><span class="o">&lt;</span><span class="nx">template</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">h3</span><span class="o">&gt;</span><span class="nx">A组件</span><span class="p">{{</span><span class="nx">name</span><span class="p">}}</span><span class="o">&lt;</span><span class="err">/h3&gt;</span>
+    <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">v</span><span class="o">-</span><span class="nx">on</span><span class="o">:</span><span class="nx">click</span><span class="o">=</span><span class="s2">&#34;send&#34;</span><span class="o">&gt;</span><span class="nx">传值给C</span><span class="o">&lt;</span><span class="err">/button&gt;</span>
+  <span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="o">&lt;</span><span class="err">/template&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+<span class="k">import</span> <span class="nx">Bus</span> <span class="nx">from</span> <span class="s1">&#39;./bus&#39;</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Chance&#39;</span>
+    <span class="p">};</span>
+  <span class="p">},</span>
+  <span class="nx">methods</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">send</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">Bus</span><span class="p">.</span><span class="nx">$emit</span><span class="p">(</span><span class="s2">&#34;com-a&#34;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">style</span> <span class="nx">scoped</span><span class="o">&gt;</span>
+<span class="nx">button</span><span class="p">{</span>
+  <span class="nx">width</span><span class="o">:</span> <span class="mi">100</span><span class="nx">px</span><span class="p">;</span>
+  <span class="nx">height</span><span class="o">:</span> <span class="mi">20</span><span class="nx">px</span><span class="p">;</span>
+  <span class="nx">border</span><span class="o">-</span><span class="nx">radius</span><span class="o">:</span> <span class="mi">10</span><span class="nx">px</span><span class="p">;</span>
+  <span class="nx">padding</span><span class="o">:</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="o">&lt;</span><span class="err">/style&gt;</span>
+
+<span class="c1">// b.vue
+</span><span class="c1"></span><span class="o">&lt;</span><span class="nx">template</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">h3</span><span class="o">&gt;</span><span class="nx">B组件</span><span class="p">{{</span><span class="nx">age</span><span class="p">}}</span><span class="o">&lt;</span><span class="err">/h3&gt;</span>
+    <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">v</span><span class="o">-</span><span class="nx">on</span><span class="o">:</span><span class="nx">click</span><span class="o">=</span><span class="s2">&#34;send&#34;</span><span class="o">&gt;</span><span class="nx">传值给C</span><span class="o">&lt;</span><span class="err">/button&gt;</span>
+  <span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="o">&lt;</span><span class="err">/template&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+<span class="k">import</span> <span class="nx">Bus</span> <span class="nx">from</span> <span class="s1">&#39;./bus&#39;</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="nx">age</span><span class="o">:</span> <span class="mi">27</span>
+    <span class="p">};</span>
+  <span class="p">},</span>
+  <span class="nx">methods</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">send</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">Bus</span><span class="p">.</span><span class="nx">$emit</span><span class="p">(</span><span class="s2">&#34;com-b&#34;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">age</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">style</span> <span class="nx">scoped</span><span class="o">&gt;</span>
+<span class="nx">button</span><span class="p">{</span>
+  <span class="nx">width</span><span class="o">:</span> <span class="mi">100</span><span class="nx">px</span><span class="p">;</span>
+  <span class="nx">height</span><span class="o">:</span> <span class="mi">20</span><span class="nx">px</span><span class="p">;</span>
+  <span class="nx">border</span><span class="o">-</span><span class="nx">radius</span><span class="o">:</span> <span class="mi">10</span><span class="nx">px</span><span class="p">;</span>
+  <span class="nx">padding</span><span class="o">:</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="o">&lt;</span><span class="err">/style&gt;</span>
+
+<span class="c1">// c.vue
+</span><span class="c1"></span><span class="o">&lt;</span><span class="nx">template</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">div</span> <span class="k">class</span><span class="o">=</span><span class="s2">&#34;c&#34;</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">h3</span><span class="o">&gt;</span><span class="nx">C组件</span><span class="o">&lt;</span><span class="err">/h3&gt;</span>
+    <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="nx">接受来自A</span><span class="err">/B组件的值{{name}}{{age}}&lt;/div&gt;</span>
+  <span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="o">&lt;</span><span class="err">/template&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+<span class="k">import</span> <span class="nx">Bus</span> <span class="nx">from</span> <span class="s1">&#39;./bus&#39;</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+      <span class="nx">age</span><span class="o">:</span> <span class="s2">&#34;&#34;</span>
+    <span class="p">};</span>
+  <span class="p">},</span>
+  <span class="nx">mounted</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">Bus</span><span class="p">.</span><span class="nx">$on</span><span class="p">(</span><span class="s2">&#34;com-a&#34;</span><span class="p">,</span> <span class="nx">name</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+    <span class="p">});</span>
+    <span class="nx">Bus</span><span class="p">.</span><span class="nx">$on</span><span class="p">(</span><span class="s2">&#34;com-b&#34;</span><span class="p">,</span> <span class="nx">age</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="nx">age</span><span class="p">;</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+
+<span class="c1">//bus.js
+</span><span class="c1"></span><span class="k">import</span> <span class="nx">Vue</span> <span class="nx">from</span> <span class="s1">&#39;vue&#39;</span>
+<span class="k">const</span> <span class="nx">Bus</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">()</span>
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Bus</span>
+</code></pre></div>
+<h3 id="4-parent-children-ref">4. $parent/$children/ref<a href="#4-parent-children-ref" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<blockquote>
+<p>ref 被用来给元素或子组件注册引用信息。引用信息将会注册在父组件的 $refs 对象上。如果在普通的 DOM 元素上使用，引用指向的就是 DOM 元素；如果用在子组件上，引用就指向组件实例。</p>
+
+<p>$parent 父实例，如果当前实例有的话。</p>
+
+<p>$children 当前实例的直接子组件。</p>
+</blockquote>
+
+<h3 id="5-provide-inject">5. provide/inject<a href="#5-provide-inject" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<blockquote>
+<p>2.2.0新增。
+这对选项需要一起使用，以允许一个祖先组件向其所有子孙后代注入一个依赖，不论组件层次有多深，并在起上下游关系成立的时间里始终生效。</p>
+</blockquote>
+
+<p><code>provide/inject</code>使用起来很方便，它的适用场景就是爷父子孙这种的组件关系，只能从祖先组件向子孙后台往下流。</p>
+
+<p>通过在父组件<code>povide</code>钩子中声明变量暴露出数据；在子组件<code>inject</code>钩子中接受数据即可。</p>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// index.vue
+</span><span class="c1"></span><span class="o">&lt;</span><span class="nx">template</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">div</span> <span class="k">class</span><span class="o">=</span><span class="s2">&#34;test&#34;</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">h3</span><span class="o">&gt;</span><span class="k">this</span> <span class="nx">is</span> <span class="nx">parents</span> <span class="nx">page</span><span class="o">&lt;</span><span class="err">/h3&gt;</span>
+    <span class="o">&lt;</span><span class="nx">c</span><span class="o">-</span><span class="nx">child</span><span class="o">-</span><span class="nx">c</span><span class="o">&gt;&lt;</span><span class="err">/c-child-c&gt;</span>
+    <span class="o">&lt;</span><span class="nx">c</span><span class="o">-</span><span class="nx">child</span><span class="o">-</span><span class="nx">b</span><span class="o">&gt;&lt;</span><span class="err">/c-child-b&gt;</span>
+  <span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="o">&lt;</span><span class="err">/template&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+<span class="k">import</span> <span class="nx">cChildC</span> <span class="nx">from</span> <span class="s2">&#34;./c&#34;</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">cChildB</span> <span class="nx">from</span> <span class="s2">&#34;./b&#34;</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">provide</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;chance&#39;</span><span class="p">,</span>
+    <span class="nx">age</span><span class="o">:</span> <span class="s1">&#39;27&#39;</span>
+  <span class="p">},</span>
+  <span class="nx">components</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">cChildC</span><span class="p">,</span>
+    <span class="nx">cChildB</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+
+<span class="c1">// b.vue
+</span><span class="c1"></span><span class="o">&lt;</span><span class="nx">template</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">div</span> <span class="k">class</span><span class="o">=</span><span class="s2">&#34;b&#34;</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">h3</span><span class="o">&gt;</span><span class="nx">B组件</span><span class="o">&lt;</span><span class="err">/h3&gt;</span>
+    <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="nx">接受来自父组件组件的值</span><span class="p">{{</span><span class="nx">name</span><span class="p">}}{{</span><span class="nx">age</span><span class="p">}}</span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+  <span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="o">&lt;</span><span class="err">/template&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">inject</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="s1">&#39;age&#39;</span><span class="p">]</span>
+<span class="p">};</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+</code></pre></div>
+<h3 id="6-attrs-listeners">6. $attrs/$listeners<a href="#6-attrs-listeners" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>来自官方的说明：</p>
+
+<blockquote>
+<p>$attrs</p>
+
+<p>包含了父作用域中不作为 prop 被识别 (且获取) 的特性绑定 (class 和 style 除外)。当一个组件没有声明任何 prop 时，这里会包含所有父作用域的绑定 (class 和 style 除外)，并且可以通过 v-bind=&ldquo;$attrs&rdquo; 传入内部组件——在创建高级别的组件时非常有用。</p>
+
+<p>$listeners</p>
+
+<p>包含了父作用域中的 (不含 .native 修饰器的) v-on 事件监听器。它可以通过 v-on=&ldquo;$listeners&rdquo; 传入内部组件——在创建更高层次的组件时非常有用。</p>
+</blockquote>
+
+<ul>
+<li>$attrs</li>
+</ul>
+
+<p>看着是有些晦涩的，用自己的话，来解释一下就是。在index组件中，data中声明了foo、boo、coo、doo、name、age共6个变量，其中前4个变量和title，index组件都传给了子组件childCom1；在childCom1组件中用props接受了foo变量，剩余的4个变量都是通过$attrs来接受的。往下的传递同理。</p>
+
+<p>该属性需配合inheritAttrs来决定是否可以获取父组件中定义的数据。(PS:试了一下不太好使，不知道是不是没有用对)</p>
+
+<ul>
+<li>$listeners</li>
+</ul>
+
+<p>这一块还没有完全弄明白，暂时的理解就是子组件可以调用父组件中的方法。父组件中定义了两个方法，eventClick1和eventClick2。在childCom1组件的mounted钩子的时候，就触发了event1；在childCom2组件中button标签中声明handleClick去触发了event2。</p>
+
+<p>下面的例子中：index.vue为根组件，childCom1是index的子组件，childCom2是childCom1的子组件，childCom3是childCom2的子组件。</p>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// index.vue
+</span><span class="c1"></span><span class="o">&lt;</span><span class="nx">template</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">h2</span><span class="o">&gt;</span><span class="nx">index</span> <span class="nx">page</span><span class="o">&lt;</span><span class="err">/h2&gt;</span>
+    <span class="o">&lt;</span><span class="nx">child</span><span class="o">-</span><span class="nx">com1</span>
+      <span class="o">:</span><span class="nx">foo</span><span class="o">=</span><span class="s2">&#34;foo&#34;</span>
+      <span class="o">:</span><span class="nx">boo</span><span class="o">=</span><span class="s2">&#34;boo&#34;</span>
+      <span class="o">:</span><span class="nx">coo</span><span class="o">=</span><span class="s2">&#34;coo&#34;</span>
+      <span class="o">:</span><span class="nx">doo</span><span class="o">=</span><span class="s2">&#34;doo&#34;</span>
+      <span class="nx">title</span><span class="o">=</span><span class="s2">&#34;前端&#34;</span>
+      <span class="err">@</span><span class="nx">event1</span><span class="o">=</span><span class="s1">&#39;eventClick1&#39;</span>
+      <span class="err">@</span><span class="nx">event2</span><span class="o">=</span><span class="s1">&#39;eventClick2&#39;</span>
+    <span class="o">&gt;&lt;</span><span class="err">/child-com1&gt;</span>
+  <span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="o">&lt;</span><span class="err">/template&gt;</span>
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+<span class="k">const</span> <span class="nx">childCom1</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="k">import</span><span class="p">(</span><span class="s2">&#34;./childCom1.vue&#34;</span><span class="p">);</span>
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">components</span><span class="o">:</span> <span class="p">{</span> <span class="nx">childCom1</span> <span class="p">},</span>
+  <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="nx">foo</span><span class="o">:</span> <span class="s2">&#34;Javascript&#34;</span><span class="p">,</span>
+      <span class="nx">boo</span><span class="o">:</span> <span class="s2">&#34;Html&#34;</span><span class="p">,</span>
+      <span class="nx">coo</span><span class="o">:</span> <span class="s2">&#34;CSS&#34;</span><span class="p">,</span>
+      <span class="nx">doo</span><span class="o">:</span> <span class="s2">&#34;Vue&#34;</span><span class="p">,</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;chance&#34;</span><span class="p">,</span>
+      <span class="nx">age</span><span class="o">:</span> <span class="mi">17</span>
+    <span class="p">};</span>
+  <span class="p">},</span>
+  <span class="nx">methods</span><span class="o">:</span><span class="p">{</span>
+    <span class="nx">eventClick1</span><span class="p">(){</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;this is event click1&#39;</span><span class="p">)</span>
+    <span class="p">},</span>
+    <span class="nx">eventClick2</span><span class="p">(){</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;this is event click2&#39;</span><span class="p">)</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+
+<span class="c1">// childCom1.vue
+</span><span class="c1"></span><span class="o">&lt;</span><span class="nx">template</span> <span class="k">class</span><span class="o">=</span><span class="s2">&#34;border&#34;</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">foo</span><span class="o">:</span> <span class="p">{{</span> <span class="nx">foo</span> <span class="p">}}</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">childCom1的$attrs</span><span class="o">:</span> <span class="p">{{</span> <span class="nx">$attrs</span> <span class="p">}}</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+    <span class="o">&lt;</span><span class="nx">child</span><span class="o">-</span><span class="nx">com2</span> <span class="nx">v</span><span class="o">-</span><span class="nx">bind</span><span class="o">=</span><span class="s2">&#34;$attrs&#34;</span> <span class="nx">v</span><span class="o">-</span><span class="nx">on</span><span class="o">=</span><span class="s2">&#34;$listeners&#34;</span><span class="o">&gt;&lt;</span><span class="err">/child-com2&gt;</span>
+  <span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="o">&lt;</span><span class="err">/template&gt;</span>
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+<span class="k">const</span> <span class="nx">childCom2</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="k">import</span><span class="p">(</span><span class="s2">&#34;./childCom2.vue&#34;</span><span class="p">);</span>
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">components</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">childCom2</span>
+  <span class="p">},</span>
+  <span class="nx">inheritAttrs</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span> <span class="c1">// 可以关闭自动挂载到组件根元素上的没有在props声明的属性
+</span><span class="c1"></span>  <span class="nx">props</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="nb">String</span> <span class="c1">// foo作为props属性绑定
+</span><span class="c1"></span>  <span class="p">},</span>
+  <span class="nx">mounted</span><span class="p">(){</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">$emit</span><span class="p">(</span><span class="s1">&#39;event1&#39;</span><span class="p">)</span>
+  <span class="p">},</span>
+  <span class="nx">created</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;c1&#39;</span><span class="p">,</span><span class="k">this</span><span class="p">.</span><span class="nx">$attrs</span><span class="p">);</span> <span class="c1">// { &#34;boo&#34;: &#34;Html&#34;, &#34;coo&#34;: &#34;CSS&#34;, &#34;doo&#34;: &#34;Vue&#34;, &#34;title&#34;: &#34;前端&#34; }
+</span><span class="c1"></span>  <span class="p">}</span>
+<span class="p">};</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+
+<span class="c1">// childCom2.vue
+</span><span class="c1"></span><span class="o">&lt;</span><span class="nx">template</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">div</span> <span class="k">class</span><span class="o">=</span><span class="s2">&#34;border&#34;</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">boo</span><span class="o">:</span> <span class="p">{{</span> <span class="nx">boo</span> <span class="p">}}</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">childCom2</span><span class="o">:</span> <span class="p">{{</span> <span class="nx">$attrs</span> <span class="p">}}</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+    <span class="o">&lt;</span><span class="nx">button</span> <span class="err">@</span><span class="nx">click</span><span class="o">=</span><span class="s2">&#34;handleClick&#34;</span><span class="o">&gt;</span><span class="nx">fire</span><span class="o">&lt;</span><span class="err">/button&gt;</span>
+    <span class="o">&lt;</span><span class="nx">child</span><span class="o">-</span><span class="nx">com3</span> <span class="nx">v</span><span class="o">-</span><span class="nx">bind</span><span class="o">=</span><span class="s2">&#34;$attrs&#34;</span> <span class="nx">v</span><span class="o">-</span><span class="nx">on</span><span class="o">=</span><span class="s2">&#34;$listeners&#34;</span><span class="o">&gt;&lt;</span><span class="err">/child-com3&gt;</span>
+  <span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="o">&lt;</span><span class="err">/template&gt;</span>
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+<span class="k">const</span> <span class="nx">childCom3</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="k">import</span><span class="p">(</span><span class="s2">&#34;./childCom3.vue&#34;</span><span class="p">);</span>
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">components</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">childCom3</span>
+  <span class="p">},</span>
+  <span class="nx">inheritAttrs</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="nx">props</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">boo</span><span class="o">:</span> <span class="nb">String</span>
+  <span class="p">},</span>
+  <span class="nx">mounted</span><span class="p">()</span> <span class="p">{},</span>
+  <span class="nx">methods</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">handleClick</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">$emit</span><span class="p">(</span><span class="s2">&#34;event2&#34;</span><span class="p">);</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;fried&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nx">created</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;c2&#34;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">$attrs</span><span class="p">);</span> <span class="c1">// { &#34;coo&#34;: &#34;CSS&#34;, &#34;doo&#34;: &#34;Vue&#34;, &#34;title&#34;: &#34;前端&#34; }
+</span><span class="c1"></span>  <span class="p">}</span>
+<span class="p">};</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+
+<span class="c1">// childCom3.vue
+</span><span class="c1"></span><span class="o">&lt;</span><span class="nx">template</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">div</span> <span class="k">class</span><span class="o">=</span><span class="s2">&#34;border&#34;</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">childCom3</span><span class="o">:</span> <span class="p">{{</span> <span class="nx">$attrs</span> <span class="p">}}</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+  <span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="o">&lt;</span><span class="err">/template&gt;</span>
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">props</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">coo</span><span class="o">:</span> <span class="nb">String</span><span class="p">,</span>
+    <span class="nx">title</span><span class="o">:</span> <span class="nb">String</span>
+  <span class="p">},</span>
+  <span class="nx">created</span><span class="p">(){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;c3&#39;</span><span class="p">,</span><span class="k">this</span><span class="p">.</span><span class="nx">$attrs</span><span class="p">)</span> <span class="c1">// { &#34;doo&#34;: &#34;Vue&#34;}
+</span><span class="c1"></span>  <span class="p">}</span>
+<span class="p">};</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+</code></pre></div>
+<h3 id="总结">总结<a href="#总结" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<table>
+<thead>
+<tr>
+<th align="center">方法</th>
+<th align="center">使用场景</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">props/$emit</td>
+<td align="center">正常的父子组件传输</td>
+</tr>
+
+<tr>
+<td align="center">Vuex</td>
+<td align="center">多组件之间的状态共享</td>
+</tr>
+
+<tr>
+<td align="center">$emit/$on</td>
+<td align="center">兄弟组件之间传输，不通过父组件统一下发数据来解决</td>
+</tr>
+
+<tr>
+<td align="center">$parent/$children/ref</td>
+<td align="center">兄弟组件不适用</td>
+</tr>
+
+<tr>
+<td align="center">provide/inject</td>
+<td align="center">爷=&gt;父=&gt;子=&gt;孙 数据流向</td>
+</tr>
+</tbody>
+</table>
+
+			</div>
+			<hr class="post-end">
+			<footer class="post-info">
+				<p>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://caychance.github.io/tags/vue">vue</a></span><span class="tag"><a href="https://caychance.github.io/tags/vuex">vuex</a></span><span class="tag"><a href="https://caychance.github.io/tags/%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1">组件通信</a></span>
+				</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>677 Words</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2019-07-05 10:48 &#43;0000</p>
+			</footer>
+		</article>
+		<div class="post-nav thin">
+			<a class="next-post" href="https://caychance.github.io/posts/postmessage%E4%BD%BF%E7%94%A8/">
+				<span class="post-nav-label"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>&nbsp;Newer</span><br><span>PostMessage使用</span>
+			</a>
+			<a class="prev-post" href="https://caychance.github.io/posts/%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/">
+				<span class="post-nav-label">Older&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span><br><span>项目总结</span>
+			</a>
+		</div>
+		<div id="comments" class="thin">
+</div>
+	</main>
+
+	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
+		<p>&copy; 2019 <a href="https://caychance.github.io">CayChance</a> &#183; <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></p>
+		<p>
+			Made with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &#183; Theme <a href="https://github.com/Track3/hermit" target="_blank" rel="noopener">Hermit</a> &#183; <a href="https://caychance.github.io/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a>
+		</p>
+	</footer>
+
+
+	<script src="https://caychance.github.io/js/main.min.35ccbf1cdceb91e4c64c06b5d009d6e2977fafe56beda7762febd4e67528d2ac.js" integrity="sha256-Ncy/HNzrkeTGTAa10AnW4pd/r+Vr7ad2L+vU5nUo0qw="></script>
+
+</body>
+
+</html>

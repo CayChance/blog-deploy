@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="theme-color" content="#494f5c">
+	<meta name="msapplication-TileColor" content="#494f5c">
+
+<meta itemprop="name" content="MongoDB基础入门">
+<meta itemprop="description" content="MongoDB基础入门（基础篇） 最新心血来潮，准备在网上学习一下Vue&#43;Node&#43;MongoDB。之前接触过MySQL，但是MongoDB跟MySQL还是有区别的。话不多说：
+基本概念    SQL术语/概念 MongoDB术语/概念 解释/说明     database database 数据库   table collection 数据库表/集合   row document 数据记录行/文档   column field 数据字段/域   index index 索引   table joins  表连接,MongoDB不支持   primary key primary key 主键,MongoDB自动将_id字段设置为主键    数据库  一个mongodb中可以建立多个数据库。
+ 每个数据库里面有多个表（也叫做集合）。
+ 表里面存储的数据格式就是一个json，这也是区别于SQL的地方。
+  下载安装 这一步就省略了，自己Google去吧。我在mac下用的homebrew
+连接数据库 在命令行中输入mongo就会连接到数据库
+数据库相关 show dbs 查看所有数据库">
+
+
+<meta itemprop="datePublished" content="2019-02-01T10:23:29&#43;00:00" />
+<meta itemprop="dateModified" content="2019-02-01T10:23:29&#43;00:00" />
+<meta itemprop="wordCount" content="146">
+
+
+
+<meta itemprop="keywords" content="mongodb,数据库," />
+<meta property="og:title" content="MongoDB基础入门" />
+<meta property="og:description" content="MongoDB基础入门（基础篇） 最新心血来潮，准备在网上学习一下Vue&#43;Node&#43;MongoDB。之前接触过MySQL，但是MongoDB跟MySQL还是有区别的。话不多说：
+基本概念    SQL术语/概念 MongoDB术语/概念 解释/说明     database database 数据库   table collection 数据库表/集合   row document 数据记录行/文档   column field 数据字段/域   index index 索引   table joins  表连接,MongoDB不支持   primary key primary key 主键,MongoDB自动将_id字段设置为主键    数据库  一个mongodb中可以建立多个数据库。
+ 每个数据库里面有多个表（也叫做集合）。
+ 表里面存储的数据格式就是一个json，这也是区别于SQL的地方。
+  下载安装 这一步就省略了，自己Google去吧。我在mac下用的homebrew
+连接数据库 在命令行中输入mongo就会连接到数据库
+数据库相关 show dbs 查看所有数据库" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://caychance.github.io/posts/mongodb%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/" /><meta property="article:published_time" content="2019-02-01T10:23:29&#43;00:00"/>
+<meta property="article:modified_time" content="2019-02-01T10:23:29&#43;00:00"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="MongoDB基础入门"/>
+<meta name="twitter:description" content="MongoDB基础入门（基础篇） 最新心血来潮，准备在网上学习一下Vue&#43;Node&#43;MongoDB。之前接触过MySQL，但是MongoDB跟MySQL还是有区别的。话不多说：
+基本概念    SQL术语/概念 MongoDB术语/概念 解释/说明     database database 数据库   table collection 数据库表/集合   row document 数据记录行/文档   column field 数据字段/域   index index 索引   table joins  表连接,MongoDB不支持   primary key primary key 主键,MongoDB自动将_id字段设置为主键    数据库  一个mongodb中可以建立多个数据库。
+ 每个数据库里面有多个表（也叫做集合）。
+ 表里面存储的数据格式就是一个json，这也是区别于SQL的地方。
+  下载安装 这一步就省略了，自己Google去吧。我在mac下用的homebrew
+连接数据库 在命令行中输入mongo就会连接到数据库
+数据库相关 show dbs 查看所有数据库"/>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
+	<link rel="shortcut icon" href="/favicon.ico">
+
+	<title>MongoDB基础入门</title>
+	<link rel="stylesheet" href="https://caychance.github.io/css/style.min.568c54a56780af2a70c45272522247710b69dbfc080b315211fb98381e3796f8.css" integrity="sha256-VoxUpWeArypwxFJyUiJHcQtp2/wICzFSEfuYOB43lvg=">
+	
+</head>
+
+<body id="page">
+	
+	<header id="site-header" class="animated slideInUp faster">
+		<div class="hdr-wrapper section-inner">
+			<div class="hdr-left">
+				<div class="site-branding">
+					<a href="https://caychance.github.io">CayChance の Blog</a>
+				</div>
+				<nav class="site-nav hide-in-mobile">
+					
+				<a href="https://caychance.github.io/posts/">Posts</a>
+				<a href="https://caychance.github.io/about-hugo/">About</a>
+
+				</nav>
+			</div>
+			<div class="hdr-right hdr-icons">
+				<span class="hdr-social hide-in-mobile"><a href="https://twitter.com/" target="_blank" rel="noopener me" title="Twitter"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg></a><a href="https://instagram.com/" target="_blank" rel="noopener me" title="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-instagram"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line></svg></a><a href="https://github.com/" target="_blank" rel="noopener me" title="Github"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a></span><button id="menu-btn" class="hdr-btn" title="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+			</div>
+		</div>
+	</header>
+	<div id="mobile-menu" class="animated fast">
+		<ul>
+			<li><a href="https://caychance.github.io/posts/">Posts</a></li>
+			<li><a href="https://caychance.github.io/about-hugo/">About</a></li>
+		</ul>
+	</div>
+
+
+	<main class="site-main section-inner animated fadeIn faster">
+		<article class="thin">
+			<header class="post-header">
+				<div class="post-meta"><span>Feb 1, 2019</span></div>
+				<h1>MongoDB基础入门</h1>
+			</header>
+			<div class="content">
+				
+
+<hr />
+
+<h2 id="mongodb基础入门-基础篇">MongoDB基础入门（基础篇）<a href="#mongodb基础入门-基础篇" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+
+<p>最新心血来潮，准备在网上学习一下Vue+Node+MongoDB。之前接触过MySQL，但是MongoDB跟MySQL还是有区别的。话不多说：</p>
+
+<h3 id="基本概念">基本概念<a href="#基本概念" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<table>
+<thead>
+<tr>
+<th>SQL术语/概念</th>
+<th>MongoDB术语/概念</th>
+<th>解释/说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>database</td>
+<td>database</td>
+<td>数据库</td>
+</tr>
+
+<tr>
+<td>table</td>
+<td>collection</td>
+<td>数据库表/集合</td>
+</tr>
+
+<tr>
+<td>row</td>
+<td>document</td>
+<td>数据记录行/文档</td>
+</tr>
+
+<tr>
+<td>column</td>
+<td>field</td>
+<td>数据字段/域</td>
+</tr>
+
+<tr>
+<td>index</td>
+<td>index</td>
+<td>索引</td>
+</tr>
+
+<tr>
+<td>table joins</td>
+<td></td>
+<td>表连接,MongoDB不支持</td>
+</tr>
+
+<tr>
+<td>primary key</td>
+<td>primary key</td>
+<td>主键,MongoDB自动将_id字段设置为主键</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="数据库">数据库<a href="#数据库" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ol>
+<li><p>一个mongodb中可以建立多个数据库。</p></li>
+
+<li><p>每个数据库里面有多个表（也叫做集合）。</p></li>
+
+<li><p>表里面存储的数据格式就是一个json，这也是区别于SQL的地方。</p></li>
+</ol>
+
+<h3 id="下载安装">下载安装<a href="#下载安装" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>这一步就省略了，自己Google去吧。我在mac下用的homebrew</p>
+
+<h3 id="连接数据库">连接数据库<a href="#连接数据库" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>在命令行中输入mongo就会连接到数据库</p>
+
+<h3 id="数据库相关">数据库相关<a href="#数据库相关" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p><code>show dbs</code>           查看所有数据库</p>
+
+<p><code>use DATABASE_NAME</code>  创建数据库或者切换到该数据库</p>
+
+<p><code>db.dropDatabase()</code>  删除数据库</p>
+
+<h3 id="集合相关">集合相关<a href="#集合相关" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p><code>show tables</code>                           查看已有表</p>
+
+<p><code>show collections</code>                      查看已有集合</p>
+
+<p><code>db.createCollection(name, options)</code>    创建集合</p>
+
+<p><code>db.COLLECTION_NAME.drop()</code>             删除集合</p>
+
+<p><strong>PS：show tables 和 show collections 的区别，网上还么有搜到，但是实际操作了一下，发现两者是一样的。</strong></p>
+
+<p>直接在COLLECTION_NAME集合中插入数据的时候，会自动创建COLLECTION_NAME集合
+<code>db.COLLECTION_NAME.insert({&quot;name&quot; : &quot;Chance&quot;})</code></p>
+
+<p><strong>情况1：如果没有新建一个数据库的话，会默认在test数据库中新建一个COLLECTION_NAME集合（表）</strong></p>
+
+<p><strong>情况2：在该命令之前新建了一个数据库的话，会在该数据库下新建一个COLLECTION_NAME集合（表）</strong></p>
+
+<h3 id="增删改查">增删改查<a href="#增删改查" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>增删改查的操作是基于集合来的，所有统一的格式都是db.COLLECTION_NAME.***</p>
+
+<p>增</p>
+
+<pre><code>db.COLLECTION_NAME.insert(document)
+</code></pre>
+
+<pre><code>db.COLLECTION_NAME.save(document) 
+</code></pre>
+
+<p>删</p>
+
+<pre><code>db.COLLECTION_NAME.remove(
+   &lt;query&gt;,
+   {
+     justOne: &lt;boolean&gt;,
+     writeConcern: &lt;document&gt;
+   }
+)
+</code></pre>
+
+<p>改</p>
+
+<pre><code>db.COLLECTION_NAME.update(
+   &lt;query&gt;,
+   &lt;update&gt;,
+   {
+     upsert: &lt;boolean&gt;,
+     multi: &lt;boolean&gt;,
+     writeConcern: &lt;document&gt;
+   }
+)
+</code></pre>
+
+<pre><code>db.COLLECTION_NAME.save(
+   &lt;document&gt;,
+   {
+     writeConcern: &lt;document&gt;
+   }
+)
+</code></pre>
+
+<p>查</p>
+
+<pre><code>db.COLLECTION_NAME.find(query, projection)
+</code></pre>
+
+<h3 id="常用命令">常用命令<a href="#常用命令" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>解释/说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>show dbs</td>
+<td>查看所有数据库</td>
+</tr>
+
+<tr>
+<td>db</td>
+<td>显示当前数据库对象或集合</td>
+</tr>
+
+<tr>
+<td>use DATABASE_NAME</td>
+<td>如果数据库不存在，则创建数据库，否则切换到指定数据库。</td>
+</tr>
+
+<tr>
+<td>show tables</td>
+<td>查看该数据库下的所有表</td>
+</tr>
+
+<tr>
+<td>show collections</td>
+<td>查看该数据库下的所有集合</td>
+</tr>
+
+<tr>
+<td>db.dropDatabase()</td>
+<td>删除数据库</td>
+</tr>
+
+<tr>
+<td>db.COLLECTION_NAME.insert({&ldquo;name&rdquo;:&ldquo;Chance&rdquo;})</td>
+<td>创建集合并向其中插入一些数据</td>
+</tr>
+
+<tr>
+<td>db.createCollection(name, options)</td>
+<td>创建集合</td>
+</tr>
+
+<tr>
+<td>db.COLLECTION_NAME.drop()</td>
+<td>删除当前集合</td>
+</tr>
+
+<tr>
+<td>db.COLLECTION_NAME.insert(document)</td>
+<td>增</td>
+</tr>
+
+<tr>
+<td>db.COLLECTION_NAME.remove()</td>
+<td>删</td>
+</tr>
+
+<tr>
+<td>db.COLLECTION_NAME.update()</td>
+<td>改</td>
+</tr>
+
+<tr>
+<td>db.COLLECTION_NAME.insert(document)</td>
+<td>查</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="写在最后">写在最后<a href="#写在最后" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>正常情况下，node中不会直接使用mongo的语法，会使用mongoose</p>
+
+<p><a href="https://mongoosejs.com/">参考链接-mongoose官网</a></p>
+
+<p><a href="https://www.bilibili.com/video/av41033371">参考链接-mongoose教程</a></p>
+
+			</div>
+			<hr class="post-end">
+			<footer class="post-info">
+				<p>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://caychance.github.io/tags/mongodb">mongodb</a></span><span class="tag"><a href="https://caychance.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93">数据库</a></span>
+				</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>146 Words</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2019-02-01 10:23 &#43;0000</p>
+			</footer>
+		</article>
+		<div class="post-nav thin">
+			<a class="next-post" href="https://caychance.github.io/posts/%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE/">
+				<span class="post-nav-label"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>&nbsp;Newer</span><br><span>原型与原型链</span>
+			</a>
+			<a class="prev-post" href="https://caychance.github.io/posts/vue%E9%A1%B9%E7%9B%AE%E7%9A%84%E6%95%B4%E4%BD%93%E8%AE%A4%E8%AF%86/">
+				<span class="post-nav-label">Older&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span><br><span>Vue项目的整体认识</span>
+			</a>
+		</div>
+		<div id="comments" class="thin">
+</div>
+	</main>
+
+	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
+		<p>&copy; 2019 <a href="https://caychance.github.io">CayChance</a> &#183; <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></p>
+		<p>
+			Made with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &#183; Theme <a href="https://github.com/Track3/hermit" target="_blank" rel="noopener">Hermit</a> &#183; <a href="https://caychance.github.io/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a>
+		</p>
+	</footer>
+
+
+	<script src="https://caychance.github.io/js/main.min.35ccbf1cdceb91e4c64c06b5d009d6e2977fafe56beda7762febd4e67528d2ac.js" integrity="sha256-Ncy/HNzrkeTGTAa10AnW4pd/r+Vr7ad2L+vU5nUo0qw="></script>
+
+</body>
+
+</html>

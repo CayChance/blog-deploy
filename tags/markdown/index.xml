@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Markdown on CayChance の Blog</title>
+    <link>https://caychance.github.io/tags/markdown/</link>
+    <description>Recent content in Markdown on CayChance の Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Wed, 05 Dec 2018 14:13:45 +0000</lastBuildDate>
+    
+	<atom:link href="https://caychance.github.io/tags/markdown/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>markdown</title>
+      <link>https://caychance.github.io/posts/markdown/</link>
+      <pubDate>Wed, 05 Dec 2018 14:13:45 +0000</pubDate>
+      
+      <guid>https://caychance.github.io/posts/markdown/</guid>
+      <description>可直接参考该文章
+markdown常用语法 目录  标题 引入代码 外链 引入图片 引用 缩进 斜体 加粗 分割线 待办 目录锚点 引入单句代码  1、标题 井号#后面空一格
+# 一级标题 ## 二级标题 ### 三级标题 #### 四级标题 ##### 五级标题 ###### 六级标题 一级标题 二级标题 三级标题 四级标题 五级标题 六级标题 2、引入代码
+function add(x,y){ return x+y; }  3、外链
+[参考链接](https://caychance.github.io/) 参考链接
+4、引入图片
+![](https://blog-pics.pek3b.qingstor.com/006tNbRwly1fxq7h427d7j30780c7t9o.jpg) 5、引用
+&amp;gt;一段引用的话换行了  一段引用的话 换行了
+ 6、缩进 三种方法
+不带缩进的一行&amp;amp;nbsp;不断行的空白格或&amp;amp;#160;&amp;amp;ensp;半方大的空白或&amp;amp;#8194;&amp;amp;emsp;全方大的空白或&amp;amp;#8195; 不带缩进的一行 &amp;nbsp;不断行的空白格或&amp;#160; &amp;ensp;半方大的空白或&amp;#8194; &amp;emsp;全方大的空白或&amp;#8195;
+7、斜体 两种方法
+_这是斜体_*这是斜体* 这是斜体 这是斜体
+8、加粗 两种方法</description>
+    </item>
+    
+  </channel>
+</rss>

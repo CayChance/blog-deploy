@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Css on CayChance の Blog</title>
+    <link>https://caychance.github.io/tags/css/</link>
+    <description>Recent content in Css on CayChance の Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Thu, 13 Jun 2019 19:54:06 +0800</lastBuildDate>
+    
+	<atom:link href="https://caychance.github.io/tags/css/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>css3的动画</title>
+      <link>https://caychance.github.io/posts/css3%E7%9A%84%E5%8A%A8%E7%94%BB/</link>
+      <pubDate>Thu, 13 Jun 2019 19:54:06 +0800</pubDate>
+      
+      <guid>https://caychance.github.io/posts/css3%E7%9A%84%E5%8A%A8%E7%94%BB/</guid>
+      <description> 最近在做一个中台门户网站，其中首页有不少动画效果。列举几个：
+ 鼠标悬浮div整体放大 鼠标悬浮整个div上移 鼠标悬浮第二个div向上运动覆盖第一个div  前公司有同事分享过css3中，2D转换，3D转换，过渡，动画之间的区别。
+2D转换 2D转换主要用到transform属性，常用的值包括移动translate(x,y),旋转rotate(),缩放scale(x,y),倾斜skew(x,y),前四者合集matrix。
+3D转换 3D转换用的也是transform属性。 主要是移动，旋转，缩放三者从X，Y，Z轴进行变换，或者X，Y，Z的合集。
+过渡 transition 用途：从一种样式转变到另一种样式。
+使用注意的点：
+ 常用于添加hover触发动画，哪个元素是动画的触发点，hover就加给该元素。 运动的元素需要添加transition:width|all 3s; 。 两元素之间的关系可以是同级兄弟元素，也可以是父子元素。  动画 用途：创建动画。
+使用：
+div { width:100px; height:100px; background:red; animation:myfirst 5s; } @keyframes myfirst { from {background:red;} to {background:yellow;} } 区别 列一下三者的区别，其实一看他们的英文意思，区别也就显而易见了。
+ transform并不算真正意义上的动画，只是单纯做一下转变，你甚至都看不到这个转变的过程。 transition常用于hover的简单动画，一般就hover前后的两个状态。 animation属于真正意义上的动画，一般可以做复杂的动画。     属性 词义 异同 关注点 强调 帧动画     transform 转变 非动画 忽略 忽略 忽略   transition 过渡 简单动画 更关注css property的变化 强调过渡 只有两个关键帧   animation 动画 复杂动画 作用于元素本身而非样式属性 强调流程与控制 很多个关键帧    </description>
+    </item>
+    
+    <item>
+      <title>关于css中的z-index的使用</title>
+      <link>https://caychance.github.io/posts/%E5%85%B3%E4%BA%8Ecss%E4%B8%AD%E7%9A%84z-index%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Wed, 12 Jun 2019 10:05:20 +0800</pubDate>
+      
+      <guid>https://caychance.github.io/posts/%E5%85%B3%E4%BA%8Ecss%E4%B8%AD%E7%9A%84z-index%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
+      <description>&amp;lt;header&amp;gt; &amp;lt;div class=&amp;#34;nav&amp;#34;&amp;gt; &amp;lt;ul&amp;gt; &amp;lt;li&amp;gt; 产品服务 &amp;lt;div class=&amp;#34;content&amp;#34;&amp;gt;&amp;lt;/div&amp;gt; &amp;lt;/li&amp;gt; &amp;lt;/ul&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/header&amp;gt; &amp;lt;div class=&amp;#34;swiper&amp;#34;&amp;gt;&amp;lt;/div&amp;gt; 如上代码，这几天在做一个需求的时候，突然发现z-index不生效了。
+以上结构，header是网站的头部，div.swiper是header下面的轮播图。div.nav是头部的导航条，li是其中一个导航，li被鼠标hover的时候，显示div.content。最后的效果如图参考。
+轮播图直接使用的swiper，还没有做swiper部分之前，hover那一块是没有问题的，swiper做了以后，发现hover就有问题了。后来排查了一下，是因为swiper的z-index设置为1。我心想这下好办了，把li的z-index设置成2不就好了。然而，并不好使。
+ z-index只对定位元素有效果 position的属性值包括：absolute-绝对定位、relative-相对定位、fixed-固定定位、inherit-继承父元素定位，static-静态定位。前三者肯定有效；inherit取决于父元素；静态定位-static，否则z-index会无效。
+ 同一个父元素下的元素的层叠效果会受父元素的z-index影响 如果父元素的z-index值很小,那么子元素的z-index值很大也不起作用
+ 当前标签不能含有float属性 这个是在网上找到的，我自己验证了一下结论正好相反。
+  </description>
+    </item>
+    
+    <item>
+      <title>BFC</title>
+      <link>https://caychance.github.io/posts/bfc/</link>
+      <pubDate>Fri, 11 Jan 2019 20:31:59 +0000</pubDate>
+      
+      <guid>https://caychance.github.io/posts/bfc/</guid>
+      <description>BFC是什么 前几天被人问到了BFC，一脸懵逼。赶紧看看，简单总结一下。
+概念：  BFC 即 Block Formatting Contexts (块级格式化上下文)，它属于普通流。
+ PS:区别于普通流，常见的还有浮动（float），绝对定位（absolute）
+具有 BFC 特性的元素可以看作是隔离了的独立容器，容器里面的元素不会在布局上影响到外面的元素，并且 BFC 具有普通容器所没有的一些特性。
+BFC的特性：  同一个BFC中的margin会重叠 浮动的元素会脱离普通文档流，但是BFC却可以包含浮动的元素，即消除浮动。 BFC可以阻止元素被浮动元素覆盖。  如何触发BFC：(PS：满足一下任一条件即可触发)  body根元素 浮动元素：float除none以外的值 绝对定位元素：position 等于absolute或者fixed display等于 inline-block、table-cells、flex overflow等于除了 visible 以外的值 (hidden、auto、scroll) 类似函数作用域。  参考链接-10 分钟理解 BFC 原理</description>
+    </item>
+    
+    <item>
+      <title>flex布局</title>
+      <link>https://caychance.github.io/posts/flex%E5%B8%83%E5%B1%80/</link>
+      <pubDate>Wed, 28 Nov 2018 17:06:01 +0000</pubDate>
+      
+      <guid>https://caychance.github.io/posts/flex%E5%B8%83%E5%B1%80/</guid>
+      <description> flex的一个兼容问题 flex布局中的justify-content: space-evenly;在部分安卓手机上是不支持这个属性的。
+justify-content: space-evenly 解决方案 可以使用space-around或者space-between配合margin一起使用达到space-evenly的效果
+justify-content: space-aroundjustify-content: space-between</description>
+    </item>
+    
+  </channel>
+</rss>

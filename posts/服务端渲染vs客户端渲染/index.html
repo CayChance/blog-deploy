@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="theme-color" content="#494f5c">
+	<meta name="msapplication-TileColor" content="#494f5c">
+
+<meta itemprop="name" content="服务端渲染vs客户端渲染">
+<meta itemprop="description" content="前几天被人问到了nuxt是啥东西，我就知道这东西是vue的一个衍生品，别的就不知道了。然后吓得我回去赶紧翻开了nuxt的文档。
+ Nuxt.js 是一个基于Vue.js 的轻量级应用框架，可用来创建服务端渲染(SSR) 应用，也可充当静态站点引擎生成静态站点应用，具有优雅的代码结构分层和热加载等balabala
+ 提到了一个词——服务端渲染，服务端渲染SSR（Server-Side Rendering）是什么？与之相对的是客户端渲染CSR（Client-Side Rendering）。 单从字面来理解，服务端渲染，就是服务端来渲染；客户端渲染则是客户端渲染。（这话听着像句废话）
+什么是服务端渲染和客户端渲染 服务端渲染（后端渲染） 简单来说就是在服务器上把数据和模板拼接好以后发送给客户端显示。
+客户端渲染（前端渲染） html 仅仅作为静态文件，客户端在请求时，服务端不做任何处理，直接以原文件的形式返回给客户端，然后客户端根据 html 上的 JavaScript，生成 DOM 插入 html。
+现在常用的SPA单页应用模式，就是典型的前端渲染。
+两者的本质区别 两者本地的区别就是谁来完成html文件的完整拼接。如果在后端完成，然后返回给前端，那么就是服务端渲染；否则就是客户端渲染。
+服务端渲染的优缺点 优点： &emsp;1.不占用客户端资源，前端耗时少
+&emsp;2.有利于SEO
+缺点： &emsp;1.占用服务端资源。如果请求量较多，会对服务器造成一定压力。
+&emsp;2.不利于前后端分离，开发效率较低。
+客户端渲染的优缺点 优点： &emsp;1.前后端分离。
+&emsp;2.体验更好，接近于原生app。
+缺点： &emsp;1.前端响应较慢，首屏加载缓慢。
+&emsp;2.不利于SEO。
+SEO 后端渲染html叫吐或者喷，爬虫可以看到完整的呈现源码 前端模板渲染html叫填，爬虫看不到完整的呈现源码
+如何选择 不谈业务场景而盲目选择使用何种渲染方式都是耍流氓。比如企业级网站，主要功能是展示而没有复杂的交互，并且需要良好的SEO，则这时我们就需要使用服务器端渲染；而类似后台管理页面，交互性比较强，不需要seo的考虑，那么就可以使用客户端渲染。
+另外，具体使用何种渲染方法并不是绝对的，比如现在一些网站采用了首屏服务器端渲染，即对于用户最开始打开的那个页面采用的是服务器端渲染，这样就保证了渲染速度，而其他的页面采用客户端渲染，这样就完成了前后端分离。
+写在最后  2016 年 10 月 25 日，zeit.co 背后的团队对外发布了 Next.js，一个 React 的服务端渲染应用框架。几小时后，与 Next.js 异曲同工，一个基于 Vue.js 的服务端渲染应用框架应运而生，我们称之为：Nuxt.js。
+ 随着Next.js和Nuxt.js的发布，以前是 Back-end（或者说 Full-stack）工程师负责 SSR，但是现在是 Front-end 工程师负责 SSR 了啊。">
+
+
+<meta itemprop="datePublished" content="2018-12-02T22:25:08&#43;00:00" />
+<meta itemprop="dateModified" content="2018-12-02T22:25:08&#43;00:00" />
+<meta itemprop="wordCount" content="75">
+
+
+
+<meta itemprop="keywords" content="ssr,csr," />
+<meta property="og:title" content="服务端渲染vs客户端渲染" />
+<meta property="og:description" content="前几天被人问到了nuxt是啥东西，我就知道这东西是vue的一个衍生品，别的就不知道了。然后吓得我回去赶紧翻开了nuxt的文档。
+ Nuxt.js 是一个基于Vue.js 的轻量级应用框架，可用来创建服务端渲染(SSR) 应用，也可充当静态站点引擎生成静态站点应用，具有优雅的代码结构分层和热加载等balabala
+ 提到了一个词——服务端渲染，服务端渲染SSR（Server-Side Rendering）是什么？与之相对的是客户端渲染CSR（Client-Side Rendering）。 单从字面来理解，服务端渲染，就是服务端来渲染；客户端渲染则是客户端渲染。（这话听着像句废话）
+什么是服务端渲染和客户端渲染 服务端渲染（后端渲染） 简单来说就是在服务器上把数据和模板拼接好以后发送给客户端显示。
+客户端渲染（前端渲染） html 仅仅作为静态文件，客户端在请求时，服务端不做任何处理，直接以原文件的形式返回给客户端，然后客户端根据 html 上的 JavaScript，生成 DOM 插入 html。
+现在常用的SPA单页应用模式，就是典型的前端渲染。
+两者的本质区别 两者本地的区别就是谁来完成html文件的完整拼接。如果在后端完成，然后返回给前端，那么就是服务端渲染；否则就是客户端渲染。
+服务端渲染的优缺点 优点： &emsp;1.不占用客户端资源，前端耗时少
+&emsp;2.有利于SEO
+缺点： &emsp;1.占用服务端资源。如果请求量较多，会对服务器造成一定压力。
+&emsp;2.不利于前后端分离，开发效率较低。
+客户端渲染的优缺点 优点： &emsp;1.前后端分离。
+&emsp;2.体验更好，接近于原生app。
+缺点： &emsp;1.前端响应较慢，首屏加载缓慢。
+&emsp;2.不利于SEO。
+SEO 后端渲染html叫吐或者喷，爬虫可以看到完整的呈现源码 前端模板渲染html叫填，爬虫看不到完整的呈现源码
+如何选择 不谈业务场景而盲目选择使用何种渲染方式都是耍流氓。比如企业级网站，主要功能是展示而没有复杂的交互，并且需要良好的SEO，则这时我们就需要使用服务器端渲染；而类似后台管理页面，交互性比较强，不需要seo的考虑，那么就可以使用客户端渲染。
+另外，具体使用何种渲染方法并不是绝对的，比如现在一些网站采用了首屏服务器端渲染，即对于用户最开始打开的那个页面采用的是服务器端渲染，这样就保证了渲染速度，而其他的页面采用客户端渲染，这样就完成了前后端分离。
+写在最后  2016 年 10 月 25 日，zeit.co 背后的团队对外发布了 Next.js，一个 React 的服务端渲染应用框架。几小时后，与 Next.js 异曲同工，一个基于 Vue.js 的服务端渲染应用框架应运而生，我们称之为：Nuxt.js。
+ 随着Next.js和Nuxt.js的发布，以前是 Back-end（或者说 Full-stack）工程师负责 SSR，但是现在是 Front-end 工程师负责 SSR 了啊。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://caychance.github.io/posts/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%B8%B2%E6%9F%93vs%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%B8%B2%E6%9F%93/" /><meta property="article:published_time" content="2018-12-02T22:25:08&#43;00:00"/>
+<meta property="article:modified_time" content="2018-12-02T22:25:08&#43;00:00"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="服务端渲染vs客户端渲染"/>
+<meta name="twitter:description" content="前几天被人问到了nuxt是啥东西，我就知道这东西是vue的一个衍生品，别的就不知道了。然后吓得我回去赶紧翻开了nuxt的文档。
+ Nuxt.js 是一个基于Vue.js 的轻量级应用框架，可用来创建服务端渲染(SSR) 应用，也可充当静态站点引擎生成静态站点应用，具有优雅的代码结构分层和热加载等balabala
+ 提到了一个词——服务端渲染，服务端渲染SSR（Server-Side Rendering）是什么？与之相对的是客户端渲染CSR（Client-Side Rendering）。 单从字面来理解，服务端渲染，就是服务端来渲染；客户端渲染则是客户端渲染。（这话听着像句废话）
+什么是服务端渲染和客户端渲染 服务端渲染（后端渲染） 简单来说就是在服务器上把数据和模板拼接好以后发送给客户端显示。
+客户端渲染（前端渲染） html 仅仅作为静态文件，客户端在请求时，服务端不做任何处理，直接以原文件的形式返回给客户端，然后客户端根据 html 上的 JavaScript，生成 DOM 插入 html。
+现在常用的SPA单页应用模式，就是典型的前端渲染。
+两者的本质区别 两者本地的区别就是谁来完成html文件的完整拼接。如果在后端完成，然后返回给前端，那么就是服务端渲染；否则就是客户端渲染。
+服务端渲染的优缺点 优点： &emsp;1.不占用客户端资源，前端耗时少
+&emsp;2.有利于SEO
+缺点： &emsp;1.占用服务端资源。如果请求量较多，会对服务器造成一定压力。
+&emsp;2.不利于前后端分离，开发效率较低。
+客户端渲染的优缺点 优点： &emsp;1.前后端分离。
+&emsp;2.体验更好，接近于原生app。
+缺点： &emsp;1.前端响应较慢，首屏加载缓慢。
+&emsp;2.不利于SEO。
+SEO 后端渲染html叫吐或者喷，爬虫可以看到完整的呈现源码 前端模板渲染html叫填，爬虫看不到完整的呈现源码
+如何选择 不谈业务场景而盲目选择使用何种渲染方式都是耍流氓。比如企业级网站，主要功能是展示而没有复杂的交互，并且需要良好的SEO，则这时我们就需要使用服务器端渲染；而类似后台管理页面，交互性比较强，不需要seo的考虑，那么就可以使用客户端渲染。
+另外，具体使用何种渲染方法并不是绝对的，比如现在一些网站采用了首屏服务器端渲染，即对于用户最开始打开的那个页面采用的是服务器端渲染，这样就保证了渲染速度，而其他的页面采用客户端渲染，这样就完成了前后端分离。
+写在最后  2016 年 10 月 25 日，zeit.co 背后的团队对外发布了 Next.js，一个 React 的服务端渲染应用框架。几小时后，与 Next.js 异曲同工，一个基于 Vue.js 的服务端渲染应用框架应运而生，我们称之为：Nuxt.js。
+ 随着Next.js和Nuxt.js的发布，以前是 Back-end（或者说 Full-stack）工程师负责 SSR，但是现在是 Front-end 工程师负责 SSR 了啊。"/>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
+	<link rel="shortcut icon" href="/favicon.ico">
+
+	<title>服务端渲染vs客户端渲染</title>
+	<link rel="stylesheet" href="https://caychance.github.io/css/style.min.568c54a56780af2a70c45272522247710b69dbfc080b315211fb98381e3796f8.css" integrity="sha256-VoxUpWeArypwxFJyUiJHcQtp2/wICzFSEfuYOB43lvg=">
+	
+</head>
+
+<body id="page">
+	
+	<header id="site-header" class="animated slideInUp faster">
+		<div class="hdr-wrapper section-inner">
+			<div class="hdr-left">
+				<div class="site-branding">
+					<a href="https://caychance.github.io">CayChance の Blog</a>
+				</div>
+				<nav class="site-nav hide-in-mobile">
+					
+				<a href="https://caychance.github.io/posts/">Posts</a>
+				<a href="https://caychance.github.io/about-hugo/">About</a>
+
+				</nav>
+			</div>
+			<div class="hdr-right hdr-icons">
+				<span class="hdr-social hide-in-mobile"><a href="https://twitter.com/" target="_blank" rel="noopener me" title="Twitter"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg></a><a href="https://instagram.com/" target="_blank" rel="noopener me" title="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-instagram"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line></svg></a><a href="https://github.com/" target="_blank" rel="noopener me" title="Github"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a></span><button id="menu-btn" class="hdr-btn" title="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+			</div>
+		</div>
+	</header>
+	<div id="mobile-menu" class="animated fast">
+		<ul>
+			<li><a href="https://caychance.github.io/posts/">Posts</a></li>
+			<li><a href="https://caychance.github.io/about-hugo/">About</a></li>
+		</ul>
+	</div>
+
+
+	<main class="site-main section-inner animated fadeIn faster">
+		<article class="thin">
+			<header class="post-header">
+				<div class="post-meta"><span>Dec 2, 2018</span></div>
+				<h1>服务端渲染vs客户端渲染</h1>
+			</header>
+			<div class="content">
+				
+
+<hr />
+
+<p>前几天被人问到了nuxt是啥东西，我就知道这东西是vue的一个衍生品，别的就不知道了。然后吓得我回去赶紧翻开了nuxt的文档。</p>
+
+<blockquote>
+<p>Nuxt.js 是一个基于Vue.js 的轻量级应用框架，可用来创建服务端渲染(SSR) 应用，也可充当静态站点引擎生成静态站点应用，具有优雅的代码结构分层和热加载等balabala</p>
+</blockquote>
+
+<p>提到了一个词——服务端渲染，服务端渲染SSR（Server-Side Rendering）是什么？与之相对的是客户端渲染CSR（Client-Side Rendering）。
+单从字面来理解，服务端渲染，就是服务端来渲染；客户端渲染则是客户端渲染。（这话听着像句废话）</p>
+
+<h3 id="什么是服务端渲染和客户端渲染">什么是服务端渲染和客户端渲染<a href="#什么是服务端渲染和客户端渲染" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>服务端渲染（后端渲染） 简单来说就是在服务器上把数据和模板拼接好以后发送给客户端显示。</p>
+
+<p>客户端渲染（前端渲染） html 仅仅作为静态文件，客户端在请求时，服务端不做任何处理，直接以原文件的形式返回给客户端，然后客户端根据 html 上的 JavaScript，生成 DOM 插入 html。</p>
+
+<p>现在常用的SPA单页应用模式，就是典型的前端渲染。</p>
+
+<h3 id="两者的本质区别">两者的本质区别<a href="#两者的本质区别" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>两者本地的区别就是<strong>谁来完成html文件的完整拼接</strong>。如果在后端完成，然后返回给前端，那么就是服务端渲染；否则就是客户端渲染。</p>
+
+<h3 id="服务端渲染的优缺点">服务端渲染的优缺点<a href="#服务端渲染的优缺点" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<h4 id="优点">优点：<a href="#优点" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h4>
+
+<p>&emsp;1.不占用客户端资源，前端耗时少</p>
+
+<p>&emsp;2.有利于SEO</p>
+
+<h4 id="缺点">缺点：<a href="#缺点" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h4>
+
+<p>&emsp;1.占用服务端资源。如果请求量较多，会对服务器造成一定压力。</p>
+
+<p>&emsp;2.不利于前后端分离，开发效率较低。</p>
+
+<h3 id="客户端渲染的优缺点">客户端渲染的优缺点<a href="#客户端渲染的优缺点" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<h4 id="优点-1">优点：<a href="#优点-1" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h4>
+
+<p>&emsp;1.前后端分离。</p>
+
+<p>&emsp;2.体验更好，接近于原生app。</p>
+
+<h4 id="缺点-1">缺点：<a href="#缺点-1" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h4>
+
+<p>&emsp;1.前端响应较慢，首屏加载缓慢。</p>
+
+<p>&emsp;2.不利于SEO。</p>
+
+<h4 id="seo">SEO<a href="#seo" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h4>
+
+<p>后端渲染html叫吐或者喷，爬虫可以看到完整的呈现源码
+前端模板渲染html叫填，爬虫看不到完整的呈现源码</p>
+
+<p><img src="https://blog-pics.pek3b.qingstor.com/006tNbRwly1fxuug2d9gwj316o0gcmy8.jpg" alt="" /></p>
+
+<h3 id="如何选择">如何选择<a href="#如何选择" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>不谈业务场景而盲目选择使用何种渲染方式都是耍流氓。比如企业级网站，主要功能是展示而没有复杂的交互，并且需要良好的SEO，则这时我们就需要使用服务器端渲染；而类似后台管理页面，交互性比较强，不需要seo的考虑，那么就可以使用客户端渲染。</p>
+
+<p>另外，具体使用何种渲染方法并不是绝对的，比如现在一些网站采用了首屏服务器端渲染，即对于用户最开始打开的那个页面采用的是服务器端渲染，这样就保证了渲染速度，而其他的页面采用客户端渲染，这样就完成了前后端分离。</p>
+
+<h3 id="写在最后">写在最后<a href="#写在最后" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<blockquote>
+<p>2016 年 10 月 25 日，zeit.co 背后的团队对外发布了 Next.js，一个 React 的服务端渲染应用框架。几小时后，与 Next.js 异曲同工，一个基于 Vue.js 的服务端渲染应用框架应运而生，我们称之为：Nuxt.js。</p>
+</blockquote>
+
+<p>随着Next.js和Nuxt.js的发布，<strong>以前是 Back-end（或者说 Full-stack）工程师负责 SSR，但是现在是 Front-end 工程师负责 SSR 了啊。</strong></p>
+
+<p>参考文章：</p>
+
+<p><a href="https://www.cnblogs.com/zhuzhenwei918/p/8795945.html">服务器端渲染和客户端渲染</a></p>
+
+<p><a href="https://www.jianshu.com/p/3e62641eb381">也谈服务端渲染（SSR）</a></p>
+
+<p><a href="https://jkchao.cn/article/5a11155fb520d115154c8fa1">服务端渲染 vs 客户端渲染</a></p>
+
+<p><a href="https://www.zhihu.com/question/59578433">为什么现在又流行服务端渲染html？-知乎</a></p>
+
+<p><a href="https://blog.csdn.net/b9q8e64lo6mm/article/details/79418969">为什么现在又流行服务器端渲染html？</a></p>
+
+			</div>
+			<hr class="post-end">
+			<footer class="post-info">
+				<p>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://caychance.github.io/tags/ssr">ssr</a></span><span class="tag"><a href="https://caychance.github.io/tags/csr">csr</a></span>
+				</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>75 Words</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2018-12-02 22:25 &#43;0000</p>
+			</footer>
+		</article>
+		<div class="post-nav thin">
+			<a class="next-post" href="https://caychance.github.io/posts/github%E6%B2%A1%E6%9C%89%E8%AE%B0%E5%BD%95%E4%BD%A0%E7%9A%84contributions/">
+				<span class="post-nav-label"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>&nbsp;Newer</span><br><span>github没有记录你的contributions?</span>
+			</a>
+			<a class="prev-post" href="https://caychance.github.io/posts/%E8%B7%A8%E5%9F%9F/">
+				<span class="post-nav-label">Older&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span><br><span>跨域</span>
+			</a>
+		</div>
+		<div id="comments" class="thin">
+</div>
+	</main>
+
+	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
+		<p>&copy; 2019 <a href="https://caychance.github.io">CayChance</a> &#183; <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></p>
+		<p>
+			Made with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &#183; Theme <a href="https://github.com/Track3/hermit" target="_blank" rel="noopener">Hermit</a> &#183; <a href="https://caychance.github.io/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a>
+		</p>
+	</footer>
+
+
+	<script src="https://caychance.github.io/js/main.min.35ccbf1cdceb91e4c64c06b5d009d6e2977fafe56beda7762febd4e67528d2ac.js" integrity="sha256-Ncy/HNzrkeTGTAa10AnW4pd/r+Vr7ad2L+vU5nUo0qw="></script>
+
+</body>
+
+</html>

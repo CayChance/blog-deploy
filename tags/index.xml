@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on CayChance の Blog</title>
+    <link>https://caychance.github.io/tags/</link>
+    <description>Recent content in Tags on CayChance の Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Tue, 27 Nov 2018 18:20:25 +0000</lastBuildDate>
+    
+	<atom:link href="https://caychance.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Async/Await</title>
+      <link>https://caychance.github.io/tags/async-await/</link>
+      <pubDate>Tue, 27 Nov 2018 18:20:25 +0000</pubDate>
+      
+      <guid>https://caychance.github.io/tags/async-await/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Bfc</title>
+      <link>https://caychance.github.io/tags/bfc/</link>
+      <pubDate>Fri, 11 Jan 2019 20:31:59 +0000</pubDate>
+      
+      <guid>https://caychance.github.io/tags/bfc/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Bug</title>
+      <link>https://caychance.github.io/tags/bug/</link>
+      <pubDate>Fri, 18 Jan 2019 21:14:12 +0000</pubDate>
+      
+      <guid>https://caychance.github.io/tags/bug/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Csr</title>
+      <link>https://caychance.github.io/tags/csr/</link>
+      <pubDate>Sun, 02 Dec 2018 22:25:08 +0000</pubDate>
+      
+      <guid>https://caychance.github.io/tags/csr/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Css</title>
+      <link>https://caychance.github.io/tags/css/</link>
+      <pubDate>Thu, 13 Jun 2019 19:54:06 +0800</pubDate>
+      
+      <guid>https://caychance.github.io/tags/css/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Diff算法</title>
+      <link>https://caychance.github.io/tags/diff%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Tue, 02 Apr 2019 19:08:09 +0000</pubDate>
+      
+      <guid>https://caychance.github.io/tags/diff%E7%AE%97%E6%B3%95/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Docker</title>
+      <link>https://caychance.github.io/tags/docker/</link>
+      <pubDate>Wed, 06 Mar 2019 19:26:50 +0000</pubDate>
+      
+      <guid>https://caychance.github.io/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Es6</title>
+      <link>https://caychance.github.io/tags/es6/</link>
+      <pubDate>Fri, 30 Nov 2018 10:58:47 +0000</pubDate>
+      
+      <guid>https://caychance.github.io/tags/es6/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Event Loop</title>
+      <link>https://caychance.github.io/tags/event-loop/</link>
+      <pubDate>Thu, 06 Dec 2018 15:45:40 +0000</pubDate>
+      
+      <guid>https://caychance.github.io/tags/event-loop/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Flex</title>
+      <link>https://caychance.github.io/tags/flex/</link>
+      <pubDate>Wed, 28 Nov 2018 17:06:01 +0000</pubDate>
+      
+      <guid>https://caychance.github.io/tags/flex/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

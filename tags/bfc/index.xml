@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Bfc on CayChance の Blog</title>
+    <link>https://caychance.github.io/tags/bfc/</link>
+    <description>Recent content in Bfc on CayChance の Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Fri, 11 Jan 2019 20:31:59 +0000</lastBuildDate>
+    
+	<atom:link href="https://caychance.github.io/tags/bfc/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>BFC</title>
+      <link>https://caychance.github.io/posts/bfc/</link>
+      <pubDate>Fri, 11 Jan 2019 20:31:59 +0000</pubDate>
+      
+      <guid>https://caychance.github.io/posts/bfc/</guid>
+      <description>BFC是什么 前几天被人问到了BFC，一脸懵逼。赶紧看看，简单总结一下。
+概念：  BFC 即 Block Formatting Contexts (块级格式化上下文)，它属于普通流。
+ PS:区别于普通流，常见的还有浮动（float），绝对定位（absolute）
+具有 BFC 特性的元素可以看作是隔离了的独立容器，容器里面的元素不会在布局上影响到外面的元素，并且 BFC 具有普通容器所没有的一些特性。
+BFC的特性：  同一个BFC中的margin会重叠 浮动的元素会脱离普通文档流，但是BFC却可以包含浮动的元素，即消除浮动。 BFC可以阻止元素被浮动元素覆盖。  如何触发BFC：(PS：满足一下任一条件即可触发)  body根元素 浮动元素：float除none以外的值 绝对定位元素：position 等于absolute或者fixed display等于 inline-block、table-cells、flex overflow等于除了 visible 以外的值 (hidden、auto、scroll) 类似函数作用域。  参考链接-10 分钟理解 BFC 原理</description>
+    </item>
+    
+  </channel>
+</rss>

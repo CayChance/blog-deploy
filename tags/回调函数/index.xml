@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>回调函数 on CayChance の Blog</title>
+    <link>https://caychance.github.io/tags/%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0/</link>
+    <description>Recent content in 回调函数 on CayChance の Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Tue, 27 Nov 2018 18:20:25 +0000</lastBuildDate>
+    
+	<atom:link href="https://caychance.github.io/tags/%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>异步编程的前世今生</title>
+      <link>https://caychance.github.io/posts/%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A/</link>
+      <pubDate>Tue, 27 Nov 2018 18:20:25 +0000</pubDate>
+      
+      <guid>https://caychance.github.io/posts/%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A/</guid>
+      <description>问题起源  因为JS只有一根线程，因此异步编程对JS很重要。  目的  异步编程的语法目标，就是怎样让它更像同步编程。  很久很久以前 异步编程的方法有四种：
+ 回调函数； 事件监听； 发布/订阅； Promise对象。  回调函数的故事：  概念 JS对异步编程的实现就是回调函数。所谓回调函数，就是把任务的第二段单独写在一个函数里面，等到重新执行这个任务的时候，就直接调用这个函数。 局限性 回调函数本身没有问题，但是多个回调函数嵌套的时候就会有问题。会导致代码横向发展，而不是纵向发展。称之为回调地狱。 解决之道 为了解决该问题，Promise诞生了，它不是新的语法功能，而是一种新的写法，允许将回调函数的横向加载改为纵向加载。 改进的地方 Promise 的写法只是回调函数的改进，使用then方法以后，异步任务的两段执行看得更清楚了，除此以外，并无新意。 新面临的问题 然后，Promise也面临一个巨大的问题，代码冗余，原来的任务被Promise包装一下，一眼看去都是一堆then，语义变的不清楚。   协程的故事  概念 传统的编程语言，早有异步编程的解决方案（其实是多任务的解决方案）。其中有一种叫做&amp;rdquo;协程&amp;rdquo;（coroutine），意思是多个线程互相协作，完成异步任务。
+ 本质 协程的终极奥义就在于yield命令，它表示执行到此处，执行权将交给其他协程。即yield命令是异步两个阶段的分界线。
+ 协程在ES6中的衍生及其特点 于是乎，Generator函数诞生了。它是协程在ES6中的实现，其最大特点就是可以交出函数的执行权，即暂停执行。整个 Generator 函数就是一个封装的异步任务，或者说是异步任务的容器。异步操作需要暂停的地方，都用 yield 语句注明。
+ Generator的另外两个特性 Generator 函数可以暂停执行和恢复执行，这是它能封装异步任务的根本原因。除此之外，它还有两个特性，使它可以作为异步编程的完整解决方案：函数体内外的数据交换和错误处理机制。
+ 函数体内外数据交换 next 方法返回值的 value 属性，是 Generator 函数向外输出数据；next 方法还可以接受参数，这是向 Generator 函数体内输入数据。
+ 错误处理机制 Generator 函数内部还可以部署错误处理代码，捕获函数体外抛出的错误。
+ Generator函数的局限：
+ 不能自动执行
+ 程序的执行权移出以后，需要再次交换回来。</description>
+    </item>
+    
+  </channel>
+</rss>

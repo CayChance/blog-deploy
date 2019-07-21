@@ -1,0 +1,1265 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Posts on CayChance の Blog</title>
+		<link>https://caychance.github.io/posts/</link>
+		<description>Recent content in Posts on CayChance の Blog</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+		<lastBuildDate>Mon, 15 Jul 2019 20:25:14 +0800</lastBuildDate>
+		<atom:link href="https://caychance.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>Socket</title>
+			<link>https://caychance.github.io/posts/socket/</link>
+			<pubDate>Mon, 15 Jul 2019 20:25:14 +0800</pubDate>
+			
+			<guid>https://caychance.github.io/posts/socket/</guid>
+			<description>test blog
+之前在做业务的时候，有一种情况，前端需要写一个定时器，每个2秒去请求一遍后台的接口，这样子做其实很耗费性能的，现在计划改成使用socket的形式。
+其实之前就简单了解一下WebSocket的基本概念，并没有深入的去做过。此处并不会记录一些基本的概念，而且介绍在实际的业务中，如何使用现成的工具去处理。
+sockjs-client和stompjs sockjs-client和stompjs是两个现成的库，配合使用，可以帮助我们省很多事情。这样子的不好的地方也很明显，开发变得只是去使用现成的库。
+/** * 背景：由于业务需求，多个模块需要每隔2s去轮询一下接口 * 方案：使用socket来通讯，可避免前端耗费性能的去轮询接口 */ import SockJS from &amp;#34;sockjs-client&amp;#34;; import Stomp from &amp;#34;stompjs&amp;#34;; import Bus from &amp;#34;./bus&amp;#34;; let socket = {}; let stompClient = null; // 建立通讯地址 const DefaultConnectUrl = &amp;#34;http://xxx.com/endpointWisely&amp;#34;; const SubscribePath = &amp;#34;/topic/pod1&amp;#34; /** * connect 建立连接 */ socket.connect = () =&amp;gt; { // 声明一个stomp客户端  stompClient = Stomp.over(new SockJS(DefaultConnectUrl)); // stomp客户端建立通讯  stompClient.connect({}, frame =&amp;gt; { // stomp订阅  stompClient.</description>
+			<content type="html"><![CDATA[
+
+<hr />
+
+<p>test blog</p>
+
+<p>之前在做业务的时候，有一种情况，前端需要写一个定时器，每个2秒去请求一遍后台的接口，这样子做其实很耗费性能的，现在计划改成使用socket的形式。</p>
+
+<p>其实之前就简单了解一下WebSocket的基本概念，并没有深入的去做过。此处并不会记录一些基本的概念，而且介绍在实际的业务中，如何使用现成的工具去处理。</p>
+
+<h3 id="sockjs-client和stompjs">sockjs-client和stompjs</h3>
+
+<p>sockjs-client和stompjs是两个现成的库，配合使用，可以帮助我们省很多事情。这样子的不好的地方也很明显，开发变得只是去使用现成的库。</p>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="cm">/**
+</span><span class="cm"> * 背景：由于业务需求，多个模块需要每隔2s去轮询一下接口
+</span><span class="cm"> * 方案：使用socket来通讯，可避免前端耗费性能的去轮询接口
+</span><span class="cm"> */</span>
+
+<span class="k">import</span> <span class="nx">SockJS</span> <span class="nx">from</span> <span class="s2">&#34;sockjs-client&#34;</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">Stomp</span> <span class="nx">from</span> <span class="s2">&#34;stompjs&#34;</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">Bus</span> <span class="nx">from</span> <span class="s2">&#34;./bus&#34;</span><span class="p">;</span>
+
+
+<span class="kd">let</span> <span class="nx">socket</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="kd">let</span> <span class="nx">stompClient</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+<span class="c1">// 建立通讯地址
+</span><span class="c1"></span><span class="k">const</span> <span class="nx">DefaultConnectUrl</span> <span class="o">=</span> <span class="s2">&#34;http://xxx.com/endpointWisely&#34;</span><span class="p">;</span>
+<span class="k">const</span> <span class="nx">SubscribePath</span> <span class="o">=</span> <span class="s2">&#34;/topic/pod1&#34;</span>
+
+<span class="cm">/**
+</span><span class="cm"> * connect 建立连接
+</span><span class="cm"> */</span>
+<span class="nx">socket</span><span class="p">.</span><span class="nx">connect</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="c1">// 声明一个stomp客户端
+</span><span class="c1"></span>  <span class="nx">stompClient</span> <span class="o">=</span> <span class="nx">Stomp</span><span class="p">.</span><span class="nx">over</span><span class="p">(</span><span class="k">new</span> <span class="nx">SockJS</span><span class="p">(</span><span class="nx">DefaultConnectUrl</span><span class="p">));</span>
+  <span class="c1">// stomp客户端建立通讯
+</span><span class="c1"></span>  <span class="nx">stompClient</span><span class="p">.</span><span class="nx">connect</span><span class="p">({},</span> <span class="nx">frame</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// stomp订阅
+</span><span class="c1"></span>    <span class="nx">stompClient</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">SubscribePath</span><span class="p">,</span> <span class="nx">response</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="c1">// 使用Bus.$emit将订阅到的数据分发出去
+</span><span class="c1"></span>      <span class="nx">Bus</span><span class="p">.</span><span class="nx">$emit</span><span class="p">(</span><span class="s1">&#39;socketData&#39;</span><span class="p">,</span> <span class="nx">response</span><span class="p">);</span>
+    <span class="p">})</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="cm">/**
+</span><span class="cm"> * send 主动给后台发送消息
+</span><span class="cm"> * @param { Function } sendPath 
+</span><span class="cm"> * @param { Object } param
+</span><span class="cm"> * @param { Object } config
+</span><span class="cm"> */</span>
+<span class="nx">socket</span><span class="p">.</span><span class="nx">send</span> <span class="o">=</span> <span class="p">(</span><span class="nx">sendPath</span><span class="p">,</span> <span class="nx">param</span> <span class="o">=</span> <span class="p">{},</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{})</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">stompClient</span><span class="p">)</span> <span class="k">return</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;请先建立通讯&#39;</span><span class="p">);</span>
+  <span class="c1">// stomp主动发送消息
+</span><span class="c1"></span>  <span class="nx">stompClient</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">sendPath</span><span class="p">,</span> <span class="nx">config</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">param</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="cm">/**
+</span><span class="cm"> * disconnect 断开连接
+</span><span class="cm"> */</span>
+<span class="nx">socket</span><span class="p">.</span><span class="nx">disconnect</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">stompClient</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// stomp断开连接
+</span><span class="c1"></span>    <span class="nx">stompClient</span><span class="p">.</span><span class="nx">disconnect</span><span class="p">();</span>
+    <span class="nx">stompClient</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">socket</span><span class="p">;</span>
+</code></pre></div>
+<p>test</p>
+
+<h3 id="参考链接">参考链接</h3>
+
+<p><a href="http://www.ruanyifeng.com/blog/2017/05/websocket.html">WebSocket 教程</a></p>
+
+<p><a href="http://jmesnil.net/stomp-websocket/doc/">STOMP Over WebSocket</a></p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>PostMessage使用</title>
+			<link>https://caychance.github.io/posts/postmessage%E4%BD%BF%E7%94%A8/</link>
+			<pubDate>Thu, 11 Jul 2019 16:47:15 +0800</pubDate>
+			
+			<guid>https://caychance.github.io/posts/postmessage%E4%BD%BF%E7%94%A8/</guid>
+			<description>跨域的问题有一种postMessage的解决方案，之前也一直是听过但是没有用过。
+用法  发送消息:otherWindow.postMessage(message, targetOrigin, [transfer]); 接收消息:window.addEventListener(&amp;ldquo;message&amp;rdquo;, (event)=&amp;gt;{}, false); postMessage方法的入参:  message:要发送的数据 targetOrigin:数据接收方。设置为&amp;rsquo;*&amp;lsquo;，则不限制。不建议这么设置。 transfer:可选参数。是一串和message 同时传递的 Transferable 对象.这些对象的所有权将被转移给消息的接收方，而发送一方将不再保有所有权。  event对象的几个属性:  data:从其他窗口发送过来的消息对象 type:发型消息的类型 source:发送消息的窗口对象 origin:发送消息的窗口的源   举个栗子🌰 下面的写了一个小demo，page one (http://10.161.114.80:8080/index.html/#/test) 和page two (http://10.161.114.80:8082/index.html/#/test)。
+ page one在mounted的时候，新打开了一个窗口，然后8秒后了一条消息给page two； page one在mounted的时候，监听postMessage回来的消息；并判断如果当前发消息的窗口对象，不是当前窗口对象(window)的话，就发送一条消息给page two。 page two在mounted的时候，监听postMessage回来的消息。 page two在mounted的时候，发送一个消息给page one。  //page one &amp;lt;template&amp;gt; &amp;lt;div&amp;gt; &amp;lt;h3&amp;gt;page one&amp;lt;/h3&amp;gt; &amp;lt;input v-model=&amp;#34;message&amp;#34; placeholder=&amp;#34;edit me&amp;#34; /&amp;gt; &amp;lt;button @click=&amp;#34;handleClick&amp;#34;&amp;gt;sendMessage&amp;lt;/button&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/template&amp;gt; &amp;lt;script&amp;gt; export default { data() { return { message: &amp;#34;&amp;#34;, popup: null }; }, methods: { /** * 打开新窗口 */ openWindow() { this.</description>
+			<content type="html"><![CDATA[
+
+<hr />
+
+<p>跨域的问题有一种postMessage的解决方案，之前也一直是听过但是没有用过。</p>
+
+<h3 id="用法">用法</h3>
+
+<ul>
+<li>发送消息:otherWindow.postMessage(message, targetOrigin, [transfer]);</li>
+<li>接收消息:window.addEventListener(&ldquo;message&rdquo;, (event)=&gt;{}, false);</li>
+<li>postMessage方法的入参:
+
+<ul>
+<li>message:要发送的数据</li>
+<li>targetOrigin:数据接收方。设置为&rsquo;*&lsquo;，则不限制。不建议这么设置。</li>
+<li>transfer:可选参数。是一串和message 同时传递的 Transferable 对象.这些对象的所有权将被转移给消息的接收方，而发送一方将不再保有所有权。</li>
+</ul></li>
+<li>event对象的几个属性:
+
+<ul>
+<li>data:从其他窗口发送过来的消息对象</li>
+<li>type:发型消息的类型</li>
+<li>source:发送消息的窗口对象</li>
+<li>origin:发送消息的窗口的源</li>
+</ul></li>
+</ul>
+
+<h3 id="举个栗子">举个栗子🌰</h3>
+
+<p>下面的写了一个小demo，page one (<a href="http://10.161.114.80:8080/index.html/#/test">http://10.161.114.80:8080/index.html/#/test</a>) 和page two (<a href="http://10.161.114.80:8082/index.html/#/test)。">http://10.161.114.80:8082/index.html/#/test)。</a></p>
+
+<ol>
+<li>page one在mounted的时候，新打开了一个窗口，然后8秒后了一条消息给page two；</li>
+<li>page one在mounted的时候，监听postMessage回来的消息；并判断如果当前发消息的窗口对象，不是当前窗口对象(window)的话，就发送一条消息给page two。</li>
+<li>page two在mounted的时候，监听postMessage回来的消息。</li>
+<li>page two在mounted的时候，发送一个消息给page one。</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">//page one
+</span><span class="c1"></span><span class="o">&lt;</span><span class="nx">template</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">h3</span><span class="o">&gt;</span><span class="nx">page</span> <span class="nx">one</span><span class="o">&lt;</span><span class="err">/h3&gt;</span>
+    <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">v</span><span class="o">-</span><span class="nx">model</span><span class="o">=</span><span class="s2">&#34;message&#34;</span> <span class="nx">placeholder</span><span class="o">=</span><span class="s2">&#34;edit me&#34;</span> <span class="err">/&gt;</span>
+    <span class="o">&lt;</span><span class="nx">button</span> <span class="err">@</span><span class="nx">click</span><span class="o">=</span><span class="s2">&#34;handleClick&#34;</span><span class="o">&gt;</span><span class="nx">sendMessage</span><span class="o">&lt;</span><span class="err">/button&gt;</span>
+  <span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="o">&lt;</span><span class="err">/template&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="nx">message</span><span class="o">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+      <span class="nx">popup</span><span class="o">:</span> <span class="kc">null</span>
+    <span class="p">};</span>
+  <span class="p">},</span>
+  <span class="nx">methods</span><span class="o">:</span> <span class="p">{</span>
+    <span class="cm">/**
+</span><span class="cm">     * 打开新窗口
+</span><span class="cm">     */</span>
+    <span class="nx">openWindow</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">popup</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span>
+        <span class="s2">&#34;http://10.161.114.80:8082/index.html/#/test&#34;</span><span class="p">,</span>
+        <span class="s2">&#34;title&#34;</span>
+      <span class="p">);</span>
+      <span class="nx">setTimeout</span><span class="p">(()=&gt;{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">sendMess</span><span class="p">(</span><span class="s2">&#34;Hello World!&#34;</span><span class="p">);</span>
+      <span class="p">},</span><span class="mi">8000</span><span class="p">)</span>
+    <span class="p">},</span>
+
+    <span class="cm">/**
+</span><span class="cm">     * 使用postMessage发送消息
+</span><span class="cm">     */</span>
+    <span class="nx">sendMess</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">popup</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span>
+        <span class="nx">message</span><span class="p">,</span>
+        <span class="s2">&#34;http://10.161.114.80:8082/index.html/#/test&#34;</span>
+      <span class="p">);</span>
+    <span class="p">},</span>
+
+    <span class="cm">/**
+</span><span class="cm">     * 点击按钮 发送消息
+</span><span class="cm">     */</span>
+    <span class="nx">handleClick</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">message</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">sendMess</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+    <span class="p">},</span>
+
+    <span class="cm">/**
+</span><span class="cm">     * 接收消息
+</span><span class="cm">     */</span>
+    <span class="nx">receiveMess</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span>
+        <span class="s2">&#34;message&#34;</span><span class="p">,</span>
+        <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+          <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">source</span> <span class="o">!=</span> <span class="nb">window</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// 如果当前source不是window(当前窗口)的话，再发送一条消息出去
+</span><span class="c1"></span>            <span class="nx">e</span><span class="p">.</span><span class="nx">source</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span>
+              <span class="s2">&#34;hello cc&#34;</span><span class="p">,</span>
+              <span class="s2">&#34;http://10.161.114.80:8082/index.html/#/test&#34;</span>
+            <span class="p">);</span>
+          <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="kc">false</span>
+      <span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nx">mounted</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">openWindow</span><span class="p">();</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">receiveMess</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+
+<span class="c1">//page two 
+</span><span class="c1"></span><span class="o">&lt;</span><span class="nx">template</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">h3</span><span class="o">&gt;</span><span class="nx">page</span> <span class="nx">two</span><span class="o">&lt;</span><span class="err">/h3&gt;</span>
+    <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">v</span><span class="o">-</span><span class="nx">model</span><span class="o">=</span><span class="s2">&#34;message&#34;</span> <span class="nx">placeholder</span><span class="o">=</span><span class="s2">&#34;edit me&#34;</span> <span class="err">/&gt;</span>
+    <span class="o">&lt;</span><span class="nx">button</span> <span class="err">@</span><span class="nx">click</span><span class="o">=</span><span class="s2">&#34;handleClick&#34;</span><span class="o">&gt;</span><span class="nx">sendMessage</span><span class="o">&lt;</span><span class="err">/button&gt;</span>
+  <span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="o">&lt;</span><span class="err">/template&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="nx">message</span><span class="o">:</span> <span class="s2">&#34;&#34;</span>
+    <span class="p">};</span>
+  <span class="p">},</span>
+  <span class="nx">methods</span><span class="o">:</span> <span class="p">{</span>
+    <span class="cm">/**
+</span><span class="cm">     * 点击按钮 发送消息
+</span><span class="cm">     */</span>
+    <span class="nx">handleClick</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">message</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">sendMess</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+    <span class="p">},</span>
+
+    <span class="cm">/**
+</span><span class="cm">     * 使用postMessage发送消息
+</span><span class="cm">     */</span>
+    <span class="nx">sendMess</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nb">window</span><span class="p">.</span><span class="nx">opener</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span>
+        <span class="nx">message</span><span class="p">,</span>
+        <span class="s2">&#34;http://10.161.114.80:8080/index.html/#/test&#34;</span>
+      <span class="p">);</span>
+    <span class="p">},</span>
+
+    <span class="cm">/**
+</span><span class="cm">     * 接收消息
+</span><span class="cm">     */</span>
+    <span class="nx">receive</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span>
+        <span class="s2">&#34;message&#34;</span><span class="p">,</span>
+        <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+        <span class="p">},</span>
+        <span class="kc">false</span>
+      <span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nx">mounted</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">receive</span><span class="p">();</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">sendMess</span><span class="p">(</span><span class="s2">&#34;Nice to see you&#34;</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+</code></pre></div>
+<h3 id="postmessage的应用场景">postMessage的应用场景</h3>
+
+<p>最近在看之前同事留下来的代码，其中有一个功能大量用到postMessage。</p>
+
+<p>postMessage常用于两个页面之间通讯。或者页面中引入了iframe，想让当前页面和iframe窗口页面进行通讯。可以使用postMessage。应用场景就是，一般不依赖后台服务，就单纯的前端页面之间的交互。</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Vue组件间通信的方式总结</title>
+			<link>https://caychance.github.io/posts/vue%E7%BB%84%E4%BB%B6%E9%97%B4%E9%80%9A%E4%BF%A1%E7%9A%84%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93/</link>
+			<pubDate>Fri, 05 Jul 2019 18:48:17 +0800</pubDate>
+			
+			<guid>https://caychance.github.io/posts/vue%E7%BB%84%E4%BB%B6%E9%97%B4%E9%80%9A%E4%BF%A1%E7%9A%84%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93/</guid>
+			<description>Vue组件之间通讯的常见方法总结
+1. props/$emit 最常用的一种方法。
+ 父组件传值给子组件  子组件中通过声明props传递itemList，父组件引入子组件以后，传入itemList为fruitList
+ 子组件传值给父组件  子组件中传递值通过$emit的第二个参数。父组件接受值通过声明方法addItem，并获取其中的参数。
+// 父组件 &amp;lt;template&amp;gt; &amp;lt;div class=&amp;#34;test&amp;#34;&amp;gt; &amp;lt;h3&amp;gt;this is parents page&amp;lt;/h3&amp;gt; &amp;lt;cChildA v-on:changeItemList=&amp;#39;addItem&amp;#39; v-bind:itemList=&amp;#34;fruitList&amp;#34; /&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/template&amp;gt; &amp;lt;script&amp;gt; import cChildA from &amp;#34;./a&amp;#34;; export default { data() { return { fruitList: [&amp;#34;peach&amp;#34;, &amp;#34;banana&amp;#34;, &amp;#34;lemon&amp;#34;] }; }, methods:{ addItem(item){ console.log(item); } }, components: { cChildA } }; //子组件 &amp;lt;template&amp;gt; &amp;lt;div&amp;gt; &amp;lt;h3&amp;gt;{{childTitle}}&amp;lt;/h3&amp;gt; &amp;lt;ul&amp;gt; &amp;lt;li v-on:click=&amp;#34;changeItemList&amp;#34; v-for=&amp;#34;(item,index) in itemList&amp;#34; v-bind:key=&amp;#34;index&amp;#34;&amp;gt;{{item}}&amp;lt;/li&amp;gt; &amp;lt;/ul&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/template&amp;gt; &amp;lt;script&amp;gt; export default { props: { itemList: { type: Array } }, data() { return { childTitle: `this is child page` }; }, methods: { changeItemList() { this.</description>
+			<content type="html"><![CDATA[
+
+<hr />
+
+<p>Vue组件之间通讯的常见方法总结</p>
+
+<h3 id="1-props-emit">1. props/$emit</h3>
+
+<p>最常用的一种方法。</p>
+
+<ul>
+<li>父组件传值给子组件</li>
+</ul>
+
+<p>子组件中通过声明<code>props</code>传递<code>itemList</code>，父组件引入子组件以后，传入<code>itemList</code>为<code>fruitList</code></p>
+
+<ul>
+<li>子组件传值给父组件</li>
+</ul>
+
+<p>子组件中传递值通过<code>$emit</code>的第二个参数。父组件接受值通过声明方法<code>addItem</code>，并获取其中的参数。</p>
+<div class="highlight"><pre class="chroma"><code class="language-JavaScript" data-lang="JavaScript"><span class="c1">// 父组件
+</span><span class="c1"></span><span class="o">&lt;</span><span class="nx">template</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">div</span> <span class="k">class</span><span class="o">=</span><span class="s2">&#34;test&#34;</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">h3</span><span class="o">&gt;</span><span class="k">this</span> <span class="nx">is</span> <span class="nx">parents</span> <span class="nx">page</span><span class="o">&lt;</span><span class="err">/h3&gt;</span>
+    <span class="o">&lt;</span><span class="nx">cChildA</span> <span class="nx">v</span><span class="o">-</span><span class="nx">on</span><span class="o">:</span><span class="nx">changeItemList</span><span class="o">=</span><span class="s1">&#39;addItem&#39;</span> <span class="nx">v</span><span class="o">-</span><span class="nx">bind</span><span class="o">:</span><span class="nx">itemList</span><span class="o">=</span><span class="s2">&#34;fruitList&#34;</span> <span class="err">/&gt;</span>
+  <span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="o">&lt;</span><span class="err">/template&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+<span class="k">import</span> <span class="nx">cChildA</span> <span class="nx">from</span> <span class="s2">&#34;./a&#34;</span><span class="p">;</span>
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="nx">fruitList</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;peach&#34;</span><span class="p">,</span> <span class="s2">&#34;banana&#34;</span><span class="p">,</span> <span class="s2">&#34;lemon&#34;</span><span class="p">]</span>
+    <span class="p">};</span>
+  <span class="p">},</span>
+  <span class="nx">methods</span><span class="o">:</span><span class="p">{</span>
+    <span class="nx">addItem</span><span class="p">(</span><span class="nx">item</span><span class="p">){</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">item</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nx">components</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">cChildA</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="c1">//子组件
+</span><span class="c1"></span><span class="o">&lt;</span><span class="nx">template</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">h3</span><span class="o">&gt;</span><span class="p">{{</span><span class="nx">childTitle</span><span class="p">}}</span><span class="o">&lt;</span><span class="err">/h3&gt;</span>
+    <span class="o">&lt;</span><span class="nx">ul</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">li</span> <span class="nx">v</span><span class="o">-</span><span class="nx">on</span><span class="o">:</span><span class="nx">click</span><span class="o">=</span><span class="s2">&#34;changeItemList&#34;</span> <span class="nx">v</span><span class="o">-</span><span class="k">for</span><span class="o">=</span><span class="s2">&#34;(item,index) in itemList&#34;</span> <span class="nx">v</span><span class="o">-</span><span class="nx">bind</span><span class="o">:</span><span class="nx">key</span><span class="o">=</span><span class="s2">&#34;index&#34;</span><span class="o">&gt;</span><span class="p">{{</span><span class="nx">item</span><span class="p">}}</span><span class="o">&lt;</span><span class="err">/li&gt;</span>
+    <span class="o">&lt;</span><span class="err">/ul&gt;</span>
+  <span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="o">&lt;</span><span class="err">/template&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">props</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">itemList</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="nb">Array</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="nx">childTitle</span><span class="o">:</span> <span class="sb">`this is child page`</span>
+    <span class="p">};</span>
+  <span class="p">},</span>
+  <span class="nx">methods</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">changeItemList</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">$emit</span><span class="p">(</span><span class="s2">&#34;changeItemList&#34;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">childTitle</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+</code></pre></div>
+<h3 id="2-vuex">2. Vuex</h3>
+
+<blockquote>
+<p>Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。它采用集中式存储管理应用的所有组件的状态，并以相应的规则保证状态以一种可预测的方式发生变化。</p>
+</blockquote>
+
+<p>在网上看到有人把这个也归类到Vue组件间通信的方法。这么说肯定没错的哈。但是看一下Vuex的定义，它是Vue中用来管理所有组件的状态的。它都可以用于管理所有组件的状态了，父子组件之间肯定可以使用它进行通讯。杀鸡焉用牛刀，所以该方法并不适用父子组件通讯这个场景。</p>
+
+<p>具体使用方法就不详细说了，具体可以参考看一下<a href="https://vuex.vuejs.org/zh/">Vuex文档</a>。</p>
+
+<p>平时使用Vuex的时候，需要注意的一个问题，是Vuex的数据不是持久化的，也就是说，页面刷新，或者跳转到第三方页面的时候，Vuex中的数据会清空，所以一般都会配套使用<a href="https://github.com/robinvdvleuten/vuex-persistedstate">vuex-persistedstate</a>。</p>
+
+<h3 id="3-emit-on">3. $emit/$on</h3>
+
+<p>该方法的思路是通过一个空的Vue实例作为事件中心，用来触发事件和监听事件。</p>
+
+<p>假设index页面引入了a，b，c三个组件。a和b组件需要传值给c组件。bus.js就是new了一个空的Vue并暴露出来。</p>
+
+<p>这个方法之前没有接触过，所以就详细的写出来具体的用法。总结一下：</p>
+
+<ul>
+<li>使用<strong>一个</strong>空的Vue实例作为中央事件总线(事件中心)</li>
+<li>把事件暴露出去使用 <code>Bus.$emit(&quot;event-name&quot;, this.data);</code>，就可以把<code>this.data</code>暴露出去</li>
+<li>接收方接受数据使用<code>Bus.$on(&quot;event-name&quot;, data =&gt; {this.data = data;});</code></li>
+<li>暴露和接受方法使用的<code>event-name</code>相同即可</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">//index.vue
+</span><span class="c1"></span><span class="o">&lt;</span><span class="nx">template</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">div</span> <span class="k">class</span><span class="o">=</span><span class="s2">&#34;test&#34;</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">h3</span><span class="o">&gt;</span><span class="k">this</span> <span class="nx">is</span> <span class="nx">parents</span> <span class="nx">page</span><span class="o">&lt;</span><span class="err">/h3&gt;</span>
+    <span class="o">&lt;</span><span class="nx">c</span><span class="o">-</span><span class="nx">child</span><span class="o">-</span><span class="nx">a</span><span class="o">&gt;&lt;</span><span class="err">/c-child-a&gt;</span>
+    <span class="o">&lt;</span><span class="nx">c</span><span class="o">-</span><span class="nx">child</span><span class="o">-</span><span class="nx">b</span><span class="o">&gt;&lt;</span><span class="err">/c-child-b&gt;</span>
+    <span class="o">&lt;</span><span class="nx">c</span><span class="o">-</span><span class="nx">child</span><span class="o">-</span><span class="nx">c</span><span class="o">&gt;&lt;</span><span class="err">/c-child-c&gt;</span>
+  <span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="o">&lt;</span><span class="err">/template&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+<span class="k">import</span> <span class="nx">cChildA</span> <span class="nx">from</span> <span class="s2">&#34;./a&#34;</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">cChildB</span> <span class="nx">from</span> <span class="s2">&#34;./b&#34;</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">cChildC</span> <span class="nx">from</span> <span class="s2">&#34;./c&#34;</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+    <span class="p">};</span>
+  <span class="p">},</span>
+  <span class="nx">methods</span><span class="o">:</span><span class="p">{</span>
+    
+  <span class="p">},</span>
+  <span class="nx">components</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">cChildA</span><span class="p">,</span>
+    <span class="nx">cChildB</span><span class="p">,</span>
+    <span class="nx">cChildC</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+
+<span class="c1">// a.vue
+</span><span class="c1"></span><span class="o">&lt;</span><span class="nx">template</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">h3</span><span class="o">&gt;</span><span class="nx">A组件</span><span class="p">{{</span><span class="nx">name</span><span class="p">}}</span><span class="o">&lt;</span><span class="err">/h3&gt;</span>
+    <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">v</span><span class="o">-</span><span class="nx">on</span><span class="o">:</span><span class="nx">click</span><span class="o">=</span><span class="s2">&#34;send&#34;</span><span class="o">&gt;</span><span class="nx">传值给C</span><span class="o">&lt;</span><span class="err">/button&gt;</span>
+  <span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="o">&lt;</span><span class="err">/template&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+<span class="k">import</span> <span class="nx">Bus</span> <span class="nx">from</span> <span class="s1">&#39;./bus&#39;</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Chance&#39;</span>
+    <span class="p">};</span>
+  <span class="p">},</span>
+  <span class="nx">methods</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">send</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">Bus</span><span class="p">.</span><span class="nx">$emit</span><span class="p">(</span><span class="s2">&#34;com-a&#34;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">style</span> <span class="nx">scoped</span><span class="o">&gt;</span>
+<span class="nx">button</span><span class="p">{</span>
+  <span class="nx">width</span><span class="o">:</span> <span class="mi">100</span><span class="nx">px</span><span class="p">;</span>
+  <span class="nx">height</span><span class="o">:</span> <span class="mi">20</span><span class="nx">px</span><span class="p">;</span>
+  <span class="nx">border</span><span class="o">-</span><span class="nx">radius</span><span class="o">:</span> <span class="mi">10</span><span class="nx">px</span><span class="p">;</span>
+  <span class="nx">padding</span><span class="o">:</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="o">&lt;</span><span class="err">/style&gt;</span>
+
+<span class="c1">// b.vue
+</span><span class="c1"></span><span class="o">&lt;</span><span class="nx">template</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">h3</span><span class="o">&gt;</span><span class="nx">B组件</span><span class="p">{{</span><span class="nx">age</span><span class="p">}}</span><span class="o">&lt;</span><span class="err">/h3&gt;</span>
+    <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">v</span><span class="o">-</span><span class="nx">on</span><span class="o">:</span><span class="nx">click</span><span class="o">=</span><span class="s2">&#34;send&#34;</span><span class="o">&gt;</span><span class="nx">传值给C</span><span class="o">&lt;</span><span class="err">/button&gt;</span>
+  <span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="o">&lt;</span><span class="err">/template&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+<span class="k">import</span> <span class="nx">Bus</span> <span class="nx">from</span> <span class="s1">&#39;./bus&#39;</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="nx">age</span><span class="o">:</span> <span class="mi">27</span>
+    <span class="p">};</span>
+  <span class="p">},</span>
+  <span class="nx">methods</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">send</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">Bus</span><span class="p">.</span><span class="nx">$emit</span><span class="p">(</span><span class="s2">&#34;com-b&#34;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">age</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">style</span> <span class="nx">scoped</span><span class="o">&gt;</span>
+<span class="nx">button</span><span class="p">{</span>
+  <span class="nx">width</span><span class="o">:</span> <span class="mi">100</span><span class="nx">px</span><span class="p">;</span>
+  <span class="nx">height</span><span class="o">:</span> <span class="mi">20</span><span class="nx">px</span><span class="p">;</span>
+  <span class="nx">border</span><span class="o">-</span><span class="nx">radius</span><span class="o">:</span> <span class="mi">10</span><span class="nx">px</span><span class="p">;</span>
+  <span class="nx">padding</span><span class="o">:</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="o">&lt;</span><span class="err">/style&gt;</span>
+
+<span class="c1">// c.vue
+</span><span class="c1"></span><span class="o">&lt;</span><span class="nx">template</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">div</span> <span class="k">class</span><span class="o">=</span><span class="s2">&#34;c&#34;</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">h3</span><span class="o">&gt;</span><span class="nx">C组件</span><span class="o">&lt;</span><span class="err">/h3&gt;</span>
+    <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="nx">接受来自A</span><span class="err">/B组件的值{{name}}{{age}}&lt;/div&gt;</span>
+  <span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="o">&lt;</span><span class="err">/template&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+<span class="k">import</span> <span class="nx">Bus</span> <span class="nx">from</span> <span class="s1">&#39;./bus&#39;</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+      <span class="nx">age</span><span class="o">:</span> <span class="s2">&#34;&#34;</span>
+    <span class="p">};</span>
+  <span class="p">},</span>
+  <span class="nx">mounted</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">Bus</span><span class="p">.</span><span class="nx">$on</span><span class="p">(</span><span class="s2">&#34;com-a&#34;</span><span class="p">,</span> <span class="nx">name</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+    <span class="p">});</span>
+    <span class="nx">Bus</span><span class="p">.</span><span class="nx">$on</span><span class="p">(</span><span class="s2">&#34;com-b&#34;</span><span class="p">,</span> <span class="nx">age</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="nx">age</span><span class="p">;</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+
+<span class="c1">//bus.js
+</span><span class="c1"></span><span class="k">import</span> <span class="nx">Vue</span> <span class="nx">from</span> <span class="s1">&#39;vue&#39;</span>
+<span class="k">const</span> <span class="nx">Bus</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">()</span>
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Bus</span>
+</code></pre></div>
+<h3 id="4-parent-children-ref">4. $parent/$children/ref</h3>
+
+<blockquote>
+<p>ref 被用来给元素或子组件注册引用信息。引用信息将会注册在父组件的 $refs 对象上。如果在普通的 DOM 元素上使用，引用指向的就是 DOM 元素；如果用在子组件上，引用就指向组件实例。</p>
+
+<p>$parent 父实例，如果当前实例有的话。</p>
+
+<p>$children 当前实例的直接子组件。</p>
+</blockquote>
+
+<h3 id="5-provide-inject">5. provide/inject</h3>
+
+<blockquote>
+<p>2.2.0新增。
+这对选项需要一起使用，以允许一个祖先组件向其所有子孙后代注入一个依赖，不论组件层次有多深，并在起上下游关系成立的时间里始终生效。</p>
+</blockquote>
+
+<p><code>provide/inject</code>使用起来很方便，它的适用场景就是爷父子孙这种的组件关系，只能从祖先组件向子孙后台往下流。</p>
+
+<p>通过在父组件<code>povide</code>钩子中声明变量暴露出数据；在子组件<code>inject</code>钩子中接受数据即可。</p>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// index.vue
+</span><span class="c1"></span><span class="o">&lt;</span><span class="nx">template</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">div</span> <span class="k">class</span><span class="o">=</span><span class="s2">&#34;test&#34;</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">h3</span><span class="o">&gt;</span><span class="k">this</span> <span class="nx">is</span> <span class="nx">parents</span> <span class="nx">page</span><span class="o">&lt;</span><span class="err">/h3&gt;</span>
+    <span class="o">&lt;</span><span class="nx">c</span><span class="o">-</span><span class="nx">child</span><span class="o">-</span><span class="nx">c</span><span class="o">&gt;&lt;</span><span class="err">/c-child-c&gt;</span>
+    <span class="o">&lt;</span><span class="nx">c</span><span class="o">-</span><span class="nx">child</span><span class="o">-</span><span class="nx">b</span><span class="o">&gt;&lt;</span><span class="err">/c-child-b&gt;</span>
+  <span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="o">&lt;</span><span class="err">/template&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+<span class="k">import</span> <span class="nx">cChildC</span> <span class="nx">from</span> <span class="s2">&#34;./c&#34;</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">cChildB</span> <span class="nx">from</span> <span class="s2">&#34;./b&#34;</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">provide</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;chance&#39;</span><span class="p">,</span>
+    <span class="nx">age</span><span class="o">:</span> <span class="s1">&#39;27&#39;</span>
+  <span class="p">},</span>
+  <span class="nx">components</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">cChildC</span><span class="p">,</span>
+    <span class="nx">cChildB</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+
+<span class="c1">// b.vue
+</span><span class="c1"></span><span class="o">&lt;</span><span class="nx">template</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">div</span> <span class="k">class</span><span class="o">=</span><span class="s2">&#34;b&#34;</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">h3</span><span class="o">&gt;</span><span class="nx">B组件</span><span class="o">&lt;</span><span class="err">/h3&gt;</span>
+    <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="nx">接受来自父组件组件的值</span><span class="p">{{</span><span class="nx">name</span><span class="p">}}{{</span><span class="nx">age</span><span class="p">}}</span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+  <span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="o">&lt;</span><span class="err">/template&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">inject</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="s1">&#39;age&#39;</span><span class="p">]</span>
+<span class="p">};</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+</code></pre></div>
+<h3 id="6-attrs-listeners">6. $attrs/$listeners</h3>
+
+<p>来自官方的说明：</p>
+
+<blockquote>
+<p>$attrs</p>
+
+<p>包含了父作用域中不作为 prop 被识别 (且获取) 的特性绑定 (class 和 style 除外)。当一个组件没有声明任何 prop 时，这里会包含所有父作用域的绑定 (class 和 style 除外)，并且可以通过 v-bind=&ldquo;$attrs&rdquo; 传入内部组件——在创建高级别的组件时非常有用。</p>
+
+<p>$listeners</p>
+
+<p>包含了父作用域中的 (不含 .native 修饰器的) v-on 事件监听器。它可以通过 v-on=&ldquo;$listeners&rdquo; 传入内部组件——在创建更高层次的组件时非常有用。</p>
+</blockquote>
+
+<ul>
+<li>$attrs</li>
+</ul>
+
+<p>看着是有些晦涩的，用自己的话，来解释一下就是。在index组件中，data中声明了foo、boo、coo、doo、name、age共6个变量，其中前4个变量和title，index组件都传给了子组件childCom1；在childCom1组件中用props接受了foo变量，剩余的4个变量都是通过$attrs来接受的。往下的传递同理。</p>
+
+<p>该属性需配合inheritAttrs来决定是否可以获取父组件中定义的数据。(PS:试了一下不太好使，不知道是不是没有用对)</p>
+
+<ul>
+<li>$listeners</li>
+</ul>
+
+<p>这一块还没有完全弄明白，暂时的理解就是子组件可以调用父组件中的方法。父组件中定义了两个方法，eventClick1和eventClick2。在childCom1组件的mounted钩子的时候，就触发了event1；在childCom2组件中button标签中声明handleClick去触发了event2。</p>
+
+<p>下面的例子中：index.vue为根组件，childCom1是index的子组件，childCom2是childCom1的子组件，childCom3是childCom2的子组件。</p>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// index.vue
+</span><span class="c1"></span><span class="o">&lt;</span><span class="nx">template</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">h2</span><span class="o">&gt;</span><span class="nx">index</span> <span class="nx">page</span><span class="o">&lt;</span><span class="err">/h2&gt;</span>
+    <span class="o">&lt;</span><span class="nx">child</span><span class="o">-</span><span class="nx">com1</span>
+      <span class="o">:</span><span class="nx">foo</span><span class="o">=</span><span class="s2">&#34;foo&#34;</span>
+      <span class="o">:</span><span class="nx">boo</span><span class="o">=</span><span class="s2">&#34;boo&#34;</span>
+      <span class="o">:</span><span class="nx">coo</span><span class="o">=</span><span class="s2">&#34;coo&#34;</span>
+      <span class="o">:</span><span class="nx">doo</span><span class="o">=</span><span class="s2">&#34;doo&#34;</span>
+      <span class="nx">title</span><span class="o">=</span><span class="s2">&#34;前端&#34;</span>
+      <span class="err">@</span><span class="nx">event1</span><span class="o">=</span><span class="s1">&#39;eventClick1&#39;</span>
+      <span class="err">@</span><span class="nx">event2</span><span class="o">=</span><span class="s1">&#39;eventClick2&#39;</span>
+    <span class="o">&gt;&lt;</span><span class="err">/child-com1&gt;</span>
+  <span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="o">&lt;</span><span class="err">/template&gt;</span>
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+<span class="k">const</span> <span class="nx">childCom1</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="k">import</span><span class="p">(</span><span class="s2">&#34;./childCom1.vue&#34;</span><span class="p">);</span>
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">components</span><span class="o">:</span> <span class="p">{</span> <span class="nx">childCom1</span> <span class="p">},</span>
+  <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="nx">foo</span><span class="o">:</span> <span class="s2">&#34;Javascript&#34;</span><span class="p">,</span>
+      <span class="nx">boo</span><span class="o">:</span> <span class="s2">&#34;Html&#34;</span><span class="p">,</span>
+      <span class="nx">coo</span><span class="o">:</span> <span class="s2">&#34;CSS&#34;</span><span class="p">,</span>
+      <span class="nx">doo</span><span class="o">:</span> <span class="s2">&#34;Vue&#34;</span><span class="p">,</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;chance&#34;</span><span class="p">,</span>
+      <span class="nx">age</span><span class="o">:</span> <span class="mi">17</span>
+    <span class="p">};</span>
+  <span class="p">},</span>
+  <span class="nx">methods</span><span class="o">:</span><span class="p">{</span>
+    <span class="nx">eventClick1</span><span class="p">(){</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;this is event click1&#39;</span><span class="p">)</span>
+    <span class="p">},</span>
+    <span class="nx">eventClick2</span><span class="p">(){</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;this is event click2&#39;</span><span class="p">)</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+
+<span class="c1">// childCom1.vue
+</span><span class="c1"></span><span class="o">&lt;</span><span class="nx">template</span> <span class="k">class</span><span class="o">=</span><span class="s2">&#34;border&#34;</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">foo</span><span class="o">:</span> <span class="p">{{</span> <span class="nx">foo</span> <span class="p">}}</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">childCom1的$attrs</span><span class="o">:</span> <span class="p">{{</span> <span class="nx">$attrs</span> <span class="p">}}</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+    <span class="o">&lt;</span><span class="nx">child</span><span class="o">-</span><span class="nx">com2</span> <span class="nx">v</span><span class="o">-</span><span class="nx">bind</span><span class="o">=</span><span class="s2">&#34;$attrs&#34;</span> <span class="nx">v</span><span class="o">-</span><span class="nx">on</span><span class="o">=</span><span class="s2">&#34;$listeners&#34;</span><span class="o">&gt;&lt;</span><span class="err">/child-com2&gt;</span>
+  <span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="o">&lt;</span><span class="err">/template&gt;</span>
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+<span class="k">const</span> <span class="nx">childCom2</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="k">import</span><span class="p">(</span><span class="s2">&#34;./childCom2.vue&#34;</span><span class="p">);</span>
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">components</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">childCom2</span>
+  <span class="p">},</span>
+  <span class="nx">inheritAttrs</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span> <span class="c1">// 可以关闭自动挂载到组件根元素上的没有在props声明的属性
+</span><span class="c1"></span>  <span class="nx">props</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="nb">String</span> <span class="c1">// foo作为props属性绑定
+</span><span class="c1"></span>  <span class="p">},</span>
+  <span class="nx">mounted</span><span class="p">(){</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">$emit</span><span class="p">(</span><span class="s1">&#39;event1&#39;</span><span class="p">)</span>
+  <span class="p">},</span>
+  <span class="nx">created</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;c1&#39;</span><span class="p">,</span><span class="k">this</span><span class="p">.</span><span class="nx">$attrs</span><span class="p">);</span> <span class="c1">// { &#34;boo&#34;: &#34;Html&#34;, &#34;coo&#34;: &#34;CSS&#34;, &#34;doo&#34;: &#34;Vue&#34;, &#34;title&#34;: &#34;前端&#34; }
+</span><span class="c1"></span>  <span class="p">}</span>
+<span class="p">};</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+
+<span class="c1">// childCom2.vue
+</span><span class="c1"></span><span class="o">&lt;</span><span class="nx">template</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">div</span> <span class="k">class</span><span class="o">=</span><span class="s2">&#34;border&#34;</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">boo</span><span class="o">:</span> <span class="p">{{</span> <span class="nx">boo</span> <span class="p">}}</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">childCom2</span><span class="o">:</span> <span class="p">{{</span> <span class="nx">$attrs</span> <span class="p">}}</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+    <span class="o">&lt;</span><span class="nx">button</span> <span class="err">@</span><span class="nx">click</span><span class="o">=</span><span class="s2">&#34;handleClick&#34;</span><span class="o">&gt;</span><span class="nx">fire</span><span class="o">&lt;</span><span class="err">/button&gt;</span>
+    <span class="o">&lt;</span><span class="nx">child</span><span class="o">-</span><span class="nx">com3</span> <span class="nx">v</span><span class="o">-</span><span class="nx">bind</span><span class="o">=</span><span class="s2">&#34;$attrs&#34;</span> <span class="nx">v</span><span class="o">-</span><span class="nx">on</span><span class="o">=</span><span class="s2">&#34;$listeners&#34;</span><span class="o">&gt;&lt;</span><span class="err">/child-com3&gt;</span>
+  <span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="o">&lt;</span><span class="err">/template&gt;</span>
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+<span class="k">const</span> <span class="nx">childCom3</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="k">import</span><span class="p">(</span><span class="s2">&#34;./childCom3.vue&#34;</span><span class="p">);</span>
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">components</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">childCom3</span>
+  <span class="p">},</span>
+  <span class="nx">inheritAttrs</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="nx">props</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">boo</span><span class="o">:</span> <span class="nb">String</span>
+  <span class="p">},</span>
+  <span class="nx">mounted</span><span class="p">()</span> <span class="p">{},</span>
+  <span class="nx">methods</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">handleClick</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">$emit</span><span class="p">(</span><span class="s2">&#34;event2&#34;</span><span class="p">);</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;fried&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nx">created</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;c2&#34;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">$attrs</span><span class="p">);</span> <span class="c1">// { &#34;coo&#34;: &#34;CSS&#34;, &#34;doo&#34;: &#34;Vue&#34;, &#34;title&#34;: &#34;前端&#34; }
+</span><span class="c1"></span>  <span class="p">}</span>
+<span class="p">};</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+
+<span class="c1">// childCom3.vue
+</span><span class="c1"></span><span class="o">&lt;</span><span class="nx">template</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">div</span> <span class="k">class</span><span class="o">=</span><span class="s2">&#34;border&#34;</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">childCom3</span><span class="o">:</span> <span class="p">{{</span> <span class="nx">$attrs</span> <span class="p">}}</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+  <span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="o">&lt;</span><span class="err">/template&gt;</span>
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">props</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">coo</span><span class="o">:</span> <span class="nb">String</span><span class="p">,</span>
+    <span class="nx">title</span><span class="o">:</span> <span class="nb">String</span>
+  <span class="p">},</span>
+  <span class="nx">created</span><span class="p">(){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;c3&#39;</span><span class="p">,</span><span class="k">this</span><span class="p">.</span><span class="nx">$attrs</span><span class="p">)</span> <span class="c1">// { &#34;doo&#34;: &#34;Vue&#34;}
+</span><span class="c1"></span>  <span class="p">}</span>
+<span class="p">};</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+</code></pre></div>
+<h3 id="总结">总结</h3>
+
+<table>
+<thead>
+<tr>
+<th align="center">方法</th>
+<th align="center">使用场景</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">props/$emit</td>
+<td align="center">正常的父子组件传输</td>
+</tr>
+
+<tr>
+<td align="center">Vuex</td>
+<td align="center">多组件之间的状态共享</td>
+</tr>
+
+<tr>
+<td align="center">$emit/$on</td>
+<td align="center">兄弟组件之间传输，不通过父组件统一下发数据来解决</td>
+</tr>
+
+<tr>
+<td align="center">$parent/$children/ref</td>
+<td align="center">兄弟组件不适用</td>
+</tr>
+
+<tr>
+<td align="center">provide/inject</td>
+<td align="center">爷=&gt;父=&gt;子=&gt;孙 数据流向</td>
+</tr>
+</tbody>
+</table>
+]]></content>
+		</item>
+		
+		<item>
+			<title>项目总结</title>
+			<link>https://caychance.github.io/posts/%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/</link>
+			<pubDate>Fri, 21 Jun 2019 08:03:50 +0800</pubDate>
+			
+			<guid>https://caychance.github.io/posts/%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/</guid>
+			<description>本来想总结一下刚来做的这个项目中，遇到的一些问题，或者说，下次在做类似的项目，有哪些地方可以做的更好。结果周五周六团建两天再回来，发现忘得差不多了。(PS:下次应该随手就记下来)
+暂时能想到的：
+ 常用的简单动画，最好使用css去完成，不要一想起来动画就想到js。 页面的内容部分，左右padding最好有一些留白，这样子可以保证页面在小屏幕上，左右也会有一些留白。 页面header添加scroll事件，监听页面滚动距离来动态修改header的透明度。监听页面的子元素页面溢出，监听页面设置overflow-y: scroll;，获取该页面的scrollTop值。(PS:这一块老忘记)  this.$refs.home.scrollIntoView(true); const homeParent = this.$refs.home.parentElement; const header = this.$refs.home.firstChild; homeParent.addEventListener(&amp;#34;scroll&amp;#34;, () =&amp;gt; { if (homeParent.scrollTop &amp;lt; 80) { header.style.background = &amp;#34;none&amp;#34;; } else { header.style.backgroundImage = &amp;#34;url(&amp;#39;http://******/swiper.png&amp;#39;)&amp;#34;; } });   使用transform: scale(0.5);，即使你配合transform-origin: 0 0;一起使用，虽然元素被缩小了一倍，但是原本的位置还是在的，会自动预留出来，周围的元素并不能覆盖上去。(PS:这里挺疑惑的)   为啥会用到transform: scale(0.5);？设计童鞋在切图的时候，同一个功能块切出来的图大小不一，导致我们需要给每个img标签设定尺寸。(PS:就算同一个功能块，设计的icon大小不一，但是切图的时候，还是可以切成尺寸一样的，就是切出来的icon周围留白多少的问题了)  </description>
+			<content type="html"><![CDATA[<hr />
+
+<p>本来想总结一下刚来做的这个项目中，遇到的一些问题，或者说，下次在做类似的项目，有哪些地方可以做的更好。结果周五周六团建两天再回来，发现忘得差不多了。(PS:下次应该随手就记下来)</p>
+
+<p>暂时能想到的：</p>
+
+<ul>
+<li>常用的简单动画，最好使用css去完成，不要一想起来动画就想到js。</li>
+<li>页面的内容部分，左右padding最好有一些留白，这样子可以保证页面在小屏幕上，左右也会有一些留白。</li>
+<li>页面header添加scroll事件，监听页面滚动距离来动态修改header的透明度。监听页面的子元素页面溢出，监听页面设置<code>overflow-y: scroll;</code>，获取该页面的scrollTop值。(PS:这一块老忘记)</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">this</span><span class="p">.</span><span class="nx">$refs</span><span class="p">.</span><span class="nx">home</span><span class="p">.</span><span class="nx">scrollIntoView</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+<span class="k">const</span> <span class="nx">homeParent</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">$refs</span><span class="p">.</span><span class="nx">home</span><span class="p">.</span><span class="nx">parentElement</span><span class="p">;</span>
+<span class="k">const</span> <span class="nx">header</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">$refs</span><span class="p">.</span><span class="nx">home</span><span class="p">.</span><span class="nx">firstChild</span><span class="p">;</span>
+<span class="nx">homeParent</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&#34;scroll&#34;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">homeParent</span><span class="p">.</span><span class="nx">scrollTop</span> <span class="o">&lt;</span> <span class="mi">80</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">header</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">background</span> <span class="o">=</span> <span class="s2">&#34;none&#34;</span><span class="p">;</span>
+  <span class="p">}</span> 
+  <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">header</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">backgroundImage</span> <span class="o">=</span>
+      <span class="s2">&#34;url(&#39;http://******/swiper.png&#39;)&#34;</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+<ul>
+<li>使用<code>transform: scale(0.5);</code>，即使你配合<code>transform-origin: 0 0;</code>一起使用，虽然元素被缩小了一倍，但是原本的位置还是在的，会自动预留出来，周围的元素并不能覆盖上去。(PS:这里挺疑惑的)</li>
+</ul>
+
+<p><img src="https://blog-pics.pek3b.qingstor.com/c-9ac6-e6dcd9c901fc.png" alt="" /></p>
+
+<ul>
+<li>为啥会用到<code>transform: scale(0.5);</code>？设计童鞋在切图的时候，同一个功能块切出来的图大小不一，导致我们需要给每个img标签设定尺寸。(PS:就算同一个功能块，设计的icon大小不一，但是切图的时候，还是可以切成尺寸一样的，就是切出来的icon周围留白多少的问题了)</li>
+</ul>
+
+<!-- ### 两种工作模式的对比
+
+上一家公司走的是敏捷，虽然我们总在吐槽敏捷没什么卵用，但是换一个公司对比之下，感觉敏捷确实还是有它的优势。
+
+上一家整个集团分了多个大的业务线，每个业务线下面又细分了很多团队，每个团队负责不同的业务。每个团队下都有前端，客户端，后台，测试，产品等角色。
+
+现在的是这样子的，最小的单位是研发中心，产品中心等等。是按照职能部门区划分而不是业务线区划分的。
+
+感觉后者会有不少问题。沟通成本+大家没有共同的目标，因为每个小单位有自己的目标或者KPI，我的目标是我的KPI，而我的协作方和我没有共同的KPI。所以大家没有共赢的那种意识。
+
+之前那个，可能就是团队里前端人比较少，然后相对的领导都是后端的人。
+ -->
+]]></content>
+		</item>
+		
+		<item>
+			<title>Vue中相同页面跳转的问题及解决方案</title>
+			<link>https://caychance.github.io/posts/vue%E4%B8%AD%E7%9B%B8%E5%90%8C%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC%E7%9A%84%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</link>
+			<pubDate>Wed, 19 Jun 2019 17:31:40 +0800</pubDate>
+			
+			<guid>https://caychance.github.io/posts/vue%E4%B8%AD%E7%9B%B8%E5%90%8C%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC%E7%9A%84%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</guid>
+			<description>问题 也是最近做需求遇到的一个问题。首页的一个总台系统。如图页面顶部的导航条，其中*解决方案*这一项下面的四项一期都暂时不做，等下一个排期再做。
+为了考虑用户体验，这四个点进去，都会进入同一个页面——敬请期待页面。
+当然了，Vue中为了提高性能，相同的组件会被复用，也就是说，组件的生命周期钩子不会再次被调用。详细可参考-响应路由参数的变化
+ 提醒一下，当使用路由参数时，例如从 /user/foo 导航到 /user/bar，原来的组件实例会被复用。因为两个路由都渲染同个组件，比起销毁再创建，复用则显得更加高效。不过，这也意味着组件的生命周期钩子不会再被调用。
+ 解决方案 当然，文档中也给出了对应的解决方案。
+方案1： 必须要设置该页面对应的router为动态路由。 path: &#39;/user/:id&#39;，否则也不会生效。
+const User = { template: &amp;#39;...&amp;#39;, watch: { &amp;#39;$route&amp;#39; (to, from) { // 对路由变化作出响应...  } } }  方案2： 不知道是不是我用法不对：这个导航守卫只会触发一次。
+const User = { template: &amp;#39;...&amp;#39;, beforeRouteUpdate (to, from, next) { // react to route changes...  // don&amp;#39;t forget to call next()  } }  方案3： 这个自己想了一个方法。
+方法的弊端就是，如果多出页面涉及到该问题，需要依次去添加。
+navigateTo (path) { if (!</description>
+			<content type="html"><![CDATA[
+
+<hr />
+
+<h3 id="问题">问题</h3>
+
+<p>也是最近做需求遇到的一个问题。首页的一个总台系统。如图页面顶部的导航条，其中*解决方案*这一项下面的四项一期都暂时不做，等下一个排期再做。</p>
+
+<p><img src="https://blog-pics.pek3b.qingstor.com/f88c6218-9fc0-444b-af32-f9ed10347de5.png" alt="" /></p>
+
+<p>为了考虑用户体验，这四个点进去，都会进入同一个页面——敬请期待页面。</p>
+
+<p>当然了，Vue中为了提高性能，相同的组件会被复用，也就是说，组件的生命周期钩子不会再次被调用。详细可参考-<a href="https://router.vuejs.org/zh/guide/essentials/dynamic-matching.html#%E5%93%8D%E5%BA%94%E8%B7%AF%E7%94%B1%E5%8F%82%E6%95%B0%E7%9A%84%E5%8F%98%E5%8C%96">响应路由参数的变化</a></p>
+
+<blockquote>
+<p>提醒一下，当使用路由参数时，例如从 <code>/user/foo</code> 导航到 <code>/user/bar</code>，原来的组件实例会被复用。因为两个路由都渲染同个组件，比起销毁再创建，复用则显得更加高效。不过，这也意味着组件的生命周期钩子不会再被调用。</p>
+</blockquote>
+
+<h3 id="解决方案">解决方案</h3>
+
+<p>当然，文档中也给出了对应的解决方案。</p>
+
+<h4 id="方案1">方案1：</h4>
+
+<p><strong>必须要设置</strong>该页面对应的router为动态路由。 <code>path: '/user/:id'</code>，否则也不会生效。</p>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">const</span> <span class="nx">User</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">template</span><span class="o">:</span> <span class="s1">&#39;...&#39;</span><span class="p">,</span>
+  <span class="nx">watch</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s1">&#39;$route&#39;</span> <span class="p">(</span><span class="nx">to</span><span class="p">,</span> <span class="nx">from</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// 对路由变化作出响应...
+</span><span class="c1"></span>    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="方案2">方案2：</h4>
+
+<p>不知道是不是我用法不对：这个导航守卫只会触发一次。</p>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">const</span> <span class="nx">User</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">template</span><span class="o">:</span> <span class="s1">&#39;...&#39;</span><span class="p">,</span>
+  <span class="nx">beforeRouteUpdate</span> <span class="p">(</span><span class="nx">to</span><span class="p">,</span> <span class="nx">from</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// react to route changes...
+</span><span class="c1"></span>    <span class="c1">// don&#39;t forget to call next()
+</span><span class="c1"></span>  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="方案3">方案3：</h4>
+
+<p>这个自己想了一个方法。</p>
+
+<p>方法的弊端就是，如果多出页面涉及到该问题，需要依次去添加。</p>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">navigateTo</span> <span class="p">(</span><span class="nx">path</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">path</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">path</span> <span class="o">===</span> <span class="s2">&#34;/stay-tuned&#34;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">$router</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span> <span class="nx">path</span> <span class="p">});</span>
+    <span class="nx">location</span><span class="p">.</span><span class="nx">reload</span><span class="p">();</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">$router</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span> <span class="nx">path</span> <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>]]></content>
+		</item>
+		
+		<item>
+			<title>在vue中使用swiper遇到的一些问题</title>
+			<link>https://caychance.github.io/posts/%E5%9C%A8vue%E4%B8%AD%E4%BD%BF%E7%94%A8swiper%E9%81%87%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/</link>
+			<pubDate>Sun, 16 Jun 2019 16:40:47 +0800</pubDate>
+			
+			<guid>https://caychance.github.io/posts/%E5%9C%A8vue%E4%B8%AD%E4%BD%BF%E7%94%A8swiper%E9%81%87%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/</guid>
+			<description>最近做需求，需要做一个轮播图，由于项(ben)目(ren)时(bi)间(jiao)紧(lan)，所以没有自己去写，而是去选择找了一个现成的，用的是swiper。
+swiper官网上的不是针对vue的，但是API是一样的。vue中的用的是——vue-awesome-swiper。
+有两件事情需要解决：
+ 分页器pagination的样式需要单独设定； 给分页器添加事件，做到点击分页器跳转至其对应的轮播图。  思路1：刚开始我的思路是可以使用swiper提供的api，来配置分页器,配置如图(PS:不知道还有没有别的办法)。然后再在页面mounted钩子的时候，操作dom给每个分页器添加方法。
+但是，这个思路的问题： 开启自动轮播以后，轮播图的每次轮播，都会执行renderCustom方法来重新生成dom，总不能一直给dom添加方法吧。
+... data() { return { swiperOption: { //分页器  pagination: { el: &amp;#34;.swiper-pagination&amp;#34;, type: &amp;#34;custom&amp;#34;, paginationClickable: true, renderCustom: function(swiper, current, total) { const activeOpacity = 0.7; const normalOpacity = 0.3; let opacity = &amp;#34;&amp;#34;; let paginationStyle = &amp;#34;&amp;#34;; let html = &amp;#34;&amp;#34;; for (let i = 1; i &amp;lt;= total; i++) { if (i === current) { opacity = activeOpacity; } else { opacity = normalOpacity; } paginationStyle = `background:#fff;border-radius:0;opacity:${opacity};width:45px;height:5px;margin-right:10px;border:3px solid;`; html += `&amp;lt;span class=&amp;#34;swiper-pagination-bullet&amp;#34; style=${paginationStyle}&amp;gt;&amp;lt;/span&amp;gt;`; } return html; } }, //前端后退按钮  // navigation: {  // nextEl: &amp;#34;.</description>
+			<content type="html"><![CDATA[<hr />
+
+<p>最近做需求，需要做一个轮播图，由于项(ben)目(ren)时(bi)间(jiao)紧(lan)，所以没有自己去写，而是去选择找了一个现成的，用的是swiper。</p>
+
+<p>swiper官网上的不是针对vue的，但是API是一样的。vue中的用的是——<a href="https://github.com/surmon-china/vue-awesome-swiper">vue-awesome-swiper</a>。</p>
+
+<p>有两件事情需要解决：</p>
+
+<ol>
+<li>分页器pagination的样式需要单独设定；</li>
+<li>给分页器添加事件，做到点击分页器跳转至其对应的轮播图。</li>
+</ol>
+
+<p>思路1：刚开始我的思路是可以使用swiper提供的api，来配置分页器,配置如图(PS:不知道还有没有别的办法)。然后再在页面mounted钩子的时候，操作dom给每个分页器添加方法。</p>
+
+<p>但是，这个思路的问题：
+开启自动轮播以后，轮播图的每次轮播，都会执行renderCustom方法来重新生成dom，总不能一直给dom添加方法吧。</p>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="p">...</span> 
+<span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="nx">swiperOption</span><span class="o">:</span> <span class="p">{</span>
+      <span class="c1">//分页器
+</span><span class="c1"></span>      <span class="nx">pagination</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">el</span><span class="o">:</span> <span class="s2">&#34;.swiper-pagination&#34;</span><span class="p">,</span>
+        <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;custom&#34;</span><span class="p">,</span>
+        <span class="nx">paginationClickable</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nx">renderCustom</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">swiper</span><span class="p">,</span> <span class="nx">current</span><span class="p">,</span> <span class="nx">total</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">const</span> <span class="nx">activeOpacity</span> <span class="o">=</span> <span class="mf">0.7</span><span class="p">;</span>
+          <span class="k">const</span> <span class="nx">normalOpacity</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">;</span>
+          <span class="kd">let</span> <span class="nx">opacity</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+          <span class="kd">let</span> <span class="nx">paginationStyle</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+          <span class="kd">let</span> <span class="nx">html</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+          <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="nx">total</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">i</span> <span class="o">===</span> <span class="nx">current</span><span class="p">)</span> <span class="p">{</span>
+              <span class="nx">opacity</span> <span class="o">=</span> <span class="nx">activeOpacity</span><span class="p">;</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+              <span class="nx">opacity</span> <span class="o">=</span> <span class="nx">normalOpacity</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="nx">paginationStyle</span> <span class="o">=</span> <span class="sb">`background:#fff;border-radius:0;opacity:</span><span class="si">${</span><span class="nx">opacity</span><span class="si">}</span><span class="sb">;width:45px;height:5px;margin-right:10px;border:3px solid;`</span><span class="p">;</span>
+            <span class="nx">html</span> <span class="o">+=</span> <span class="sb">`&lt;span class=&#34;swiper-pagination-bullet&#34; style=</span><span class="si">${</span><span class="nx">paginationStyle</span><span class="si">}</span><span class="sb">&gt;&lt;/span&gt;`</span><span class="p">;</span>
+          <span class="p">}</span>
+          <span class="k">return</span> <span class="nx">html</span><span class="p">;</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="c1">//前端后退按钮
+</span><span class="c1"></span>      <span class="c1">// navigation: {
+</span><span class="c1"></span>      <span class="c1">//   nextEl: &#34;.swiper-button-next&#34;,
+</span><span class="c1"></span>      <span class="c1">//   prevEl: &#34;.swiper-button-prev&#34;
+</span><span class="c1"></span>      <span class="c1">// },
+</span><span class="c1"></span>      <span class="nx">autoplay</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nx">loop</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nx">speed</span><span class="o">:</span> <span class="mi">800</span>
+      <span class="c1">// some swiper options/callbacks
+</span><span class="c1"></span>      <span class="c1">// 所有的参数同 swiper 官方 api 参数
+</span><span class="c1"></span>      <span class="c1">// ...
+</span><span class="c1"></span>    <span class="p">}</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>思路2：我先给分页器添加点击事件，然后再想办法处理样式问题。swiper官网上的示例，是直接操作dom给分页器添加事件的，不知道有没有更简单的方法。</p>
+
+<p>这个思路的问题是：class等于swiper-pagination的样式在我当前页面是没法修改的，之前也遇到过类似情况，大多都是因为css设置了scoped属性倒置。</p>
+
+<p>后来，就突发奇想，可以在node_modules包中把swiper的css修改。于是就找到<code>swiper/dist/css/swiper.css</code>文件，修改其中的对应处的css，然后把<code>import &quot;swiper/dist/css/swiper.css&quot;;</code>注释掉，引入我本地替换后的文件<code>import &quot;@assets/css/swiper.css&quot;;</code>。</p>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="o">&lt;</span><span class="nx">template</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">swiper</span> <span class="o">:</span><span class="nx">options</span><span class="o">=</span><span class="s2">&#34;swiperOption&#34;</span> <span class="nx">ref</span><span class="o">=</span><span class="s2">&#34;mySwiper&#34;</span> <span class="err">@</span><span class="nx">someSwiperEvent</span><span class="o">=</span><span class="s2">&#34;callback&#34;</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">swiper</span><span class="o">-</span><span class="nx">slide</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="err">/swiper-slide&gt;</span>
+      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">ref</span><span class="o">=</span><span class="s2">&#34;swiperPagination&#34;</span> <span class="k">class</span><span class="o">=</span><span class="s2">&#34;swiper-pagination&#34;</span> <span class="nx">slot</span><span class="o">=</span><span class="s2">&#34;pagination&#34;</span><span class="o">&gt;&lt;</span><span class="err">/div&gt;</span>
+    <span class="o">&lt;</span><span class="err">/swiper&gt;</span>
+  <span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="o">&lt;</span><span class="err">/template&gt;</span>
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+<span class="cm">/**
+</span><span class="cm"> * 按照文档的要求是需要引入第一行的
+</span><span class="cm"> * 由于样式需要可配置化
+</span><span class="cm"> * 所以在node_modules中找到该css并修改对应的部分
+</span><span class="cm"> */</span>
+<span class="c1">// import &#34;swiper/dist/css/swiper.css&#34;;
+</span><span class="c1"></span><span class="k">import</span> <span class="s2">&#34;@assets/css/swiper.css&#34;</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">swiper</span><span class="p">,</span> <span class="nx">swiperSlide</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&#34;vue-awesome-swiper&#34;</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">data</span><span class="p">(){</span>
+    <span class="k">return</span> <span class="p">{}</span>
+  <span class="p">},</span>
+  <span class="nx">computed</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">swiper</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">$refs</span><span class="p">.</span><span class="nx">mySwiper</span><span class="p">.</span><span class="nx">swiper</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nx">methods</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">init</span><span class="p">()</span> <span class="p">{</span>
+      <span class="kd">let</span> <span class="nx">swiperChildrenList</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">$refs</span><span class="p">.</span><span class="nx">swiperPagination</span><span class="p">.</span><span class="nx">children</span><span class="p">;</span>
+      <span class="nx">swiperChildrenList</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">style</span><span class="p">;</span>
+      <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">len</span> <span class="o">=</span> <span class="nx">swiperChildrenList</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">swiperChildrenList</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&#34;click&#34;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+          <span class="k">this</span><span class="p">.</span><span class="nx">swiper</span><span class="p">.</span><span class="nx">slideTo</span><span class="p">(</span><span class="nx">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+        <span class="p">});</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nx">mounted</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">init</span><span class="p">();</span>
+  <span class="p">},</span>
+  <span class="nx">components</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">swiper</span><span class="p">,</span>
+    <span class="nx">swiperSlide</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+</code></pre></div>]]></content>
+		</item>
+		
+		<item>
+			<title>css3的动画</title>
+			<link>https://caychance.github.io/posts/css3%E7%9A%84%E5%8A%A8%E7%94%BB/</link>
+			<pubDate>Thu, 13 Jun 2019 19:54:06 +0800</pubDate>
+			
+			<guid>https://caychance.github.io/posts/css3%E7%9A%84%E5%8A%A8%E7%94%BB/</guid>
+			<description> 最近在做一个中台门户网站，其中首页有不少动画效果。列举几个：
+ 鼠标悬浮div整体放大 鼠标悬浮整个div上移 鼠标悬浮第二个div向上运动覆盖第一个div  前公司有同事分享过css3中，2D转换，3D转换，过渡，动画之间的区别。
+2D转换 2D转换主要用到transform属性，常用的值包括移动translate(x,y),旋转rotate(),缩放scale(x,y),倾斜skew(x,y),前四者合集matrix。
+3D转换 3D转换用的也是transform属性。 主要是移动，旋转，缩放三者从X，Y，Z轴进行变换，或者X，Y，Z的合集。
+过渡 transition 用途：从一种样式转变到另一种样式。
+使用注意的点：
+ 常用于添加hover触发动画，哪个元素是动画的触发点，hover就加给该元素。 运动的元素需要添加transition:width|all 3s; 。 两元素之间的关系可以是同级兄弟元素，也可以是父子元素。  动画 用途：创建动画。
+使用：
+div { width:100px; height:100px; background:red; animation:myfirst 5s; } @keyframes myfirst { from {background:red;} to {background:yellow;} } 区别 列一下三者的区别，其实一看他们的英文意思，区别也就显而易见了。
+ transform并不算真正意义上的动画，只是单纯做一下转变，你甚至都看不到这个转变的过程。 transition常用于hover的简单动画，一般就hover前后的两个状态。 animation属于真正意义上的动画，一般可以做复杂的动画。     属性 词义 异同 关注点 强调 帧动画     transform 转变 非动画 忽略 忽略 忽略   transition 过渡 简单动画 更关注css property的变化 强调过渡 只有两个关键帧   animation 动画 复杂动画 作用于元素本身而非样式属性 强调流程与控制 很多个关键帧    </description>
+			<content type="html"><![CDATA[
+
+<hr />
+
+<p>最近在做一个中台门户网站，其中首页有不少动画效果。列举几个：</p>
+
+<ol>
+<li>鼠标悬浮div整体放大</li>
+<li>鼠标悬浮整个div上移</li>
+<li>鼠标悬浮第二个div向上运动覆盖第一个div</li>
+</ol>
+
+<p>前公司有同事分享过css3中，2D转换，3D转换，过渡，动画之间的区别。</p>
+
+<h3 id="2d转换">2D转换</h3>
+
+<p>2D转换主要用到<code>transform</code>属性，常用的值包括<em>移动</em><code>translate(x,y)</code>,<em>旋转</em><code>rotate()</code>,<em>缩放</em><code>scale(x,y)</code>,<em>倾斜</em><code>skew(x,y)</code>,前四者合集<code>matrix</code>。</p>
+
+<h3 id="3d转换">3D转换</h3>
+
+<p>3D转换用的也是<code>transform</code>属性。
+主要是移动，旋转，缩放三者从X，Y，Z轴进行变换，或者X，Y，Z的合集。</p>
+
+<h3 id="过渡-transition">过渡 transition</h3>
+
+<p>用途：从一种样式转变到另一种样式。</p>
+
+<p>使用注意的点：</p>
+
+<ol>
+<li>常用于添加hover触发动画，哪个元素是动画的触发点，hover就加给该元素。</li>
+<li>运动的元素需要添加<code>transition:width|all 3s;</code> 。</li>
+<li>两元素之间的关系可以是同级兄弟元素，也可以是父子元素。</li>
+</ol>
+
+<h3 id="动画">动画</h3>
+
+<p>用途：创建动画。</p>
+
+<p>使用：</p>
+<div class="highlight"><pre class="chroma"><code class="language-css" data-lang="css"><span class="nt">div</span>
+<span class="p">{</span>
+	<span class="k">width</span><span class="p">:</span><span class="mi">100</span><span class="kt">px</span><span class="p">;</span>
+	<span class="k">height</span><span class="p">:</span><span class="mi">100</span><span class="kt">px</span><span class="p">;</span>
+	<span class="k">background</span><span class="p">:</span><span class="kc">red</span><span class="p">;</span>
+	<span class="k">animation</span><span class="p">:</span><span class="n">myfirst</span> <span class="mi">5</span><span class="kt">s</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">@</span><span class="k">keyframes</span> <span class="nt">myfirst</span>
+<span class="p">{</span>
+	<span class="nt">from</span> <span class="p">{</span><span class="k">background</span><span class="p">:</span><span class="kc">red</span><span class="p">;}</span>
+	<span class="nt">to</span> <span class="p">{</span><span class="k">background</span><span class="p">:</span><span class="kc">yellow</span><span class="p">;}</span>
+<span class="p">}</span></code></pre></div>
+<h3 id="区别">区别</h3>
+
+<p>列一下三者的区别，其实一看他们的英文意思，区别也就显而易见了。</p>
+
+<ul>
+<li>transform并不算真正意义上的动画，只是单纯做一下转变，你甚至都看不到这个转变的过程。</li>
+<li>transition常用于hover的简单动画，一般就hover前后的两个状态。</li>
+<li>animation属于真正意义上的动画，一般可以做复杂的动画。</li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th align="center">属性</th>
+<th align="center">词义</th>
+<th align="center">异同</th>
+<th align="center">关注点</th>
+<th align="center">强调</th>
+<th align="center">帧动画</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">transform</td>
+<td align="center">转变</td>
+<td align="center">非动画</td>
+<td align="center">忽略</td>
+<td align="center">忽略</td>
+<td align="center">忽略</td>
+</tr>
+
+<tr>
+<td align="center">transition</td>
+<td align="center">过渡</td>
+<td align="center">简单动画</td>
+<td align="center">更关注css property的变化</td>
+<td align="center">强调过渡</td>
+<td align="center">只有两个关键帧</td>
+</tr>
+
+<tr>
+<td align="center">animation</td>
+<td align="center">动画</td>
+<td align="center">复杂动画</td>
+<td align="center">作用于元素本身而非样式属性</td>
+<td align="center">强调流程与控制</td>
+<td align="center">很多个关键帧</td>
+</tr>
+</tbody>
+</table>
+]]></content>
+		</item>
+		
+		<item>
+			<title>关于css中的z-index的使用</title>
+			<link>https://caychance.github.io/posts/%E5%85%B3%E4%BA%8Ecss%E4%B8%AD%E7%9A%84z-index%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
+			<pubDate>Wed, 12 Jun 2019 10:05:20 +0800</pubDate>
+			
+			<guid>https://caychance.github.io/posts/%E5%85%B3%E4%BA%8Ecss%E4%B8%AD%E7%9A%84z-index%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
+			<description>&amp;lt;header&amp;gt; &amp;lt;div class=&amp;#34;nav&amp;#34;&amp;gt; &amp;lt;ul&amp;gt; &amp;lt;li&amp;gt; 产品服务 &amp;lt;div class=&amp;#34;content&amp;#34;&amp;gt;&amp;lt;/div&amp;gt; &amp;lt;/li&amp;gt; &amp;lt;/ul&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/header&amp;gt; &amp;lt;div class=&amp;#34;swiper&amp;#34;&amp;gt;&amp;lt;/div&amp;gt; 如上代码，这几天在做一个需求的时候，突然发现z-index不生效了。
+以上结构，header是网站的头部，div.swiper是header下面的轮播图。div.nav是头部的导航条，li是其中一个导航，li被鼠标hover的时候，显示div.content。最后的效果如图参考。
+轮播图直接使用的swiper，还没有做swiper部分之前，hover那一块是没有问题的，swiper做了以后，发现hover就有问题了。后来排查了一下，是因为swiper的z-index设置为1。我心想这下好办了，把li的z-index设置成2不就好了。然而，并不好使。
+ z-index只对定位元素有效果 position的属性值包括：absolute-绝对定位、relative-相对定位、fixed-固定定位、inherit-继承父元素定位，static-静态定位。前三者肯定有效；inherit取决于父元素；静态定位-static，否则z-index会无效。
+ 同一个父元素下的元素的层叠效果会受父元素的z-index影响 如果父元素的z-index值很小,那么子元素的z-index值很大也不起作用
+ 当前标签不能含有float属性 这个是在网上找到的，我自己验证了一下结论正好相反。
+  </description>
+			<content type="html"><![CDATA[<hr />
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">header</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;nav&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>
+        产品服务
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;content&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">header</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;swiper&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div>
+<p><img src="https://blog-pics.pek3b.qingstor.com/c2ed4dc809ca.png" alt="" /></p>
+
+<p>如上代码，这几天在做一个需求的时候，突然发现z-index不生效了。</p>
+
+<p>以上结构，header是网站的头部，div.swiper是header下面的轮播图。div.nav是头部的导航条，li是其中一个导航，li被鼠标hover的时候，显示div.content。最后的效果如图参考。</p>
+
+<p>轮播图直接使用的swiper，还没有做swiper部分之前，hover那一块是没有问题的，swiper做了以后，发现hover就有问题了。后来排查了一下，是因为swiper的z-index设置为1。我心想这下好办了，把li的z-index设置成2不就好了。然而，并不好使。</p>
+
+<ul>
+<li><p><strong>z-index只对定位元素有效果</strong> <br>
+position的属性值包括：absolute-绝对定位、relative-相对定位、fixed-固定定位、inherit-继承父元素定位，static-静态定位。前三者肯定有效；inherit取决于父元素；静态定位-static，否则z-index会无效。</p></li>
+
+<li><p><strong>同一个父元素下的元素的层叠效果会受父元素的z-index影响</strong> <br>
+如果父元素的z-index值很小,那么子元素的z-index值很大也不起作用</p></li>
+
+<li><p><strong>当前标签不能含有float属性</strong> <br>
+这个是在网上找到的，我自己验证了一下结论正好相反。</p></li>
+</ul>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Todolist</title>
+			<link>https://caychance.github.io/posts/todolist/</link>
+			<pubDate>Thu, 06 Jun 2019 13:07:46 +0800</pubDate>
+			
+			<guid>https://caychance.github.io/posts/todolist/</guid>
+			<description>刚接触新项目，有不少疑惑。在此列出来，后续做完项目或者做项目的过程当中，要把这些问题弄明白。
+ 之前都是用vue做的spa应用，这边使用vue做的是单/多页模板。这一块怎么配置的 使用的是hash的路由配置规则 脚手架是在vue cli3的基础上做的。需要深入学习一下vue cli3 项目中的sass只需要 npm install -D sass-loader node-sass 即可用。不需要webpack手动配置？ 改进一下自己的编程风格。主要就是平时写代码的时候，加上详细的注释。  /** * get 提交 * @param {String} url 请求的url * @param {any} params 请求的参数 * @param {Obejct} config 请求配置 * @returns Promise */ export function get(url, params = {}, config = {}) { let opts = {...config} opts.params = params return fetch.get(url, opts) } </description>
+			<content type="html"><![CDATA[<hr />
+
+<p>刚接触新项目，有不少疑惑。在此列出来，后续做完项目或者做项目的过程当中，要把这些问题弄明白。</p>
+
+<ol>
+<li>之前都是用vue做的spa应用，这边使用vue做的是单/多页模板。这一块怎么配置的</li>
+<li>使用的是hash的路由配置规则</li>
+<li>脚手架是在vue cli3的基础上做的。需要深入学习一下vue cli3</li>
+<li>项目中的sass只需要 <code>npm install -D sass-loader node-sass</code> 即可用。不需要webpack手动配置？</li>
+<li>改进一下自己的编程风格。主要就是平时写代码的时候，加上详细的注释。</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="cm">/**
+</span><span class="cm"> * get 提交
+</span><span class="cm"> * @param {String} url 请求的url
+</span><span class="cm"> * @param {any} params  请求的参数
+</span><span class="cm"> * @param {Obejct} config  请求配置
+</span><span class="cm"> * @returns Promise
+</span><span class="cm"> */</span>
+<span class="k">export</span> <span class="kd">function</span> <span class="nx">get</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{},</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{})</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">opts</span> <span class="o">=</span> <span class="p">{...</span><span class="nx">config</span><span class="p">}</span>
+  <span class="nx">opts</span><span class="p">.</span><span class="nx">params</span> <span class="o">=</span> <span class="nx">params</span>
+  <span class="k">return</span> <span class="nx">fetch</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">opts</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>]]></content>
+		</item>
+		
+		<item>
+			<title>随感2019-06</title>
+			<link>https://caychance.github.io/posts/%E9%9A%8F%E6%84%9F2019-06/</link>
+			<pubDate>Wed, 05 Jun 2019 20:11:34 +0800</pubDate>
+			
+			<guid>https://caychance.github.io/posts/%E9%9A%8F%E6%84%9F2019-06/</guid>
+			<description>辗转许久，最终还是换了份工作。
+希望可以在新公司和新岗位上更进一步成长。</description>
+			<content type="html"><![CDATA[<hr />
+
+<p>辗转许久，最终还是换了份工作。</p>
+
+<p>希望可以在新公司和新岗位上更进一步成长。</p>
+]]></content>
+		</item>
+		
+	</channel>
+</rss>

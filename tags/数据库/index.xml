@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>数据库 on CayChance の Blog</title>
+    <link>https://caychance.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+    <description>Recent content in 数据库 on CayChance の Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Fri, 01 Feb 2019 10:23:29 +0000</lastBuildDate>
+    
+	<atom:link href="https://caychance.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>MongoDB基础入门</title>
+      <link>https://caychance.github.io/posts/mongodb%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/</link>
+      <pubDate>Fri, 01 Feb 2019 10:23:29 +0000</pubDate>
+      
+      <guid>https://caychance.github.io/posts/mongodb%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/</guid>
+      <description>MongoDB基础入门（基础篇） 最新心血来潮，准备在网上学习一下Vue+Node+MongoDB。之前接触过MySQL，但是MongoDB跟MySQL还是有区别的。话不多说：
+基本概念    SQL术语/概念 MongoDB术语/概念 解释/说明     database database 数据库   table collection 数据库表/集合   row document 数据记录行/文档   column field 数据字段/域   index index 索引   table joins  表连接,MongoDB不支持   primary key primary key 主键,MongoDB自动将_id字段设置为主键    数据库  一个mongodb中可以建立多个数据库。
+ 每个数据库里面有多个表（也叫做集合）。
+ 表里面存储的数据格式就是一个json，这也是区别于SQL的地方。
+  下载安装 这一步就省略了，自己Google去吧。我在mac下用的homebrew
+连接数据库 在命令行中输入mongo就会连接到数据库
+数据库相关 show dbs 查看所有数据库</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>框架 on CayChance の Blog</title>
+    <link>https://caychance.github.io/tags/%E6%A1%86%E6%9E%B6/</link>
+    <description>Recent content in 框架 on CayChance の Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Fri, 22 Mar 2019 23:14:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://caychance.github.io/tags/%E6%A1%86%E6%9E%B6/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>为什么要用框架</title>
+      <link>https://caychance.github.io/posts/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8%E6%A1%86%E6%9E%B6/</link>
+      <pubDate>Fri, 22 Mar 2019 23:14:00 +0000</pubDate>
+      
+      <guid>https://caychance.github.io/posts/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8%E6%A1%86%E6%9E%B6/</guid>
+      <description>一直在用Vue，但是也没有想过框架的出现是为了解决什么痛点？
+实现一个点赞功能 首先，实现一个简单的点赞功能，不考虑使用任何框架。
+&amp;lt;body&amp;gt; &amp;lt;div class=&amp;#39;wrapper&amp;#39;&amp;gt; &amp;lt;button class=&amp;#39;like-btn&amp;#39;&amp;gt; &amp;lt;span class=&amp;#39;like-text&amp;#39;&amp;gt;点赞&amp;lt;/span&amp;gt; &amp;lt;span&amp;gt;👍&amp;lt;/span&amp;gt; &amp;lt;/button&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;script&amp;gt; // 实现一个简单的点赞按钮，点击按钮的同时按钮的文字会变换。demo1难以复用  const button = document.querySelector(&amp;#39;.like-btn&amp;#39;) const buttonText = button.querySelector(&amp;#39;.like-text&amp;#39;) let isLiked = false button.addEventListener(&amp;#39;click&amp;#39;, () =&amp;gt; { isLiked = !isLiked if (isLiked) { buttonText.innerHTML = &amp;#39;取消&amp;#39; } else { buttonText.innerHTML = &amp;#39;点赞&amp;#39; } }, false) &amp;lt;/script&amp;gt; &amp;lt;/body&amp;gt; 以上代码实现了点赞的功能，但是有一个问题——难以复用。
+结构复用 经过改造，我们也仅仅只能复用html部分，并且没有添加事件
+&amp;lt;body&amp;gt; &amp;lt;div class=&amp;#39;wrapper&amp;#39;&amp;gt;&amp;lt;/div&amp;gt; &amp;lt;script&amp;gt; // 仅仅可以复用html部分，没有添加事件  class LikeButton { render(){ return ` &amp;lt;button id=&amp;#39;like-btn&amp;#39;&amp;gt; &amp;lt;span class=&amp;#39;like-text&amp;#39;&amp;gt;赞&amp;lt;/span&amp;gt; &amp;lt;span&amp;gt;👍&amp;lt;/span&amp;gt; &amp;lt;/button&amp;gt; ` } } const wrapper = document.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Github on CayChance の Blog</title>
+    <link>https://caychance.github.io/tags/github/</link>
+    <description>Recent content in Github on CayChance の Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Wed, 16 Jan 2019 13:52:57 +0000</lastBuildDate>
+    
+	<atom:link href="https://caychance.github.io/tags/github/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>git学习笔记</title>
+      <link>https://caychance.github.io/posts/git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Wed, 16 Jan 2019 13:52:57 +0000</pubDate>
+      
+      <guid>https://caychance.github.io/posts/git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+      <description>引言 git是14年才接触的，然后也没有系统的学习过。都是平时遇到一点问题，去搜一搜。
+安装部分就不说了。
+概念  工作区 就是电脑上写代码部分 版本库 Git的版本库里存了很多东西，其中最重要的就是称为stage（或者叫index）的暂存区，还有Git为我们自动创建的第一个分支master，以及指向master的一个指针叫HEAD。  常用命令 初始化  mkdir learngit 新建一个文件夹
+cd learngit 并进入该文件夹
+git init 初始化，把该文件夹变成git可以管理的仓库（会产生一个.git文件）
+git add  把文件修改添加到暂存区（Stage）
+git commit -m  把暂存区的所有内容提交到当前分支
+ 查看状态及回退  git status 查看当前仓库状态
+git diff 查看详细的修改内容
+git diff HEAD &amp;ndash; readme.txt 查看工作区和版本库里面最新版本的区别
+git log 查看从最近到最远的提交日志
+git log &amp;ndash;pretty=oneline 查看从最近到最远的简洁版提交日志
+git log &amp;ndash;graph 查看分支合并图
+git reflog 查看历史命令
+git reset &amp;ndash;hard HEAD^ 回退到上一个版本
+git reset &amp;ndash;hard HEAD^^ 回退到上上一个版本</description>
+    </item>
+    
+    <item>
+      <title>github没有记录你的contributions?</title>
+      <link>https://caychance.github.io/posts/github%E6%B2%A1%E6%9C%89%E8%AE%B0%E5%BD%95%E4%BD%A0%E7%9A%84contributions/</link>
+      <pubDate>Tue, 04 Dec 2018 10:51:31 +0000</pubDate>
+      
+      <guid>https://caychance.github.io/posts/github%E6%B2%A1%E6%9C%89%E8%AE%B0%E5%BD%95%E4%BD%A0%E7%9A%84contributions/</guid>
+      <description>github是怎么计算contributions的呢？  贡献的计算 Issues and pull请求 如果issues和pull请求是在独立库中打开而不是分叉（fork），它们将显示在您的贡献图上。
+Commits 如果commits符合以下所有的条件，那么会在您的贡献图上有所显示。
+ 用于提交的电子邮件地址与您的GitHub帐户相关联。 在独立的库中进行提交的，而不是分支（fork）。 提交内容如下：  &amp;emsp;在库的默认分支。（通常是master分支）。
+&amp;emsp;在gh-pages分支中（对于具有Project Pages站点的库）。
+ 参考</description>
+    </item>
+    
+  </channel>
+</rss>

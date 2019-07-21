@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Flex on CayChance の Blog</title>
+    <link>https://caychance.github.io/tags/flex/</link>
+    <description>Recent content in Flex on CayChance の Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Wed, 28 Nov 2018 17:06:01 +0000</lastBuildDate>
+    
+	<atom:link href="https://caychance.github.io/tags/flex/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>flex布局</title>
+      <link>https://caychance.github.io/posts/flex%E5%B8%83%E5%B1%80/</link>
+      <pubDate>Wed, 28 Nov 2018 17:06:01 +0000</pubDate>
+      
+      <guid>https://caychance.github.io/posts/flex%E5%B8%83%E5%B1%80/</guid>
+      <description> flex的一个兼容问题 flex布局中的justify-content: space-evenly;在部分安卓手机上是不支持这个属性的。
+justify-content: space-evenly 解决方案 可以使用space-around或者space-between配合margin一起使用达到space-evenly的效果
+justify-content: space-aroundjustify-content: space-between</description>
+    </item>
+    
+  </channel>
+</rss>

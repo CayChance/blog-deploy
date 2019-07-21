@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="theme-color" content="#494f5c">
+	<meta name="msapplication-TileColor" content="#494f5c">
+
+<meta itemprop="name" content="js继承方法总结">
+<meta itemprop="description" content="js继承方法  原型链继承 借用构造函数继承 组合继承 原型式继承 寄生式继承 寄生组合式继承 混入方式继承多个对象 ES6类继承extends 总结  原型链继承 构造函数、原型和实例之间的关系：每个构造函数都有一个原型对象，原型对象都包含一个指向构造函数的指针，而实例都包含一个原型对象的指针。
+ 继承的本质就是复制，即重写原型对象，代之以一个新类型的实例。
+ function Father() { this.property = true; } Father.prototype.getSuperValue = function() { return this.property; } function Son() { this.sonProperty = false; } // 这里是关键，创建Father的实例，并将该实例赋值给Son.prototype Son.prototype = new Father(); Son.prototype.getSubValue = function() { return this.sonProperty; } var instance = new Son(); console.log(instance.getSuperValue()); // true  原型链方案存在的缺点：
+ 多个实例对引用类型的操作会被篡改。  function Father(){ this.colors = [&#34;red&#34;, &#34;blue&#34;, &#34;green&#34;]; } function Son(){} Son.">
+
+
+<meta itemprop="datePublished" content="2018-12-13T20:31:20&#43;00:00" />
+<meta itemprop="dateModified" content="2018-12-13T20:31:20&#43;00:00" />
+<meta itemprop="wordCount" content="542">
+
+
+
+<meta itemprop="keywords" content="js,继承," />
+<meta property="og:title" content="js继承方法总结" />
+<meta property="og:description" content="js继承方法  原型链继承 借用构造函数继承 组合继承 原型式继承 寄生式继承 寄生组合式继承 混入方式继承多个对象 ES6类继承extends 总结  原型链继承 构造函数、原型和实例之间的关系：每个构造函数都有一个原型对象，原型对象都包含一个指向构造函数的指针，而实例都包含一个原型对象的指针。
+ 继承的本质就是复制，即重写原型对象，代之以一个新类型的实例。
+ function Father() { this.property = true; } Father.prototype.getSuperValue = function() { return this.property; } function Son() { this.sonProperty = false; } // 这里是关键，创建Father的实例，并将该实例赋值给Son.prototype Son.prototype = new Father(); Son.prototype.getSubValue = function() { return this.sonProperty; } var instance = new Son(); console.log(instance.getSuperValue()); // true  原型链方案存在的缺点：
+ 多个实例对引用类型的操作会被篡改。  function Father(){ this.colors = [&#34;red&#34;, &#34;blue&#34;, &#34;green&#34;]; } function Son(){} Son." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://caychance.github.io/posts/js%E7%BB%A7%E6%89%BF%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/" /><meta property="article:published_time" content="2018-12-13T20:31:20&#43;00:00"/>
+<meta property="article:modified_time" content="2018-12-13T20:31:20&#43;00:00"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="js继承方法总结"/>
+<meta name="twitter:description" content="js继承方法  原型链继承 借用构造函数继承 组合继承 原型式继承 寄生式继承 寄生组合式继承 混入方式继承多个对象 ES6类继承extends 总结  原型链继承 构造函数、原型和实例之间的关系：每个构造函数都有一个原型对象，原型对象都包含一个指向构造函数的指针，而实例都包含一个原型对象的指针。
+ 继承的本质就是复制，即重写原型对象，代之以一个新类型的实例。
+ function Father() { this.property = true; } Father.prototype.getSuperValue = function() { return this.property; } function Son() { this.sonProperty = false; } // 这里是关键，创建Father的实例，并将该实例赋值给Son.prototype Son.prototype = new Father(); Son.prototype.getSubValue = function() { return this.sonProperty; } var instance = new Son(); console.log(instance.getSuperValue()); // true  原型链方案存在的缺点：
+ 多个实例对引用类型的操作会被篡改。  function Father(){ this.colors = [&#34;red&#34;, &#34;blue&#34;, &#34;green&#34;]; } function Son(){} Son."/>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
+	<link rel="shortcut icon" href="/favicon.ico">
+
+	<title>js继承方法总结</title>
+	<link rel="stylesheet" href="https://caychance.github.io/css/style.min.568c54a56780af2a70c45272522247710b69dbfc080b315211fb98381e3796f8.css" integrity="sha256-VoxUpWeArypwxFJyUiJHcQtp2/wICzFSEfuYOB43lvg=">
+	
+</head>
+
+<body id="page">
+	
+	<header id="site-header" class="animated slideInUp faster">
+		<div class="hdr-wrapper section-inner">
+			<div class="hdr-left">
+				<div class="site-branding">
+					<a href="https://caychance.github.io">CayChance の Blog</a>
+				</div>
+				<nav class="site-nav hide-in-mobile">
+					
+				<a href="https://caychance.github.io/posts/">Posts</a>
+				<a href="https://caychance.github.io/about-hugo/">About</a>
+
+				</nav>
+			</div>
+			<div class="hdr-right hdr-icons">
+				<span class="hdr-social hide-in-mobile"><a href="https://twitter.com/" target="_blank" rel="noopener me" title="Twitter"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg></a><a href="https://instagram.com/" target="_blank" rel="noopener me" title="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-instagram"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line></svg></a><a href="https://github.com/" target="_blank" rel="noopener me" title="Github"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a></span><button id="menu-btn" class="hdr-btn" title="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+			</div>
+		</div>
+	</header>
+	<div id="mobile-menu" class="animated fast">
+		<ul>
+			<li><a href="https://caychance.github.io/posts/">Posts</a></li>
+			<li><a href="https://caychance.github.io/about-hugo/">About</a></li>
+		</ul>
+	</div>
+
+
+	<main class="site-main section-inner animated fadeIn faster">
+		<article class="thin">
+			<header class="post-header">
+				<div class="post-meta"><span>Dec 13, 2018</span></div>
+				<h1>js继承方法总结</h1>
+			</header>
+			<div class="content">
+				
+
+<hr />
+
+<h3 id="js继承方法">js继承方法<a href="#js继承方法" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li><a href="#原型链继承">原型链继承</a></li>
+<li><a href="#借用构造函数继承">借用构造函数继承</a></li>
+<li><a href="#组合继承">组合继承</a></li>
+<li><a href="#原型式继承">原型式继承</a></li>
+<li><a href="#寄生式继承">寄生式继承</a></li>
+<li><a href="#寄生组合式继承">寄生组合式继承</a></li>
+<li><a href="#混入方式继承多个对象">混入方式继承多个对象</a></li>
+<li><a href="#es6类继承extends">ES6类继承extends</a></li>
+<li><a href="#总结">总结</a></li>
+</ul>
+
+<h4 id="原型链继承">原型链继承<a href="#原型链继承" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h4>
+
+<p>构造函数、原型和实例之间的关系：每个构造函数都有一个原型对象，原型对象都包含一个指向构造函数的指针，而实例都包含一个原型对象的指针。</p>
+
+<blockquote>
+<p>继承的本质就是复制，即重写原型对象，代之以一个新类型的实例。</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">Father</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">property</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nx">Father</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">getSuperValue</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">property</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kd">function</span> <span class="nx">Son</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">sonProperty</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">// 这里是关键，创建Father的实例，并将该实例赋值给Son.prototype
+</span><span class="c1"></span><span class="nx">Son</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Father</span><span class="p">();</span>
+<span class="nx">Son</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">getSubValue</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">sonProperty</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Son</span><span class="p">();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">instance</span><span class="p">.</span><span class="nx">getSuperValue</span><span class="p">());</span> <span class="c1">// true
+</span><span class="c1"></span></code></pre></div>
+<p><img src="https://blog-pics.pek3b.qingstor.com/006tNbRwly1fy5eirt2pxj30m80bldjb.jpg" alt="" /></p>
+
+<p>原型链方案存在的缺点：</p>
+
+<ul>
+<li><strong>多个实例对引用类型的操作会被篡改。</strong></li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">Father</span><span class="p">(){</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;red&#34;</span><span class="p">,</span> <span class="s2">&#34;blue&#34;</span><span class="p">,</span> <span class="s2">&#34;green&#34;</span><span class="p">];</span>
+<span class="p">}</span>
+<span class="kd">function</span> <span class="nx">Son</span><span class="p">(){}</span>
+<span class="nx">Son</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Father</span><span class="p">();</span>
+<span class="kd">var</span> <span class="nx">instance1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Son</span><span class="p">();</span>
+<span class="nx">instance1</span><span class="p">.</span><span class="nx">colors</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s2">&#34;black&#34;</span><span class="p">);</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">instance1</span><span class="p">.</span><span class="nx">colors</span><span class="p">);</span> <span class="c1">//&#34;red,blue,green,black&#34;
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">instance2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Son</span><span class="p">();</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">instance2</span><span class="p">.</span><span class="nx">colors</span><span class="p">);</span> <span class="c1">//&#34;red,blue,green,black&#34;
+</span><span class="c1"></span></code></pre></div>
+<h4 id="借用构造函数继承">借用构造函数继承<a href="#借用构造函数继承" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h4>
+
+<blockquote>
+<p>使用父类的构造函数来增强子类实例，等同于复制父类的实例给子类（不使用原型）</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">function</span>  <span class="nx">Father</span><span class="p">(){</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">color</span><span class="o">=</span><span class="p">[</span><span class="s2">&#34;red&#34;</span><span class="p">,</span><span class="s2">&#34;green&#34;</span><span class="p">,</span><span class="s2">&#34;blue&#34;</span><span class="p">];</span>
+<span class="p">}</span>
+<span class="kd">function</span>  <span class="nx">Son</span><span class="p">(){</span>
+    <span class="c1">//继承自Father
+</span><span class="c1"></span>    <span class="nx">Father</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">instance1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Son</span><span class="p">();</span>
+<span class="nx">instance1</span><span class="p">.</span><span class="nx">color</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s2">&#34;black&#34;</span><span class="p">);</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">instance1</span><span class="p">.</span><span class="nx">color</span><span class="p">);</span><span class="c1">//&#34;red,green,blue,black&#34;
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">instance2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Son</span><span class="p">();</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">instance2</span><span class="p">.</span><span class="nx">color</span><span class="p">);</span><span class="c1">//&#34;red,green,blue&#34;
+</span><span class="c1"></span></code></pre></div>
+<p>核心代码是<code>Father.call(this)</code>，创建子类实例时调用<code>Father</code>构造函数，于是<code>Son</code>的每个实例都会将<code>Father</code>中的属性复制一份。</p>
+
+<p>借用构造函数继承的缺点：</p>
+
+<ul>
+<li>只能继承父类的实例属性和方法，不能继承原型属性/方法</li>
+<li>无法实现复用，每个子类都有父类实例函数的副本，影响性能</li>
+</ul>
+
+<h4 id="组合继承">组合继承<a href="#组合继承" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h4>
+
+<blockquote>
+<p>组合上述两种方法就是组合继承。用<strong>原型链实现对原型属性和方法的继承</strong>，用<strong>借用构造函数技术来实现实例属性的继承</strong>。</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">Father</span><span class="p">(</span><span class="nx">name</span><span class="p">){</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;red&#34;</span><span class="p">,</span> <span class="s2">&#34;blue&#34;</span><span class="p">,</span> <span class="s2">&#34;green&#34;</span><span class="p">];</span>
+<span class="p">}</span>
+<span class="nx">Father</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">sayName</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+  <span class="nx">alert</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+<span class="p">};</span>
+<span class="kd">function</span> <span class="nx">Son</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">age</span><span class="p">){</span>
+  <span class="c1">// 继承属性
+</span><span class="c1"></span>  <span class="c1">// 第二次调用Father()
+</span><span class="c1"></span>  <span class="nx">Father</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">name</span><span class="p">);</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="nx">age</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">// 继承方法
+</span><span class="c1">// 构建原型链
+</span><span class="c1">// 第一次调用Father()
+</span><span class="c1"></span><span class="nx">Son</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Father</span><span class="p">();</span>
+<span class="c1">// 重写Son.prototype的constructor属性，指向自己的构造函数Son
+</span><span class="c1"></span><span class="nx">Son</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">constructor</span> <span class="o">=</span> <span class="nx">Son</span><span class="p">;</span>
+<span class="nx">Son</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">sayAge</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">age</span><span class="p">);</span>
+<span class="p">};</span>
+<span class="kd">var</span> <span class="nx">instance1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Son</span><span class="p">(</span><span class="s2">&#34;Nicholas&#34;</span><span class="p">,</span> <span class="mi">29</span><span class="p">);</span>
+<span class="nx">instance1</span><span class="p">.</span><span class="nx">colors</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s2">&#34;black&#34;</span><span class="p">);</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">instance1</span><span class="p">.</span><span class="nx">colors</span><span class="p">);</span> <span class="c1">//&#34;red,blue,green,black&#34;
+</span><span class="c1"></span><span class="nx">instance1</span><span class="p">.</span><span class="nx">sayName</span><span class="p">();</span> <span class="c1">//&#34;Nicholas&#34;;
+</span><span class="c1"></span><span class="nx">instance1</span><span class="p">.</span><span class="nx">sayAge</span><span class="p">();</span> <span class="c1">//29
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">instance2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Son</span><span class="p">(</span><span class="s2">&#34;Greg&#34;</span><span class="p">,</span> <span class="mi">27</span><span class="p">);</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">instance2</span><span class="p">.</span><span class="nx">colors</span><span class="p">);</span> <span class="c1">//&#34;red,blue,green&#34;
+</span><span class="c1"></span><span class="nx">instance2</span><span class="p">.</span><span class="nx">sayName</span><span class="p">();</span> <span class="c1">//&#34;Greg&#34;;
+</span><span class="c1"></span><span class="nx">instance2</span><span class="p">.</span><span class="nx">sayAge</span><span class="p">();</span> <span class="c1">//27
+</span><span class="c1"></span></code></pre></div>
+<p>组合继承的缺点：</p>
+
+<ul>
+<li>第一次调用Father()：给Son.prototype写入两个属性name，color。</li>
+<li>第二次调用Father()：给instance1写入两个属性name，color。</li>
+</ul>
+
+<p>实例对象instance1上的两个属性就屏蔽了其原型对象Son.prototype的两个同名属性。所以，组合模式的缺点就是在使用子类创建实例对象时，其原型中会存在两份相同的属性/方法。</p>
+
+<h4 id="原型式继承">原型式继承<a href="#原型式继承" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h4>
+
+<blockquote>
+<p>利用一个空对象作为中介，将某个对象直接赋值给空对象构造函数的原型。</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">object</span><span class="p">(</span><span class="nx">obj</span><span class="p">){</span>
+  <span class="kd">function</span> <span class="nx">F</span><span class="p">(){}</span>
+  <span class="nx">F</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="nx">F</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>object()对传入其中的对象执行了一次<strong>浅复制</strong>，将构造函数F的原型直接指向传入的对象。</p>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">person</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;Nicholas&#34;</span><span class="p">,</span>
+  <span class="nx">friends</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;Shelby&#34;</span><span class="p">,</span> <span class="s2">&#34;Court&#34;</span><span class="p">,</span> <span class="s2">&#34;Van&#34;</span><span class="p">]</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">anotherPerson</span> <span class="o">=</span> <span class="nx">object</span><span class="p">(</span><span class="nx">person</span><span class="p">);</span>
+<span class="nx">anotherPerson</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s2">&#34;Greg&#34;</span><span class="p">;</span>
+<span class="nx">anotherPerson</span><span class="p">.</span><span class="nx">friends</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s2">&#34;Rob&#34;</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">yetAnotherPerson</span> <span class="o">=</span> <span class="nx">object</span><span class="p">(</span><span class="nx">person</span><span class="p">);</span>
+<span class="nx">yetAnotherPerson</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s2">&#34;Linda&#34;</span><span class="p">;</span>
+<span class="nx">yetAnotherPerson</span><span class="p">.</span><span class="nx">friends</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s2">&#34;Barbie&#34;</span><span class="p">);</span>
+
+<span class="nx">alert</span><span class="p">(</span><span class="nx">person</span><span class="p">.</span><span class="nx">friends</span><span class="p">);</span>   <span class="c1">//&#34;Shelby,Court,Van,Rob,Barbie&#34;
+</span><span class="c1"></span></code></pre></div>
+<p>原型式继承缺点：</p>
+
+<ul>
+<li>原型链继承多个实例的引用类型属性指向相同，存在篡改的可能。</li>
+<li>无法传递参数
+另外，ES5中存在Object.create()的方法，能够代替上面的object方法。</li>
+</ul>
+
+<h4 id="寄生式继承">寄生式继承<a href="#寄生式继承" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h4>
+
+<blockquote>
+<p>核心：在原型式继承的基础上，增强对象，返回构造函数</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">createAnother</span><span class="p">(</span><span class="nx">original</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">clone</span> <span class="o">=</span> <span class="nx">object</span><span class="p">(</span><span class="nx">original</span><span class="p">);</span> <span class="c1">// 通过调用 object() 函数创建一个新对象
+</span><span class="c1"></span>  <span class="nx">clone</span><span class="p">.</span><span class="nx">sayHi</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>  <span class="c1">// 以某种方式来增强对象
+</span><span class="c1"></span>    <span class="nx">alert</span><span class="p">(</span><span class="s2">&#34;hi&#34;</span><span class="p">);</span>
+  <span class="p">};</span>
+  <span class="k">return</span> <span class="nx">clone</span><span class="p">;</span> <span class="c1">// 返回这个对象
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></div>
+<p>函数的主要作用是为构造函数新增属性和方法，以增强函数</p>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">person</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;Nicholas&#34;</span><span class="p">,</span>
+  <span class="nx">friends</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;Shelby&#34;</span><span class="p">,</span> <span class="s2">&#34;Court&#34;</span><span class="p">,</span> <span class="s2">&#34;Van&#34;</span><span class="p">]</span>
+<span class="p">};</span>
+<span class="kd">var</span> <span class="nx">anotherPerson</span> <span class="o">=</span> <span class="nx">createAnother</span><span class="p">(</span><span class="nx">person</span><span class="p">);</span>
+<span class="nx">anotherPerson</span><span class="p">.</span><span class="nx">sayHi</span><span class="p">();</span> <span class="c1">//&#34;hi&#34;
+</span><span class="c1"></span></code></pre></div>
+<p>寄生式继承的缺点（同原型式继承）：</p>
+
+<ul>
+<li>原型链继承多个实例的引用类型属性指向相同，存在篡改的可能。</li>
+<li>无法传递参数</li>
+</ul>
+
+<h4 id="寄生组合式继承">寄生组合式继承<a href="#寄生组合式继承" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h4>
+
+<blockquote>
+<p>结合借用构造函数(2)传递参数和寄生模式(5)实现继承</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">inheritPrototype</span><span class="p">(</span><span class="nx">son</span><span class="p">,</span> <span class="nx">father</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">prototype</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">father</span><span class="p">.</span><span class="nx">prototype</span><span class="p">);</span> <span class="c1">// 创建对象，创建父类原型的一个副本
+</span><span class="c1"></span>  <span class="nx">prototype</span><span class="p">.</span><span class="nx">constructor</span> <span class="o">=</span> <span class="nx">son</span><span class="p">;</span>                    <span class="c1">// 增强对象，弥补因重写原型而失去的默认的constructor 属性
+</span><span class="c1"></span>  <span class="nx">son</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="nx">prototype</span><span class="p">;</span>                      <span class="c1">// 指定对象，将新创建的对象赋值给子类的原型
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="c1">// 父类初始化实例属性和原型属性
+</span><span class="c1"></span><span class="kd">function</span> <span class="nx">Father</span><span class="p">(</span><span class="nx">name</span><span class="p">){</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;red&#34;</span><span class="p">,</span> <span class="s2">&#34;blue&#34;</span><span class="p">,</span> <span class="s2">&#34;green&#34;</span><span class="p">];</span>
+<span class="p">}</span>
+<span class="nx">Father</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">sayName</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+  <span class="nx">alert</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="c1">// 借用构造函数传递增强子类实例属性（支持传参和避免篡改）
+</span><span class="c1"></span><span class="kd">function</span> <span class="nx">Son</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">age</span><span class="p">){</span>
+  <span class="nx">Father</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">name</span><span class="p">);</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="nx">age</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// 将父类原型指向子类
+</span><span class="c1"></span><span class="nx">inheritPrototype</span><span class="p">(</span><span class="nx">Son</span><span class="p">,</span> <span class="nx">Father</span><span class="p">);</span>
+
+<span class="c1">// 新增子类原型属性
+</span><span class="c1"></span><span class="nx">Son</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">sayAge</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+  <span class="nx">alert</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">age</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">instance1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Son</span><span class="p">(</span><span class="s2">&#34;xyc&#34;</span><span class="p">,</span> <span class="mi">23</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">instance2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Son</span><span class="p">(</span><span class="s2">&#34;lxy&#34;</span><span class="p">,</span> <span class="mi">23</span><span class="p">);</span>
+
+<span class="nx">instance1</span><span class="p">.</span><span class="nx">colors</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s2">&#34;2&#34;</span><span class="p">);</span> <span class="c1">// [&#34;red&#34;, &#34;blue&#34;, &#34;green&#34;, &#34;2&#34;]
+</span><span class="c1"></span><span class="nx">instance1</span><span class="p">.</span><span class="nx">colors</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s2">&#34;3&#34;</span><span class="p">);</span> <span class="c1">// [&#34;red&#34;, &#34;blue&#34;, &#34;green&#34;, &#34;3&#34;]
+</span><span class="c1"></span></code></pre></div>
+<ul>
+<li>这个例子的高效率体现在它只调用了一次<code>Father</code>构造函数，并且因此避免了在<code>Son.prototype</code>上创建不必要的、多余的属性。
+于此同时，原型链还能保持不变；因此，还能够正常使用<code>instanceof</code>和<code>isPrototypeOf()</code></li>
+<li>这是最成熟的方法，也是现在库实现的方法</li>
+</ul>
+
+<h4 id="混入方式继承多个对象">混入方式继承多个对象<a href="#混入方式继承多个对象" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h4>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">MyClass</span><span class="p">()</span> <span class="p">{</span>
+     <span class="nx">SuperClass</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+     <span class="nx">OtherSuperClass</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// 继承一个类
+</span><span class="c1"></span><span class="nx">MyClass</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">SuperClass</span><span class="p">.</span><span class="nx">prototype</span><span class="p">);</span>
+<span class="c1">// 混合其它
+</span><span class="c1"></span><span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">(</span><span class="nx">MyClass</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span> <span class="nx">OtherSuperClass</span><span class="p">.</span><span class="nx">prototype</span><span class="p">);</span>
+<span class="c1">// 重新指定constructor
+</span><span class="c1"></span><span class="nx">MyClass</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">constructor</span> <span class="o">=</span> <span class="nx">MyClass</span><span class="p">;</span>
+
+<span class="nx">MyClass</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">myMethod</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+     <span class="c1">// do something
+</span><span class="c1"></span><span class="p">};</span>
+</code></pre></div>
+<p>Object.assign会把 OtherSuperClass原型上的函数拷贝到 MyClass原型上，使 MyClass 的所有实例都可用 OtherSuperClass 的方法。</p>
+
+<h4 id="es6类继承extends">ES6类继承extends<a href="#es6类继承extends" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h4>
+
+<p>extends关键字主要用于类声明或者类表达式中，以创建一个类，该类是另一个类的子类。其中constructor表示构造函数，一个类中只能有一个构造函数，有多个会报出SyntaxError错误,如果没有显式指定构造方法，则会添加默认的 constructor方法，使用例子如下。</p>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">class</span> <span class="nx">Rectangle</span> <span class="p">{</span>
+    <span class="c1">// constructor
+</span><span class="c1"></span>    <span class="nx">constructor</span><span class="p">(</span><span class="nx">height</span><span class="p">,</span> <span class="nx">width</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="nx">height</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="nx">width</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Getter
+</span><span class="c1"></span>    <span class="nx">get</span> <span class="nx">area</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">calcArea</span><span class="p">()</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Method
+</span><span class="c1"></span>    <span class="nx">calcArea</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">height</span> <span class="o">*</span> <span class="k">this</span><span class="p">.</span><span class="nx">width</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">const</span> <span class="nx">rectangle</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Rectangle</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">rectangle</span><span class="p">.</span><span class="nx">area</span><span class="p">);</span>
+<span class="c1">// 输出 200
+</span><span class="c1"></span>
+<span class="o">-----------------------------------------------------------------</span>
+<span class="c1">// 继承
+</span><span class="c1"></span><span class="k">class</span> <span class="nx">Square</span> <span class="k">extends</span> <span class="nx">Rectangle</span> <span class="p">{</span>
+
+  <span class="nx">constructor</span><span class="p">(</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">length</span><span class="p">,</span> <span class="nx">length</span><span class="p">);</span>
+
+    <span class="c1">// 如果子类中存在构造函数，则需要在使用“this”之前首先调用 super()。
+</span><span class="c1"></span>    <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s1">&#39;Square&#39;</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="nx">get</span> <span class="nx">area</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">height</span> <span class="o">*</span> <span class="k">this</span><span class="p">.</span><span class="nx">width</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">const</span> <span class="nx">square</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Square</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">square</span><span class="p">.</span><span class="nx">area</span><span class="p">);</span>
+<span class="c1">// 输出 100
+</span><span class="c1"></span></code></pre></div>
+<p>extends继承的核心代码如下，其实现和上述的寄生组合式继承方式一样</p>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">_inherits</span><span class="p">(</span><span class="nx">son</span><span class="p">,</span> <span class="nx">father</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="c1">// 创建对象，创建父类原型的一个副本
+</span><span class="c1"></span>    <span class="c1">// 增强对象，弥补因重写原型而失去的默认的constructor 属性
+</span><span class="c1"></span>    <span class="c1">// 指定对象，将新创建的对象赋值给子类的原型
+</span><span class="c1"></span>    <span class="nx">son</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">father</span> <span class="o">&amp;&amp;</span> <span class="nx">father</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span> <span class="p">{</span>
+        <span class="nx">constructor</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">value</span><span class="o">:</span> <span class="nx">son</span><span class="p">,</span>
+            <span class="nx">enumerable</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nx">writable</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="nx">configurable</span><span class="o">:</span> <span class="kc">true</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">father</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nb">Object</span><span class="p">.</span><span class="nx">setPrototypeOf</span>
+            <span class="o">?</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">setPrototypeOf</span><span class="p">(</span><span class="nx">son</span><span class="p">,</span> <span class="nx">father</span><span class="p">)</span>
+            <span class="o">:</span> <span class="nx">son</span><span class="p">.</span><span class="nx">__proto__</span> <span class="o">=</span> <span class="nx">father</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="总结">总结<a href="#总结" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h4>
+
+<p>1、ES5继承和ES6继承的区别</p>
+
+<ul>
+<li>ES5的继承实质上是先创建子类的实例对象，然后再将父类的方法添加到this上（Parent.call(this)）.</li>
+<li>ES6的继承有所不同，实质上是先创建父类的实例对象this，然后再用子类的构造函数修改this。因为子类没有自己的this对象，所以必须先调用父类的super()方法，否则新建实例报错。</li>
+</ul>
+
+			</div>
+			<hr class="post-end">
+			<footer class="post-info">
+				<p>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://caychance.github.io/tags/js">js</a></span><span class="tag"><a href="https://caychance.github.io/tags/%E7%BB%A7%E6%89%BF">继承</a></span>
+				</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>542 Words</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2018-12-13 20:31 &#43;0000</p>
+			</footer>
+		</article>
+		<div class="post-nav thin">
+			<a class="next-post" href="https://caychance.github.io/posts/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E4%B8%83%E7%89%9B%E4%BA%91/">
+				<span class="post-nav-label"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>&nbsp;Newer</span><br><span>如何使用七牛云</span>
+			</a>
+			<a class="prev-post" href="https://caychance.github.io/posts/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/">
+				<span class="post-nav-label">Older&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span><br><span>浏览器缓存机制</span>
+			</a>
+		</div>
+		<div id="comments" class="thin">
+</div>
+	</main>
+
+	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
+		<p>&copy; 2019 <a href="https://caychance.github.io">CayChance</a> &#183; <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></p>
+		<p>
+			Made with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &#183; Theme <a href="https://github.com/Track3/hermit" target="_blank" rel="noopener">Hermit</a> &#183; <a href="https://caychance.github.io/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a>
+		</p>
+	</footer>
+
+
+	<script src="https://caychance.github.io/js/main.min.35ccbf1cdceb91e4c64c06b5d009d6e2977fafe56beda7762febd4e67528d2ac.js" integrity="sha256-Ncy/HNzrkeTGTAa10AnW4pd/r+Vr7ad2L+vU5nUo0qw="></script>
+
+</body>
+
+</html>

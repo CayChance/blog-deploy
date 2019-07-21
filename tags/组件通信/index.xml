@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>组件通信 on CayChance の Blog</title>
+    <link>https://caychance.github.io/tags/%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/</link>
+    <description>Recent content in 组件通信 on CayChance の Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Fri, 05 Jul 2019 18:48:17 +0800</lastBuildDate>
+    
+	<atom:link href="https://caychance.github.io/tags/%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Vue组件间通信的方式总结</title>
+      <link>https://caychance.github.io/posts/vue%E7%BB%84%E4%BB%B6%E9%97%B4%E9%80%9A%E4%BF%A1%E7%9A%84%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Fri, 05 Jul 2019 18:48:17 +0800</pubDate>
+      
+      <guid>https://caychance.github.io/posts/vue%E7%BB%84%E4%BB%B6%E9%97%B4%E9%80%9A%E4%BF%A1%E7%9A%84%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93/</guid>
+      <description>Vue组件之间通讯的常见方法总结
+1. props/$emit 最常用的一种方法。
+ 父组件传值给子组件  子组件中通过声明props传递itemList，父组件引入子组件以后，传入itemList为fruitList
+ 子组件传值给父组件  子组件中传递值通过$emit的第二个参数。父组件接受值通过声明方法addItem，并获取其中的参数。
+// 父组件 &amp;lt;template&amp;gt; &amp;lt;div class=&amp;#34;test&amp;#34;&amp;gt; &amp;lt;h3&amp;gt;this is parents page&amp;lt;/h3&amp;gt; &amp;lt;cChildA v-on:changeItemList=&amp;#39;addItem&amp;#39; v-bind:itemList=&amp;#34;fruitList&amp;#34; /&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/template&amp;gt; &amp;lt;script&amp;gt; import cChildA from &amp;#34;./a&amp;#34;; export default { data() { return { fruitList: [&amp;#34;peach&amp;#34;, &amp;#34;banana&amp;#34;, &amp;#34;lemon&amp;#34;] }; }, methods:{ addItem(item){ console.log(item); } }, components: { cChildA } }; //子组件 &amp;lt;template&amp;gt; &amp;lt;div&amp;gt; &amp;lt;h3&amp;gt;{{childTitle}}&amp;lt;/h3&amp;gt; &amp;lt;ul&amp;gt; &amp;lt;li v-on:click=&amp;#34;changeItemList&amp;#34; v-for=&amp;#34;(item,index) in itemList&amp;#34; v-bind:key=&amp;#34;index&amp;#34;&amp;gt;{{item}}&amp;lt;/li&amp;gt; &amp;lt;/ul&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/template&amp;gt; &amp;lt;script&amp;gt; export default { props: { itemList: { type: Array } }, data() { return { childTitle: `this is child page` }; }, methods: { changeItemList() { this.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Html on CayChance の Blog</title>
+    <link>https://caychance.github.io/tags/html/</link>
+    <description>Recent content in Html on CayChance の Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Fri, 30 Nov 2018 16:17:03 +0000</lastBuildDate>
+    
+	<atom:link href="https://caychance.github.io/tags/html/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>label标签语义化</title>
+      <link>https://caychance.github.io/posts/label%E6%A0%87%E7%AD%BE%E8%AF%AD%E4%B9%89%E5%8C%96/</link>
+      <pubDate>Fri, 30 Nov 2018 16:17:03 +0000</pubDate>
+      
+      <guid>https://caychance.github.io/posts/label%E6%A0%87%E7%AD%BE%E8%AF%AD%E4%B9%89%E5%8C%96/</guid>
+      <description>今天做一个问卷调研的需求的时候，如下图。用户点击A选项的文字的时候被选中，而不是只能点击A前面的圆圈的时候。
+html部分，需要使用input+label标签，其中label的for属性和input的id属性使用同一个变量。如下图：
+&amp;lt;input type=&amp;#34;radio&amp;#34; :id=&amp;#34;subItem&amp;#34; class=&amp;#34;checkbox&amp;#34; v-model=&amp;#34;answers[index]&amp;#34;&amp;gt; &amp;lt;label :for=&amp;#34;subItem&amp;#34;&amp;gt;{{subItem}}&amp;lt;/label&amp;gt; 刚开始用的p标签，一直不好使。后来解决了以后，去搜了一下label标签的语义化
+  标签为 input 元素定义标注（标记）。 label 元素不会向用户呈现任何特殊效果。不过，它为鼠标用户改进了可用性。 如果您在 label 元素内点击文本，就会触发此控件。 就是说，当用户选择该标签时，浏览器就会自动将焦点转到和标签相关的表单控件上。  标签的 for 属性应当与相关元素的 id 属性相同。
+ </description>
+    </item>
+    
+  </channel>
+</rss>

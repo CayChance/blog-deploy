@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="theme-color" content="#494f5c">
+	<meta name="msapplication-TileColor" content="#494f5c">
+
+<meta itemprop="name" content="Vue中相同页面跳转的问题及解决方案">
+<meta itemprop="description" content="问题 也是最近做需求遇到的一个问题。首页的一个总台系统。如图页面顶部的导航条，其中*解决方案*这一项下面的四项一期都暂时不做，等下一个排期再做。
+为了考虑用户体验，这四个点进去，都会进入同一个页面——敬请期待页面。
+当然了，Vue中为了提高性能，相同的组件会被复用，也就是说，组件的生命周期钩子不会再次被调用。详细可参考-响应路由参数的变化
+ 提醒一下，当使用路由参数时，例如从 /user/foo 导航到 /user/bar，原来的组件实例会被复用。因为两个路由都渲染同个组件，比起销毁再创建，复用则显得更加高效。不过，这也意味着组件的生命周期钩子不会再被调用。
+ 解决方案 当然，文档中也给出了对应的解决方案。
+方案1： 必须要设置该页面对应的router为动态路由。 path: &#39;/user/:id&#39;，否则也不会生效。
+const User = { template: &#39;...&#39;, watch: { &#39;$route&#39; (to, from) { // 对路由变化作出响应...  } } }  方案2： 不知道是不是我用法不对：这个导航守卫只会触发一次。
+const User = { template: &#39;...&#39;, beforeRouteUpdate (to, from, next) { // react to route changes...  // don&#39;t forget to call next()  } }  方案3： 这个自己想了一个方法。
+方法的弊端就是，如果多出页面涉及到该问题，需要依次去添加。
+navigateTo (path) { if (!">
+
+
+<meta itemprop="datePublished" content="2019-06-19T17:31:40&#43;08:00" />
+<meta itemprop="dateModified" content="2019-06-19T17:31:40&#43;08:00" />
+<meta itemprop="wordCount" content="83">
+
+
+
+<meta itemprop="keywords" content="vue," />
+<meta property="og:title" content="Vue中相同页面跳转的问题及解决方案" />
+<meta property="og:description" content="问题 也是最近做需求遇到的一个问题。首页的一个总台系统。如图页面顶部的导航条，其中*解决方案*这一项下面的四项一期都暂时不做，等下一个排期再做。
+为了考虑用户体验，这四个点进去，都会进入同一个页面——敬请期待页面。
+当然了，Vue中为了提高性能，相同的组件会被复用，也就是说，组件的生命周期钩子不会再次被调用。详细可参考-响应路由参数的变化
+ 提醒一下，当使用路由参数时，例如从 /user/foo 导航到 /user/bar，原来的组件实例会被复用。因为两个路由都渲染同个组件，比起销毁再创建，复用则显得更加高效。不过，这也意味着组件的生命周期钩子不会再被调用。
+ 解决方案 当然，文档中也给出了对应的解决方案。
+方案1： 必须要设置该页面对应的router为动态路由。 path: &#39;/user/:id&#39;，否则也不会生效。
+const User = { template: &#39;...&#39;, watch: { &#39;$route&#39; (to, from) { // 对路由变化作出响应...  } } }  方案2： 不知道是不是我用法不对：这个导航守卫只会触发一次。
+const User = { template: &#39;...&#39;, beforeRouteUpdate (to, from, next) { // react to route changes...  // don&#39;t forget to call next()  } }  方案3： 这个自己想了一个方法。
+方法的弊端就是，如果多出页面涉及到该问题，需要依次去添加。
+navigateTo (path) { if (!" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://caychance.github.io/posts/vue%E4%B8%AD%E7%9B%B8%E5%90%8C%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC%E7%9A%84%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" /><meta property="article:published_time" content="2019-06-19T17:31:40&#43;08:00"/>
+<meta property="article:modified_time" content="2019-06-19T17:31:40&#43;08:00"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Vue中相同页面跳转的问题及解决方案"/>
+<meta name="twitter:description" content="问题 也是最近做需求遇到的一个问题。首页的一个总台系统。如图页面顶部的导航条，其中*解决方案*这一项下面的四项一期都暂时不做，等下一个排期再做。
+为了考虑用户体验，这四个点进去，都会进入同一个页面——敬请期待页面。
+当然了，Vue中为了提高性能，相同的组件会被复用，也就是说，组件的生命周期钩子不会再次被调用。详细可参考-响应路由参数的变化
+ 提醒一下，当使用路由参数时，例如从 /user/foo 导航到 /user/bar，原来的组件实例会被复用。因为两个路由都渲染同个组件，比起销毁再创建，复用则显得更加高效。不过，这也意味着组件的生命周期钩子不会再被调用。
+ 解决方案 当然，文档中也给出了对应的解决方案。
+方案1： 必须要设置该页面对应的router为动态路由。 path: &#39;/user/:id&#39;，否则也不会生效。
+const User = { template: &#39;...&#39;, watch: { &#39;$route&#39; (to, from) { // 对路由变化作出响应...  } } }  方案2： 不知道是不是我用法不对：这个导航守卫只会触发一次。
+const User = { template: &#39;...&#39;, beforeRouteUpdate (to, from, next) { // react to route changes...  // don&#39;t forget to call next()  } }  方案3： 这个自己想了一个方法。
+方法的弊端就是，如果多出页面涉及到该问题，需要依次去添加。
+navigateTo (path) { if (!"/>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
+	<link rel="shortcut icon" href="/favicon.ico">
+
+	<title>Vue中相同页面跳转的问题及解决方案</title>
+	<link rel="stylesheet" href="https://caychance.github.io/css/style.min.568c54a56780af2a70c45272522247710b69dbfc080b315211fb98381e3796f8.css" integrity="sha256-VoxUpWeArypwxFJyUiJHcQtp2/wICzFSEfuYOB43lvg=">
+	
+</head>
+
+<body id="page">
+	
+	<header id="site-header" class="animated slideInUp faster">
+		<div class="hdr-wrapper section-inner">
+			<div class="hdr-left">
+				<div class="site-branding">
+					<a href="https://caychance.github.io">CayChance の Blog</a>
+				</div>
+				<nav class="site-nav hide-in-mobile">
+					
+				<a href="https://caychance.github.io/posts/">Posts</a>
+				<a href="https://caychance.github.io/about-hugo/">About</a>
+
+				</nav>
+			</div>
+			<div class="hdr-right hdr-icons">
+				<span class="hdr-social hide-in-mobile"><a href="https://twitter.com/" target="_blank" rel="noopener me" title="Twitter"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg></a><a href="https://instagram.com/" target="_blank" rel="noopener me" title="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-instagram"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line></svg></a><a href="https://github.com/" target="_blank" rel="noopener me" title="Github"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a></span><button id="menu-btn" class="hdr-btn" title="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+			</div>
+		</div>
+	</header>
+	<div id="mobile-menu" class="animated fast">
+		<ul>
+			<li><a href="https://caychance.github.io/posts/">Posts</a></li>
+			<li><a href="https://caychance.github.io/about-hugo/">About</a></li>
+		</ul>
+	</div>
+
+
+	<main class="site-main section-inner animated fadeIn faster">
+		<article class="thin">
+			<header class="post-header">
+				<div class="post-meta"><span>Jun 19, 2019</span></div>
+				<h1>Vue中相同页面跳转的问题及解决方案</h1>
+			</header>
+			<div class="content">
+				
+
+<hr />
+
+<h3 id="问题">问题<a href="#问题" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>也是最近做需求遇到的一个问题。首页的一个总台系统。如图页面顶部的导航条，其中*解决方案*这一项下面的四项一期都暂时不做，等下一个排期再做。</p>
+
+<p><img src="https://blog-pics.pek3b.qingstor.com/f88c6218-9fc0-444b-af32-f9ed10347de5.png" alt="" /></p>
+
+<p>为了考虑用户体验，这四个点进去，都会进入同一个页面——敬请期待页面。</p>
+
+<p>当然了，Vue中为了提高性能，相同的组件会被复用，也就是说，组件的生命周期钩子不会再次被调用。详细可参考-<a href="https://router.vuejs.org/zh/guide/essentials/dynamic-matching.html#%E5%93%8D%E5%BA%94%E8%B7%AF%E7%94%B1%E5%8F%82%E6%95%B0%E7%9A%84%E5%8F%98%E5%8C%96">响应路由参数的变化</a></p>
+
+<blockquote>
+<p>提醒一下，当使用路由参数时，例如从 <code>/user/foo</code> 导航到 <code>/user/bar</code>，原来的组件实例会被复用。因为两个路由都渲染同个组件，比起销毁再创建，复用则显得更加高效。不过，这也意味着组件的生命周期钩子不会再被调用。</p>
+</blockquote>
+
+<h3 id="解决方案">解决方案<a href="#解决方案" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>当然，文档中也给出了对应的解决方案。</p>
+
+<h4 id="方案1">方案1：<a href="#方案1" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h4>
+
+<p><strong>必须要设置</strong>该页面对应的router为动态路由。 <code>path: '/user/:id'</code>，否则也不会生效。</p>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">const</span> <span class="nx">User</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">template</span><span class="o">:</span> <span class="s1">&#39;...&#39;</span><span class="p">,</span>
+  <span class="nx">watch</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s1">&#39;$route&#39;</span> <span class="p">(</span><span class="nx">to</span><span class="p">,</span> <span class="nx">from</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// 对路由变化作出响应...
+</span><span class="c1"></span>    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="方案2">方案2：<a href="#方案2" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h4>
+
+<p>不知道是不是我用法不对：这个导航守卫只会触发一次。</p>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">const</span> <span class="nx">User</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">template</span><span class="o">:</span> <span class="s1">&#39;...&#39;</span><span class="p">,</span>
+  <span class="nx">beforeRouteUpdate</span> <span class="p">(</span><span class="nx">to</span><span class="p">,</span> <span class="nx">from</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// react to route changes...
+</span><span class="c1"></span>    <span class="c1">// don&#39;t forget to call next()
+</span><span class="c1"></span>  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="方案3">方案3：<a href="#方案3" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h4>
+
+<p>这个自己想了一个方法。</p>
+
+<p>方法的弊端就是，如果多出页面涉及到该问题，需要依次去添加。</p>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">navigateTo</span> <span class="p">(</span><span class="nx">path</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">path</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">path</span> <span class="o">===</span> <span class="s2">&#34;/stay-tuned&#34;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">$router</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span> <span class="nx">path</span> <span class="p">});</span>
+    <span class="nx">location</span><span class="p">.</span><span class="nx">reload</span><span class="p">();</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">$router</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span> <span class="nx">path</span> <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+			</div>
+			<hr class="post-end">
+			<footer class="post-info">
+				<p>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://caychance.github.io/tags/vue">vue</a></span>
+				</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>83 Words</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2019-06-19 09:31 &#43;0000</p>
+			</footer>
+		</article>
+		<div class="post-nav thin">
+			<a class="next-post" href="https://caychance.github.io/posts/%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/">
+				<span class="post-nav-label"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>&nbsp;Newer</span><br><span>项目总结</span>
+			</a>
+			<a class="prev-post" href="https://caychance.github.io/posts/%E5%9C%A8vue%E4%B8%AD%E4%BD%BF%E7%94%A8swiper%E9%81%87%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/">
+				<span class="post-nav-label">Older&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span><br><span>在vue中使用swiper遇到的一些问题</span>
+			</a>
+		</div>
+		<div id="comments" class="thin">
+</div>
+	</main>
+
+	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
+		<p>&copy; 2019 <a href="https://caychance.github.io">CayChance</a> &#183; <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></p>
+		<p>
+			Made with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &#183; Theme <a href="https://github.com/Track3/hermit" target="_blank" rel="noopener">Hermit</a> &#183; <a href="https://caychance.github.io/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a>
+		</p>
+	</footer>
+
+
+	<script src="https://caychance.github.io/js/main.min.35ccbf1cdceb91e4c64c06b5d009d6e2977fafe56beda7762febd4e67528d2ac.js" integrity="sha256-Ncy/HNzrkeTGTAa10AnW4pd/r+Vr7ad2L+vU5nUo0qw="></script>
+
+</body>
+
+</html>

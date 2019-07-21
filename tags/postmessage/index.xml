@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Postmessage on CayChance の Blog</title>
+    <link>https://caychance.github.io/tags/postmessage/</link>
+    <description>Recent content in Postmessage on CayChance の Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Thu, 11 Jul 2019 16:47:15 +0800</lastBuildDate>
+    
+	<atom:link href="https://caychance.github.io/tags/postmessage/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>PostMessage使用</title>
+      <link>https://caychance.github.io/posts/postmessage%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Thu, 11 Jul 2019 16:47:15 +0800</pubDate>
+      
+      <guid>https://caychance.github.io/posts/postmessage%E4%BD%BF%E7%94%A8/</guid>
+      <description>跨域的问题有一种postMessage的解决方案，之前也一直是听过但是没有用过。
+用法  发送消息:otherWindow.postMessage(message, targetOrigin, [transfer]); 接收消息:window.addEventListener(&amp;ldquo;message&amp;rdquo;, (event)=&amp;gt;{}, false); postMessage方法的入参:  message:要发送的数据 targetOrigin:数据接收方。设置为&amp;rsquo;*&amp;lsquo;，则不限制。不建议这么设置。 transfer:可选参数。是一串和message 同时传递的 Transferable 对象.这些对象的所有权将被转移给消息的接收方，而发送一方将不再保有所有权。  event对象的几个属性:  data:从其他窗口发送过来的消息对象 type:发型消息的类型 source:发送消息的窗口对象 origin:发送消息的窗口的源   举个栗子🌰 下面的写了一个小demo，page one (http://10.161.114.80:8080/index.html/#/test) 和page two (http://10.161.114.80:8082/index.html/#/test)。
+ page one在mounted的时候，新打开了一个窗口，然后8秒后了一条消息给page two； page one在mounted的时候，监听postMessage回来的消息；并判断如果当前发消息的窗口对象，不是当前窗口对象(window)的话，就发送一条消息给page two。 page two在mounted的时候，监听postMessage回来的消息。 page two在mounted的时候，发送一个消息给page one。  //page one &amp;lt;template&amp;gt; &amp;lt;div&amp;gt; &amp;lt;h3&amp;gt;page one&amp;lt;/h3&amp;gt; &amp;lt;input v-model=&amp;#34;message&amp;#34; placeholder=&amp;#34;edit me&amp;#34; /&amp;gt; &amp;lt;button @click=&amp;#34;handleClick&amp;#34;&amp;gt;sendMessage&amp;lt;/button&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/template&amp;gt; &amp;lt;script&amp;gt; export default { data() { return { message: &amp;#34;&amp;#34;, popup: null }; }, methods: { /** * 打开新窗口 */ openWindow() { this.</description>
+    </item>
+    
+  </channel>
+</rss>

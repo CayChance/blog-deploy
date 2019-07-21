@@ -1,0 +1,1883 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="theme-color" content="#494f5c">
+	<meta name="msapplication-TileColor" content="#494f5c">
+
+<meta itemprop="name" content="面试小记">
+<meta itemprop="description" content="CSS部分 css三列布局，两边固定宽度，中间自适应 两栏布局(至少三种，float/absolute/flex) 三栏布局(双飞翼/圣杯/flex) BFC(产生条件、用途) 产生条件：
+ body根元素 float元素 float不等于none 绝对定位 absolute fixed display等于inline-block、table-cells、flex overflow除了visible以外的值hidden、auto、scroll  BFC的用途/特性：
+ 同一个BFC中的margin会重叠 浮动的元素会脱离普通文档流，但是BFC却可以包含浮动的元素，即消除浮动。 BFC可以阻止元素被浮动元素覆盖。  传送门-BFC详细了解
+用border画一个半圆/三角形  三角形  width: 0; height: 0; border-top: 50px solid blue; border-right: 50px solid red; border-bottom: 50px solid green; border-left: 50px solid yellow;  半圆  width: 100px; height: 50px; border-radius: 50px 50px 0 0; background: pink; 弹出框 实现向内旋转的效果(transform: rotateY) css3如何开启动画的GPU加速(translate3d(0, 0, 0)) 行内元素padding margin有用吗  padding有用 margin左右有用，上下无效。  盒模型有哪两种，区别是啥  IE盒模型 border-box width = content宽度&#43;padding&#43;border W3C盒模型 content-box width = content宽度  常用移动端适配方案，border 1px在dpr比较大的手机上咋解决  传送门-掘金-移动端适配总结 感觉这篇文章里的适配代码是个无敌的答案  css水平垂直居中  table-cell absolute transform:translate flex grid  flex align-item align-content的区别  容器属性  flex-direction 主轴的方向 flex-wrap 主轴一行展示不下，如何换行 justify-content 项目在主轴上的对齐方式 align-items 项目在交叉轴上的对齐方式 align-content 多根轴线如何对齐  项目属性  order 项目的排列顺序 越小越靠前 默认0 flex-grow 项目的放大比例 默认为0 等于0不会放大。大于0，如果有剩余空间的情况下，项目1为x1，项目2为x2，则项目1占剩余空间的x1/(x1&#43;x2) flex-shrink 项目的缩小比例 默认为1 等于0不参与缩小。ul width 100px。两个li宽100px，默认每个li都会被缩小1/(1&#43;1)=1/2。第一个li 2，第二个li 3，则第一个li被缩小2/(2&#43;3)=2/5，被缩小的实际宽度为2/5*100=40，剩余宽度为60。第一个li 为0，如果第二个li为0，那么两者都不缩小，第二个li 大于0，那么li实际宽度，第一个li不缩小。 flex-basis 项目的占据主轴的空间 默认auto flex-self 该项目单独的对齐方式   单行，多行文本超出省略号  单行文本溢出  width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;  多行文本溢出  :和::代表啥  :伪类 ::伪元素  JS部分 基本类型和引用类型在内存中是如何存储的  基本类型存储在栈内存 引用类型存储在堆内存 栈内存中存的是引用类型在堆内存中的地址 或者说存的是引用类型的引用  事件委托和事件代理 一个ul里面有很多个li的时候，如果想让每个li都有一个点击事件，不需要给每个li都去添加，只需要给ul添加一个就行了。">
+
+
+<meta itemprop="datePublished" content="2019-04-12T23:53:48&#43;00:00" />
+<meta itemprop="dateModified" content="2019-04-12T23:53:48&#43;00:00" />
+<meta itemprop="wordCount" content="2012">
+
+
+
+<meta itemprop="keywords" content="面试,杂货铺," />
+<meta property="og:title" content="面试小记" />
+<meta property="og:description" content="CSS部分 css三列布局，两边固定宽度，中间自适应 两栏布局(至少三种，float/absolute/flex) 三栏布局(双飞翼/圣杯/flex) BFC(产生条件、用途) 产生条件：
+ body根元素 float元素 float不等于none 绝对定位 absolute fixed display等于inline-block、table-cells、flex overflow除了visible以外的值hidden、auto、scroll  BFC的用途/特性：
+ 同一个BFC中的margin会重叠 浮动的元素会脱离普通文档流，但是BFC却可以包含浮动的元素，即消除浮动。 BFC可以阻止元素被浮动元素覆盖。  传送门-BFC详细了解
+用border画一个半圆/三角形  三角形  width: 0; height: 0; border-top: 50px solid blue; border-right: 50px solid red; border-bottom: 50px solid green; border-left: 50px solid yellow;  半圆  width: 100px; height: 50px; border-radius: 50px 50px 0 0; background: pink; 弹出框 实现向内旋转的效果(transform: rotateY) css3如何开启动画的GPU加速(translate3d(0, 0, 0)) 行内元素padding margin有用吗  padding有用 margin左右有用，上下无效。  盒模型有哪两种，区别是啥  IE盒模型 border-box width = content宽度&#43;padding&#43;border W3C盒模型 content-box width = content宽度  常用移动端适配方案，border 1px在dpr比较大的手机上咋解决  传送门-掘金-移动端适配总结 感觉这篇文章里的适配代码是个无敌的答案  css水平垂直居中  table-cell absolute transform:translate flex grid  flex align-item align-content的区别  容器属性  flex-direction 主轴的方向 flex-wrap 主轴一行展示不下，如何换行 justify-content 项目在主轴上的对齐方式 align-items 项目在交叉轴上的对齐方式 align-content 多根轴线如何对齐  项目属性  order 项目的排列顺序 越小越靠前 默认0 flex-grow 项目的放大比例 默认为0 等于0不会放大。大于0，如果有剩余空间的情况下，项目1为x1，项目2为x2，则项目1占剩余空间的x1/(x1&#43;x2) flex-shrink 项目的缩小比例 默认为1 等于0不参与缩小。ul width 100px。两个li宽100px，默认每个li都会被缩小1/(1&#43;1)=1/2。第一个li 2，第二个li 3，则第一个li被缩小2/(2&#43;3)=2/5，被缩小的实际宽度为2/5*100=40，剩余宽度为60。第一个li 为0，如果第二个li为0，那么两者都不缩小，第二个li 大于0，那么li实际宽度，第一个li不缩小。 flex-basis 项目的占据主轴的空间 默认auto flex-self 该项目单独的对齐方式   单行，多行文本超出省略号  单行文本溢出  width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;  多行文本溢出  :和::代表啥  :伪类 ::伪元素  JS部分 基本类型和引用类型在内存中是如何存储的  基本类型存储在栈内存 引用类型存储在堆内存 栈内存中存的是引用类型在堆内存中的地址 或者说存的是引用类型的引用  事件委托和事件代理 一个ul里面有很多个li的时候，如果想让每个li都有一个点击事件，不需要给每个li都去添加，只需要给ul添加一个就行了。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://caychance.github.io/posts/%E9%9D%A2%E8%AF%95%E5%B0%8F%E8%AE%B0/" /><meta property="article:published_time" content="2019-04-12T23:53:48&#43;00:00"/>
+<meta property="article:modified_time" content="2019-04-12T23:53:48&#43;00:00"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="面试小记"/>
+<meta name="twitter:description" content="CSS部分 css三列布局，两边固定宽度，中间自适应 两栏布局(至少三种，float/absolute/flex) 三栏布局(双飞翼/圣杯/flex) BFC(产生条件、用途) 产生条件：
+ body根元素 float元素 float不等于none 绝对定位 absolute fixed display等于inline-block、table-cells、flex overflow除了visible以外的值hidden、auto、scroll  BFC的用途/特性：
+ 同一个BFC中的margin会重叠 浮动的元素会脱离普通文档流，但是BFC却可以包含浮动的元素，即消除浮动。 BFC可以阻止元素被浮动元素覆盖。  传送门-BFC详细了解
+用border画一个半圆/三角形  三角形  width: 0; height: 0; border-top: 50px solid blue; border-right: 50px solid red; border-bottom: 50px solid green; border-left: 50px solid yellow;  半圆  width: 100px; height: 50px; border-radius: 50px 50px 0 0; background: pink; 弹出框 实现向内旋转的效果(transform: rotateY) css3如何开启动画的GPU加速(translate3d(0, 0, 0)) 行内元素padding margin有用吗  padding有用 margin左右有用，上下无效。  盒模型有哪两种，区别是啥  IE盒模型 border-box width = content宽度&#43;padding&#43;border W3C盒模型 content-box width = content宽度  常用移动端适配方案，border 1px在dpr比较大的手机上咋解决  传送门-掘金-移动端适配总结 感觉这篇文章里的适配代码是个无敌的答案  css水平垂直居中  table-cell absolute transform:translate flex grid  flex align-item align-content的区别  容器属性  flex-direction 主轴的方向 flex-wrap 主轴一行展示不下，如何换行 justify-content 项目在主轴上的对齐方式 align-items 项目在交叉轴上的对齐方式 align-content 多根轴线如何对齐  项目属性  order 项目的排列顺序 越小越靠前 默认0 flex-grow 项目的放大比例 默认为0 等于0不会放大。大于0，如果有剩余空间的情况下，项目1为x1，项目2为x2，则项目1占剩余空间的x1/(x1&#43;x2) flex-shrink 项目的缩小比例 默认为1 等于0不参与缩小。ul width 100px。两个li宽100px，默认每个li都会被缩小1/(1&#43;1)=1/2。第一个li 2，第二个li 3，则第一个li被缩小2/(2&#43;3)=2/5，被缩小的实际宽度为2/5*100=40，剩余宽度为60。第一个li 为0，如果第二个li为0，那么两者都不缩小，第二个li 大于0，那么li实际宽度，第一个li不缩小。 flex-basis 项目的占据主轴的空间 默认auto flex-self 该项目单独的对齐方式   单行，多行文本超出省略号  单行文本溢出  width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;  多行文本溢出  :和::代表啥  :伪类 ::伪元素  JS部分 基本类型和引用类型在内存中是如何存储的  基本类型存储在栈内存 引用类型存储在堆内存 栈内存中存的是引用类型在堆内存中的地址 或者说存的是引用类型的引用  事件委托和事件代理 一个ul里面有很多个li的时候，如果想让每个li都有一个点击事件，不需要给每个li都去添加，只需要给ul添加一个就行了。"/>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
+	<link rel="shortcut icon" href="/favicon.ico">
+
+	<title>面试小记</title>
+	<link rel="stylesheet" href="https://caychance.github.io/css/style.min.568c54a56780af2a70c45272522247710b69dbfc080b315211fb98381e3796f8.css" integrity="sha256-VoxUpWeArypwxFJyUiJHcQtp2/wICzFSEfuYOB43lvg=">
+	
+</head>
+
+<body id="page">
+	
+	<header id="site-header" class="animated slideInUp faster">
+		<div class="hdr-wrapper section-inner">
+			<div class="hdr-left">
+				<div class="site-branding">
+					<a href="https://caychance.github.io">CayChance の Blog</a>
+				</div>
+				<nav class="site-nav hide-in-mobile">
+					
+				<a href="https://caychance.github.io/posts/">Posts</a>
+				<a href="https://caychance.github.io/about-hugo/">About</a>
+
+				</nav>
+			</div>
+			<div class="hdr-right hdr-icons">
+				<span class="hdr-social hide-in-mobile"><a href="https://twitter.com/" target="_blank" rel="noopener me" title="Twitter"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg></a><a href="https://instagram.com/" target="_blank" rel="noopener me" title="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-instagram"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line></svg></a><a href="https://github.com/" target="_blank" rel="noopener me" title="Github"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a></span><button id="menu-btn" class="hdr-btn" title="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+			</div>
+		</div>
+	</header>
+	<div id="mobile-menu" class="animated fast">
+		<ul>
+			<li><a href="https://caychance.github.io/posts/">Posts</a></li>
+			<li><a href="https://caychance.github.io/about-hugo/">About</a></li>
+		</ul>
+	</div>
+
+
+	<main class="site-main section-inner animated fadeIn faster">
+		<article class="thin">
+			<header class="post-header">
+				<div class="post-meta"><span>Apr 12, 2019</span></div>
+				<h1>面试小记</h1>
+			</header>
+			<div class="content">
+				
+
+<hr />
+
+<h2 id="css部分">CSS部分<a href="#css部分" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+
+<h3 id="css三列布局-两边固定宽度-中间自适应">css三列布局，两边固定宽度，中间自适应<a href="#css三列布局-两边固定宽度-中间自适应" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<h3 id="两栏布局-至少三种-float-absolute-flex">两栏布局(至少三种，float/absolute/flex)<a href="#两栏布局-至少三种-float-absolute-flex" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<h3 id="三栏布局-双飞翼-圣杯-flex">三栏布局(双飞翼/圣杯/flex)<a href="#三栏布局-双飞翼-圣杯-flex" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<h3 id="bfc-产生条件-用途">BFC(产生条件、用途)<a href="#bfc-产生条件-用途" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>产生条件：</p>
+
+<ul>
+<li>body根元素</li>
+<li>float元素 float不等于none</li>
+<li>绝对定位 absolute fixed</li>
+<li>display等于inline-block、table-cells、flex</li>
+<li>overflow除了visible以外的值hidden、auto、scroll</li>
+</ul>
+
+<p>BFC的用途/特性：</p>
+
+<ul>
+<li>同一个BFC中的margin会重叠</li>
+<li>浮动的元素会脱离普通文档流，但是BFC却可以包含浮动的元素，即消除浮动。</li>
+<li>BFC可以阻止元素被浮动元素覆盖。</li>
+</ul>
+
+<p><a href="https://caychance.github.io/posts/bfc/">传送门-BFC详细了解</a></p>
+
+<h3 id="用border画一个半圆-三角形">用border画一个半圆/三角形<a href="#用border画一个半圆-三角形" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>三角形</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-css" data-lang="css"><span class="nt">width</span><span class="o">:</span> <span class="nt">0</span><span class="o">;</span>
+<span class="nt">height</span><span class="o">:</span> <span class="nt">0</span><span class="o">;</span>
+<span class="nt">border-top</span><span class="o">:</span> <span class="nt">50px</span> <span class="nt">solid</span> <span class="nt">blue</span><span class="o">;</span>
+<span class="nt">border-right</span><span class="o">:</span> <span class="nt">50px</span> <span class="nt">solid</span> <span class="nt">red</span><span class="o">;</span>
+<span class="nt">border-bottom</span><span class="o">:</span> <span class="nt">50px</span> <span class="nt">solid</span> <span class="nt">green</span><span class="o">;</span>
+<span class="nt">border-left</span><span class="o">:</span> <span class="nt">50px</span> <span class="nt">solid</span> <span class="nt">yellow</span><span class="o">;</span></code></pre></div>
+<ul>
+<li>半圆</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-css" data-lang="css"><span class="nt">width</span><span class="o">:</span> <span class="nt">100px</span><span class="o">;</span>
+<span class="nt">height</span><span class="o">:</span> <span class="nt">50px</span><span class="o">;</span>
+<span class="nt">border-radius</span><span class="o">:</span> <span class="nt">50px</span> <span class="nt">50px</span> <span class="nt">0</span> <span class="nt">0</span><span class="o">;</span>
+<span class="nt">background</span><span class="o">:</span> <span class="nt">pink</span><span class="o">;</span></code></pre></div>
+<h3 id="弹出框">弹出框<a href="#弹出框" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<h3 id="实现向内旋转的效果-transform-rotatey">实现向内旋转的效果(transform: rotateY)<a href="#实现向内旋转的效果-transform-rotatey" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<h3 id="css3如何开启动画的gpu加速-translate3d-0-0-0">css3如何开启动画的GPU加速(translate3d(0, 0, 0))<a href="#css3如何开启动画的gpu加速-translate3d-0-0-0" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<h3 id="行内元素padding-margin有用吗">行内元素padding margin有用吗<a href="#行内元素padding-margin有用吗" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>padding有用</li>
+<li>margin左右有用，上下无效。</li>
+</ul>
+
+<h3 id="盒模型有哪两种-区别是啥">盒模型有哪两种，区别是啥<a href="#盒模型有哪两种-区别是啥" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>IE盒模型 border-box
+width = content宽度+padding+border</li>
+<li>W3C盒模型 content-box
+width = content宽度</li>
+</ul>
+
+<h3 id="常用移动端适配方案-border-1px在dpr比较大的手机上咋解决">常用移动端适配方案，border 1px在dpr比较大的手机上咋解决<a href="#常用移动端适配方案-border-1px在dpr比较大的手机上咋解决" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li><a href="https://juejin.im/post/5c0dd7ac6fb9a049c43d7edc">传送门-掘金-移动端适配总结</a> 感觉这篇文章里的适配代码是个无敌的答案</li>
+</ul>
+
+<h3 id="css水平垂直居中">css水平垂直居中<a href="#css水平垂直居中" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>table-cell</li>
+<li>absolute</li>
+<li>transform:translate</li>
+<li>flex</li>
+<li>grid</li>
+</ul>
+
+<h3 id="flex-align-item-align-content的区别">flex  align-item align-content的区别<a href="#flex-align-item-align-content的区别" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>容器属性
+
+<ul>
+<li>flex-direction      主轴的方向</li>
+<li>flex-wrap       主轴一行展示不下，如何换行</li>
+<li>justify-content 项目在主轴上的对齐方式</li>
+<li>align-items     项目在交叉轴上的对齐方式</li>
+<li>align-content       多根轴线如何对齐</li>
+</ul></li>
+<li>项目属性
+
+<ul>
+<li>order           项目的排列顺序 越小越靠前 默认0</li>
+<li>flex-grow       项目的放大比例
+默认为0 等于0不会放大。大于0，如果有剩余空间的情况下，项目1为x1，项目2为x2，则项目1占剩余空间的x1/(x1+x2)</li>
+<li>flex-shrink     项目的缩小比例
+默认为1 等于0不参与缩小。ul width 100px。两个li宽100px，默认每个li都会被缩小1/(1+1)=1/2。第一个li 2，第二个li 3，则第一个li被缩小2/(2+3)=2/5，被缩小的实际宽度为2/5*100=40，剩余宽度为60。第一个li 为0，如果第二个li为0，那么两者都不缩小，第二个li 大于0，那么li实际宽度，第一个li不缩小。</li>
+<li>flex-basis      项目的占据主轴的空间 默认auto</li>
+<li>flex-self           该项目单独的对齐方式</li>
+</ul></li>
+</ul>
+
+<h3 id="单行-多行文本超出省略号">单行，多行文本超出省略号<a href="#单行-多行文本超出省略号" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>单行文本溢出</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-css" data-lang="css"><span class="nt">width</span><span class="o">:</span> <span class="nt">100px</span><span class="o">;</span>
+<span class="nt">overflow</span><span class="o">:</span> <span class="nt">hidden</span><span class="o">;</span>
+<span class="nt">text-overflow</span><span class="o">:</span> <span class="nt">ellipsis</span><span class="o">;</span>
+<span class="nt">white-space</span><span class="o">:</span> <span class="nt">nowrap</span><span class="o">;</span></code></pre></div>
+<ul>
+<li>多行文本溢出</li>
+</ul>
+
+<h3 id="和-代表啥">:和::代表啥<a href="#和-代表啥" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>:伪类</li>
+<li>::伪元素</li>
+</ul>
+
+<h2 id="js部分">JS部分<a href="#js部分" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+
+<h3 id="基本类型和引用类型在内存中是如何存储的">基本类型和引用类型在内存中是如何存储的<a href="#基本类型和引用类型在内存中是如何存储的" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>基本类型存储在栈内存</li>
+<li>引用类型存储在堆内存 栈内存中存的是引用类型在堆内存中的地址 或者说存的是引用类型的引用</li>
+</ul>
+
+<h3 id="事件委托和事件代理">事件委托和事件代理<a href="#事件委托和事件代理" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>一个ul里面有很多个li的时候，如果想让每个li都有一个点击事件，不需要给每个li都去添加，只需要给ul添加一个就行了。</p>
+
+<p>利用事件冒泡的原理。</p>
+
+<h3 id="闭包-会导致的问题-如何解决">闭包 会导致的问题 如何解决<a href="#闭包-会导致的问题-如何解决" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>闭包使用不当会导致内存溢出。因此，在退出函数之前，将不使用的局部变量全部删除。</p>
+
+<h3 id="js的垃圾回收机制">js的垃圾回收机制<a href="#js的垃圾回收机制" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>引用计数垃圾收集
+概念：语言引擎有一张&rdquo;引用表&rdquo;，保存了内存里面所有的资源（通常是各种值）的引用次数。如果一个值的引用次数是0，就表示这个值不再用到了，因此可以将这块内存释放；
+缺点：该算法有一个限制——循环引用。</li>
+<li>标记-清除垃圾回收算法
+2012年起，所有现代浏览器都是用了该算法</li>
+</ul>
+
+<h3 id="原生的ajax">原生的ajax<a href="#原生的ajax" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>XMLHttp​Request</p>
+
+<h3 id="window-onload和document-onload的区别">window.onload和document.onload的区别<a href="#window-onload和document-onload的区别" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>todo</li>
+</ul>
+
+<h3 id="match方法实现-支持-和-通配符">match方法实现，支持?和*通配符<a href="#match方法实现-支持-和-通配符" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>todo</li>
+</ul>
+
+<h3 id="es6模块和commonjs模块的区别">ES6模块和CommonJs模块的区别<a href="#es6模块和commonjs模块的区别" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>commonJs是被加载的时候运行，es6是编译的时候运行</li>
+<li>commonJs输出的是值的浅拷贝，es6输出值的引用</li>
+<li>commentJs具有缓存。在第一次被加载时，会完整运行整个文件并输出一个对象，拷贝（浅拷贝）在内存中。下次加载文件时，直接从内存中取值</li>
+<li>参考链接
+<a href="https://juejin.im/post/5ae04fba6fb9a07acb3c8ac5">传送门-掘金-CommonJs 和 ESModule 的 区别整理</a>
+<a href="http://www.ruanyifeng.com/blog/2015/11/circular-dependency.html">传送门-JavaScript 模块的循环加载</a></li>
+</ul>
+
+<h3 id="es6新特性列举几个">es6新特性列举几个<a href="#es6新特性列举几个" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p><code>let/const</code>，<code>箭头函数</code>，<code>解构</code>，<code>模板字符串</code>，<code>Promise</code>，<code>Class</code></p>
+
+<h3 id="var-let-const-区别">var/let/const 区别<a href="#var-let-const-区别" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<table>
+<thead>
+<tr>
+<th align="center">声明方式</th>
+<th align="center">变量提升</th>
+<th align="center">重复声明</th>
+<th align="center">暂时性死区</th>
+<th align="center">初始值</th>
+<th align="center">作用域</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">var</td>
+<td align="center">允许</td>
+<td align="center">允许</td>
+<td align="center">不存在</td>
+<td align="center">不需要</td>
+<td align="center">除块级</td>
+</tr>
+
+<tr>
+<td align="center">let</td>
+<td align="center">不允许</td>
+<td align="center">不允许</td>
+<td align="center">存在</td>
+<td align="center">需要</td>
+<td align="center">块级</td>
+</tr>
+
+<tr>
+<td align="center">const</td>
+<td align="center">不允许</td>
+<td align="center">不允许</td>
+<td align="center">存在</td>
+<td align="center">需要</td>
+<td align="center">块级</td>
+</tr>
+</tbody>
+</table>
+
+<p>const实际上保证的，并<strong>不是变量的值不得改动</strong>，而是<strong>变量指向的那个内存地址所保存的数据不得改动</strong>。</p>
+
+<h3 id="es6中object的方法-object-assign-合并对象是浅拷贝-深拷贝">es6中Object的方法  Object.assign()合并对象是浅拷贝，深拷贝<a href="#es6中object的方法-object-assign-合并对象是浅拷贝-深拷贝" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>浅拷贝
+Object.assign()</li>
+<li>深拷贝
+
+<ul>
+<li>JSON.parse(JSON.stringify(obj))</li>
+<li>手写一个深拷贝</li>
+</ul></li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-JavaScript" data-lang="JavaScript"><span class="kd">function</span> <span class="nx">deepClone</span><span class="p">(</span><span class="nx">obj</span><span class="p">){</span>
+  <span class="kd">let</span> <span class="nx">result</span><span class="p">;</span>
+  <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">obj</span> <span class="o">===</span> <span class="s1">&#39;object&#39;</span><span class="p">){</span>
+    <span class="nx">result</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">constructor</span> <span class="o">===</span> <span class="s1">&#39;Array&#39;</span> <span class="o">?</span> <span class="p">[]</span> <span class="o">:</span> <span class="p">{};</span>
+    <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="k">in</span> <span class="nx">obj</span><span class="p">){</span>
+      <span class="nx">result</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="k">typeof</span> <span class="nx">obj</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">===</span> <span class="s1">&#39;object&#39;</span> <span class="o">?</span> <span class="nx">deepClone</span><span class="p">(</span><span class="nx">obj</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span> <span class="o">:</span> <span class="nx">obj</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">else</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+  <span class="k">return</span> <span class="nx">result</span> <span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="es6模板字符串如何实现">es6模板字符串如何实现<a href="#es6模板字符串如何实现" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">replace</span><span class="p">(</span><span class="nx">content</span><span class="p">){</span>
+  <span class="k">return</span> <span class="nx">content</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\$\{([^}]+)\}/g</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">matched</span><span class="p">,</span><span class="nx">childItem</span><span class="p">){</span>
+    <span class="k">return</span> <span class="nb">eval</span><span class="p">(</span><span class="nx">childItem</span><span class="p">);</span>
+  <span class="p">})</span>
+<span class="p">}</span>
+<span class="c1">//   /\$\{([^}]+)\}/g
+</span><span class="c1"></span><span class="cm">/*
+</span><span class="cm">这个正则匹配的内容就是${}，括号里面是除了}以外所有的字符，并且若干个
+</span><span class="cm">*/</span>
+</code></pre></div>
+<h3 id="箭头函数和普通函数的区别">箭头函数和普通函数的区别<a href="#箭头函数和普通函数的区别" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>箭头函数声明时绑定this。</li>
+<li>普通函数执行时绑定this</li>
+<li>箭头函数不能用于<strong>构造函数</strong>，不能使用<strong>new</strong>，不能<strong>call,apply,bind</strong>，不能当作<strong>generator函数</strong>，不能使用<strong>yield</strong>，没有<strong>arguments</strong>，没有<strong>prototype</strong>。</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-JavaScript" data-lang="JavaScript"><span class="kd">var</span> <span class="nx">a</span><span class="o">=</span><span class="p">{</span>
+  <span class="nx">func</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span> 
+<span class="kd">var</span> <span class="nx">b</span><span class="o">=</span><span class="nx">a</span><span class="p">.</span><span class="nx">func</span><span class="p">;</span> 
+
+<span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">func</span><span class="o">:</span><span class="p">()=&gt;</span><span class="k">this</span>
+<span class="p">}</span> 
+<span class="kd">var</span> <span class="nx">d</span><span class="o">=</span><span class="nx">c</span><span class="p">.</span><span class="nx">func</span>
+<span class="c1">//a.func 输出a本身 	b(),c.func(),c()输出window
+</span><span class="c1"></span></code></pre></div>
+<h3 id="继承-原型-原型链">继承 原型 原型链<a href="#继承-原型-原型链" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>使用ES5实现一个继承 <strong>核心是用一个 F 空的构造函数去取代执行了 Parent 这个构造函数。</strong></li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-JavaScript" data-lang="JavaScript"><span class="kd">function</span> <span class="nx">Parent</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nx">Parent</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">sayName</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;parent name:&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kd">function</span> <span class="nx">Child</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">parentName</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">Parent</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">parentName</span><span class="p">);</span>  
+  <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kd">function</span> <span class="nx">create</span><span class="p">(</span><span class="nx">proto</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">function</span> <span class="nx">F</span><span class="p">(){}</span>
+  <span class="nx">F</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="nx">proto</span><span class="p">;</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="nx">F</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="nx">Child</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="nx">create</span><span class="p">(</span><span class="nx">Parent</span><span class="p">.</span><span class="nx">prototype</span><span class="p">);</span>
+<span class="nx">Child</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">sayName</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;child name:&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nx">Child</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">constructor</span> <span class="o">=</span> <span class="nx">Child</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">parent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Parent</span><span class="p">(</span><span class="s1">&#39;father&#39;</span><span class="p">);</span>
+<span class="nx">parent</span><span class="p">.</span><span class="nx">sayName</span><span class="p">();</span>    <span class="c1">// parent name: father
+</span><span class="c1"></span>
+<span class="kd">var</span> <span class="nx">child</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Child</span><span class="p">(</span><span class="s1">&#39;son&#39;</span><span class="p">,</span> <span class="s1">&#39;father&#39;</span><span class="p">);</span>
+</code></pre></div>
+<ul>
+<li>ES6继承</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-JavaScript" data-lang="JavaScript"><span class="k">class</span> <span class="nx">Father</span> <span class="p">{</span>
+  <span class="nx">constructor</span><span class="p">(</span><span class="nx">name</span><span class="p">){</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">class</span> <span class="nx">Son</span> <span class="k">extends</span> <span class="nx">Father</span> <span class="p">{</span>
+  <span class="nx">constructor</span><span class="p">(</span><span class="nx">parentName</span><span class="p">,</span><span class="nx">age</span><span class="p">){</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">parentName</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="nx">age</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="数组去重">数组去重<a href="#数组去重" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// 方法1
+</span><span class="c1"></span><span class="p">[...</span><span class="k">new</span> <span class="nx">Set</span><span class="p">(</span><span class="nx">array</span><span class="p">)]</span>
+
+<span class="c1">// 方法2
+</span><span class="c1"></span><span class="nx">handle</span> <span class="o">=</span> <span class="nx">array</span><span class="p">=&gt;</span><span class="nx">array</span><span class="p">.</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">p</span><span class="p">,</span><span class="nx">c</span><span class="p">)=&gt;{</span>
+  <span class="o">!</span><span class="nx">p</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">p</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">c</span><span class="p">);</span>
+  <span class="k">return</span> <span class="nx">p</span><span class="p">;</span>
+<span class="p">},[])</span>
+</code></pre></div>
+<ul>
+<li>遍历</li>
+</ul>
+
+<h3 id="数组的方法">数组的方法<a href="#数组的方法" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li><code>forEach</code> <code>map</code> <code>reduce</code> <code>filter</code> <code>some</code> <code>every</code> <code>concat</code> <code>push</code> <code>pop</code> <code>unshift</code> <code>shift</code></li>
+<li>用reduce实现map</li>
+<li>用reduce计算[2, [3, 4], [4, [5, 6]]]里所有的值的和</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">sum</span> <span class="o">=</span> <span class="nx">array</span><span class="p">=&gt;</span><span class="nx">array</span><span class="p">.</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">p</span><span class="p">,</span><span class="nx">c</span><span class="p">)=&gt;</span><span class="nx">p</span><span class="o">+</span><span class="p">(</span><span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span> <span class="o">?</span> <span class="nx">sum</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span> <span class="o">:</span> <span class="nx">c</span><span class="p">),</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+<ul>
+<li>使用reduce实现flap方法</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">Flap</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">array</span><span class="p">){</span>
+  <span class="k">return</span> <span class="nx">array</span><span class="p">.</span><span class="nx">reduce</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">p</span><span class="p">,</span><span class="nx">c</span><span class="p">){</span>
+    <span class="k">return</span> <span class="nx">p</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span> <span class="o">?</span> <span class="nx">myFlap</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span> <span class="o">:</span> <span class="nx">c</span><span class="p">);</span>
+  <span class="p">},[])</span>
+<span class="p">}</span>
+
+<span class="nx">myFlap</span> <span class="o">=</span> <span class="nx">array</span><span class="p">=&gt;</span><span class="nx">array</span><span class="p">.</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">p</span><span class="p">,</span><span class="nx">c</span><span class="p">)=&gt;</span><span class="nx">p</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span> <span class="o">?</span> <span class="nx">myFlap</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span> <span class="o">:</span> <span class="nx">c</span><span class="p">),[])</span>
+</code></pre></div>
+<h3 id="for-in-for-of-for-遍历对象-缺点-只能遍历原型的属性">for in/for of/for 遍历对象 缺点 只能遍历原型的属性<a href="#for-in-for-of-for-遍历对象-缺点-只能遍历原型的属性" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<blockquote>
+<p>for&hellip;in语句以任意顺序遍历一个对象自有的、继承的、可枚举的、非Symbol的属性。对于每个不同的属性，语句都会被执行。</p>
+
+<p>for&hellip;of语句在可迭代对象（包括 Array，Map，Set，String，TypedArray，arguments 对象等等）上创建一个迭代循环，调用自定义迭代钩子，并为每个不同属性的值执行语句</p>
+</blockquote>
+
+<ul>
+<li><p>for in</p>
+
+<ol>
+<li>可以遍历数组和对象。可以获取key和value。</li>
+</ol></li>
+
+<li><p>for of</p>
+
+<ol>
+<li>可以遍历数组，<strong>不可遍历对象</strong>。只能获取value</li>
+<li>性能更好</li>
+<li>遍历具有迭代器属性的对象。因此如果某个对象有迭代器属性，也是可以遍历的。</li>
+</ol></li>
+
+<li><p>for循环就是遍历数组的方法。</p></li>
+</ul>
+
+<h3 id="如何判断一个数组">如何判断一个数组<a href="#如何判断一个数组" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li><code>arr instanceof Array</code></li>
+<li><code>arr.constructor === Array</code></li>
+<li><code>Object.prototype.toString.call(arr)</code></li>
+<li><code>Array.isArray(arr)</code></li>
+</ul>
+
+<h3 id="如何判断一个对象是否为空对象">如何判断一个对象是否为空对象<a href="#如何判断一个对象是否为空对象" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li><code>for in</code></li>
+<li><code>Object.keys()</code></li>
+</ul>
+
+<h3 id="如何判断一个类数组对象">如何判断一个类数组对象<a href="#如何判断一个类数组对象" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>本质还是一个对象</li>
+<li>有一个length属性</li>
+</ul>
+
+<h3 id="异步的处理方式都有哪些">异步的处理方式都有哪些<a href="#异步的处理方式都有哪些" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>回调函数</li>
+<li>promise</li>
+<li>generator</li>
+<li>async/await</li>
+</ul>
+
+<p><a href="https://caychance.github.io/posts/%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A/">传送门-关于js中的异步</a></p>
+
+<h3 id="promise和async-await">Promise和async/await<a href="#promise和async-await" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<h3 id="promise原理-手写">Promise原理 手写<a href="#promise原理-手写" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>Promise中存在三个状态    等待态pending 执行态fullfilled 拒绝态rejected</li>
+<li>Promise状态不可逆  pending=&gt;fullfied  pending=&gt;rejected</li>
+<li>Promise.then()方法返回一个Promise对象，因此可以链式调用</li>
+<li>Promise接受的函数参数是同步执行的，但then方法中的回调函数则是异步的</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-JavaScript" data-lang="JavaScript"><span class="c1">//promise声明
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">promise</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span><span class="nx">reject</span><span class="p">){</span>
+  <span class="k">if</span><span class="p">(){</span><span class="c1">//成功
+</span><span class="c1"></span>    <span class="nx">resolve</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span>
+  <span class="p">}</span>
+  <span class="k">else</span><span class="p">{</span>
+    <span class="nx">reject</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+<span class="c1">//promise调用
+</span><span class="c1"></span><span class="nx">promise</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="p">){</span>
+  <span class="c1">// succ
+</span><span class="c1"></span><span class="p">},</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+  <span class="c1">// fail
+</span><span class="c1"></span><span class="p">})</span>
+</code></pre></div>
+<h3 id="promise封装settimeout">Promise封装setTimeOut<a href="#promise封装settimeout" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+<div class="highlight"><pre class="chroma"><code class="language-JavaScript" data-lang="JavaScript"><span class="nx">wait</span><span class="o">=</span><span class="nx">time</span><span class="p">=&gt;</span><span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="nx">y</span><span class="p">=&gt;</span><span class="nx">setTimeout</span><span class="p">(</span><span class="nx">y</span><span class="p">,</span><span class="nx">time</span><span class="p">))</span>
+</code></pre></div>
+<h3 id="async-await">async/await<a href="#async-await" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>async/await是generator的语法糖。</p>
+
+<p>async/await对generator的改进有以下几点：</p>
+
+<ul>
+<li>内置执行器
+
+<ul>
+<li>Generator 函数的执行必须靠执行器，所以才有了 co 函数库，而 async 函数自带执行器。也就是说，async 函数的执行，与普通函数一模一样，只要一行。</li>
+</ul></li>
+<li>更好的语义
+
+<ul>
+<li>async 和 await，比起星号和 yield，语义更清楚了。async 表示函数里有异步操作，await 表示紧跟在后面的表达式需要等待结果。</li>
+</ul></li>
+<li>更广的适用性
+
+<ul>
+<li>co 函数库约定，yield 命令后面只能是 Thunk 函数或 Promise 对象，而 async 函数的 await 命令后面，可以跟 Promise 对象和原始类型的值（数值、字符串和布尔值，但这时等同于同步操作）。所以，async函数的实现，就是把Generator函数和自动执行器包装在一个函数里。</li>
+</ul></li>
+<li>返回值是Promise
+
+<ul>
+<li>async函数的返回值是 Promise 对象。</li>
+</ul></li>
+</ul>
+
+<h3 id="event-loop">Event Loop<a href="#event-loop" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>Event Loop分为<strong>浏览器中的Event Loop</strong>和<strong>Node中的Event Loop</strong></p>
+
+<p><a href="https://caychance.github.io/posts/js-event-loop/">传送门-JS Event Loop</a></p>
+
+<h3 id="浏览器中的event-loop">浏览器中的Event Loop<a href="#浏览器中的event-loop" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<blockquote>
+<p>（1）所有同步任务都在主线程上执行，形成一个执行栈（execution context stack）。</p>
+
+<p>（2）主线程之外，还存在一个&rdquo;任务队列&rdquo;（task queue）。只要异步任务有了运行结果，就在&rdquo;任务队列&rdquo;之中放置一个事件。</p>
+
+<p>（3）一旦&rdquo;执行栈&rdquo;中的所有同步任务执行完毕，系统就会读取&rdquo;任务队列&rdquo;，看看里面有哪些事件。那些对应的异步任务，于是结束等待状态，进入执行栈，开始执行。</p>
+
+<p>（4）主线程不断重复上面的第三步。</p>
+</blockquote>
+
+<h3 id="node中的event-loop">Node中的Event Loop<a href="#node中的event-loop" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<blockquote>
+<p>（1）V8引擎解析JavaScript脚本。</p>
+
+<p>（2）解析后的代码，调用Node API。</p>
+
+<p>（3）libuv库负责Node API的执行。它将不同的任务分配给不同的线程，形成一个Event Loop（事件循环），任务的执行结果会以异步的方式返回给V8引擎。</p>
+
+<p>（4）V8引擎再将结果返回给用户。</p>
+</blockquote>
+
+<h3 id="宏任务和微任务的执行顺序">宏任务和微任务的执行顺序<a href="#宏任务和微任务的执行顺序" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<blockquote>
+<p>（1）先执行宏任务，执行完后，查看是否有微任务队列</p>
+
+<p>（2）如果有微任务队列，则执行微任务</p>
+
+<p>（3）如果没有，则读取宏任务中排在最前列的任务</p>
+
+<p>（4）执行宏任务的过程中遇到微任务，则加入微任务队列</p>
+
+<p>（5）执行完宏任务后，查看是否有微任务队列</p>
+</blockquote>
+
+<h3 id="常见的宏任务和微任务">常见的宏任务和微任务<a href="#常见的宏任务和微任务" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>宏任务</li>
+</ul>
+
+<p>script、setTimeout、setInterval、setImmediate、requestAnimationFrame、I/O、UI Rendering</p>
+
+<ul>
+<li>微任务</li>
+</ul>
+
+<p>new Promise().then(回调)、Process.nextTick、Object.observe、MutationObserver</p>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="kr">async</span> <span class="kd">function</span> <span class="nx">async1</span><span class="p">(){</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+  <span class="kr">await</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="p">},</span><span class="mi">0</span><span class="p">)</span>
+<span class="nx">async1</span><span class="p">();</span>
+<span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">resolve</span><span class="p">){</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>
+  <span class="nx">resolve</span><span class="p">();</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mi">9</span><span class="p">);</span>
+<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mi">7</span><span class="p">);</span>
+<span class="p">});</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span>
+<span class="c1">// 1 2 3 6 9 8 4 7 5
+</span><span class="c1"></span></code></pre></div>
+<h3 id="node的执行顺序">Node的执行顺序<a href="#node的执行顺序" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>数据输入 =&gt; poll轮询 =&gt; check检查 =&gt; close callbacks关闭事件回调 =&gt; timers定时器 =&gt; I/O callbacks I/O事件回调 =&gt; idle prepare 闲置 =&gt; 轮询</p>
+
+<h3 id="同步任务和异步任务的定义">同步任务和异步任务的定义<a href="#同步任务和异步任务的定义" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>CPU会立即执行的任务是同步任务。</p>
+
+<h3 id="node属于多线程还是单线程">node属于多线程还是单线程<a href="#node属于多线程还是单线程" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>单线程</li>
+</ul>
+
+<h3 id="node的前端模板">node的前端模板<a href="#node的前端模板" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>ejs pug</li>
+</ul>
+
+<h3 id="node中间件的理解">node中间件的理解<a href="#node中间件的理解" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<h3 id="node如何遍历整个目录里的所有文件">node如何遍历整个目录里的所有文件<a href="#node如何遍历整个目录里的所有文件" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<h3 id="process">process<a href="#process" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>process对象是一个全局变量，它提供有关当前 Node.js 进程的信息并对其进行控制。</p>
+
+<p>类似global全局对象，浏览器中的window。</p>
+
+<h3 id="call-apply-bind的区别-手写">call apply bind的区别 手写？<a href="#call-apply-bind的区别-手写" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>三者都是改变this的指向。</li>
+<li>区别call，apply返回函数执行的结果，bind则返回一个函数</li>
+<li>其中call的参数是展开的数据，apply的参数是数组</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-JavaScript" data-lang="JavaScript"><span class="c1">//call
+</span><span class="c1"></span><span class="nb">Function</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">myCall</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">context</span><span class="o">=</span><span class="nb">window</span><span class="p">){</span>
+  <span class="nx">context</span><span class="p">.</span><span class="nx">fn</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">args</span> <span class="o">=</span> <span class="p">[...</span><span class="nx">arguments</span><span class="p">].</span><span class="nx">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="kd">let</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">fn</span><span class="p">(...</span><span class="nx">args</span><span class="p">);</span>
+  <span class="k">delete</span> <span class="nx">context</span><span class="p">.</span><span class="nx">fn</span><span class="p">;</span>
+  <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">//apply
+</span><span class="c1"></span><span class="nb">Function</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">myApply</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">context</span><span class="o">=</span><span class="nb">window</span><span class="p">){</span>
+  <span class="nx">context</span><span class="p">.</span><span class="nx">fn</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">result</span><span class="p">;</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">arguments</span><span class="p">[</span><span class="mi">1</span><span class="p">]){</span>
+    <span class="nx">result</span> <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">fn</span><span class="p">(...</span><span class="nx">arguments</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+  <span class="p">}</span>
+  <span class="k">else</span><span class="p">{</span>
+    <span class="nx">result</span> <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">fn</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="k">delete</span> <span class="nx">context</span><span class="p">.</span><span class="nx">fn</span><span class="p">;</span>
+  <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">//bind
+</span><span class="c1"></span><span class="nb">Function</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">myBind</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">context</span><span class="p">){</span>
+  <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="k">this</span> <span class="o">!==</span> <span class="s1">&#39;function&#39;</span><span class="p">){</span>
+    <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;not a function&#39;</span><span class="p">)</span>
+  <span class="p">}</span>
+  <span class="kd">let</span> <span class="nx">fn</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">args</span> <span class="o">=</span> <span class="p">[...</span><span class="nx">arguments</span><span class="p">].</span><span class="nx">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="kd">let</span> <span class="nx">bindFn</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="k">return</span> <span class="nx">fn</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span> <span class="k">instanceof</span> <span class="nx">bindFn</span> <span class="o">?</span> <span class="k">this</span> <span class="o">:</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">args</span><span class="p">.</span><span class="nx">concat</span><span class="p">([...</span><span class="nx">arguments</span><span class="p">]));</span>
+  <span class="p">}</span>
+  <span class="kd">let</span> <span class="nx">tem</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){};</span>
+  <span class="nx">tem</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">prototype</span><span class="p">;</span>
+  <span class="nx">bindFn</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">tem</span><span class="p">();</span>
+  <span class="k">return</span> <span class="nx">bindFn</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="new发生了什么">new发生了什么<a href="#new发生了什么" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>新建一个新对象</li>
+<li>this指向新对象</li>
+<li>为新对象添加属性</li>
+<li>返回新对象</li>
+</ul>
+
+<h3 id="函数递归-f-n-返回1到n的累加和">函数递归 f(n) 返回1到n的累加和<a href="#函数递归-f-n-返回1到n的累加和" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">sum</span><span class="p">(</span><span class="nx">n</span><span class="p">){</span>
+  <span class="kd">let</span> <span class="nx">result</span><span class="p">;</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">n</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">){</span>
+    <span class="nx">result</span> <span class="o">=</span> <span class="nx">n</span><span class="o">+</span><span class="nx">sum</span><span class="p">(</span><span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">else</span><span class="p">{</span>
+    <span class="nx">result</span> <span class="o">=</span> <span class="nx">n</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">const</span> <span class="nx">sum</span> <span class="o">=</span> <span class="nx">n</span><span class="p">=&gt;</span><span class="nx">n</span><span class="o">&gt;</span><span class="mi">1</span> <span class="o">?</span> <span class="nx">n</span><span class="o">+</span><span class="nx">sum</span><span class="p">(</span><span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">:</span> <span class="nx">n</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="ssr-nuxt-next">SSR Nuxt Next<a href="#ssr-nuxt-next" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>服务器端渲染</li>
+</ul>
+
+<h3 id="正则">正则<a href="#正则" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>匹配所有非空白符 \S 匹配任何非空白字符。等价于 [^ \f\n\r\t\v]。</li>
+<li>匹配非回车的字符</li>
+<li>匹配所有字符</li>
+<li>12345678变成12,345,678的正则</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">//方法1
+</span><span class="c1"></span><span class="p">(</span><span class="nx">str</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\B(?=(\d{3})+$)/g</span><span class="p">,</span> <span class="s1">&#39;,&#39;</span><span class="p">))</span>
+<span class="c1">//方法2
+</span><span class="c1"></span><span class="nx">str</span><span class="p">.</span><span class="nx">toLocaleString</span><span class="p">()</span>
+</code></pre></div>
+<ul>
+<li>abc-def-hasdk-asdsa转换成驼峰</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">let</span> <span class="nx">str</span> <span class="o">=</span> <span class="s1">&#39;abc-def-hasdk-asdsa&#39;</span><span class="p">;</span>
+<span class="nx">str</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/[\-]{1}[a-z]{1}/g</span><span class="p">,</span><span class="nx">sel</span><span class="p">=&gt;</span><span class="nx">sel</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">toUpperCase</span><span class="p">())</span>
+</code></pre></div>
+<h3 id="instanceof-object-create-new的实现原理">instanceOf/Object.create/new的实现原理<a href="#instanceof-object-create-new的实现原理" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<h3 id="已知">已知<a href="#已知" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>一个全部装着url的数组urls和一个叫fetch的ajax api，实现一个函数ajaxAll(urls, maxParallel, cb)，同时最多并行执行maxParallel个请求，所有url得到结果后执行cb</p>
+
+<h3 id="求以下输出">求以下输出<a href="#求以下输出" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">get</span><span class="p">(){</span><span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">}})</span>
+<span class="c1">// 循环引用 导致内存溢出
+</span><span class="c1"></span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="mi">5</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+  <span class="nx">setTimeout</span><span class="p">(()=&gt;</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="p">))</span>
+<span class="p">}</span>
+<span class="c1">//输出什么 如何修改
+</span><span class="c1">//输出5个5
+</span><span class="c1">//想输出1，2，3，4，5，可以使用let,IIFE,setTimeout第三个参数
+</span><span class="c1"></span></code></pre></div>
+<h3 id="手写一个div的拖拽功能">手写一个div的拖拽功能<a href="#手写一个div的拖拽功能" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+    <span class="nt">body</span><span class="p">{</span>
+      <span class="k">position</span><span class="p">:</span> <span class="kc">relative</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="p">#</span><span class="nn">drag</span><span class="p">{</span>
+      <span class="k">position</span><span class="p">:</span> <span class="kc">absolute</span><span class="p">;</span>
+      <span class="k">width</span><span class="p">:</span> <span class="mi">100</span><span class="kt">px</span><span class="p">;</span>
+      <span class="k">height</span><span class="p">:</span> <span class="mi">100</span><span class="kt">px</span><span class="p">;</span>
+      <span class="k">background</span><span class="p">:</span> <span class="kc">red</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#39;drag&#39;</span><span class="p">&gt;</span>  
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+  <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="kd">let</span> <span class="nx">oDiv</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;drag&#39;</span><span class="p">);</span>
+    <span class="nx">oDiv</span><span class="p">.</span><span class="nx">onmousedown</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+      <span class="nx">e</span> <span class="o">=</span> <span class="nx">e</span> <span class="o">||</span> <span class="nb">window</span><span class="p">.</span><span class="nx">event</span><span class="p">;</span>
+      <span class="kd">let</span> <span class="nx">disX</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">clientX</span> <span class="o">-</span> <span class="nx">oDiv</span><span class="p">.</span><span class="nx">offsetLeft</span><span class="p">;</span>
+      <span class="kd">let</span> <span class="nx">disY</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">clientY</span> <span class="o">-</span> <span class="nx">oDiv</span><span class="p">.</span><span class="nx">offsetTop</span><span class="p">;</span>
+
+      <span class="nb">document</span><span class="p">.</span><span class="nx">onmousemove</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+        <span class="nx">e</span> <span class="o">=</span> <span class="nx">e</span> <span class="o">||</span> <span class="nb">window</span><span class="p">.</span><span class="nx">event</span><span class="p">;</span>
+        <span class="kd">let</span> <span class="nx">l</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">clientX</span> <span class="o">-</span> <span class="nx">disX</span><span class="p">;</span>
+        <span class="kd">let</span> <span class="nx">t</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">clientY</span> <span class="o">-</span> <span class="nx">disY</span><span class="p">;</span>
+
+        <span class="nx">oDiv</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">left</span> <span class="o">=</span> <span class="nx">l</span><span class="o">+</span><span class="s1">&#39;px&#39;</span><span class="p">;</span>
+        <span class="nx">oDiv</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">top</span> <span class="o">=</span> <span class="nx">t</span><span class="o">+</span><span class="s1">&#39;px&#39;</span><span class="p">;</span>
+      <span class="p">}</span>
+
+      <span class="nb">document</span><span class="p">.</span><span class="nx">onmouseup</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="nb">document</span><span class="p">.</span><span class="nx">onmousemove</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+        <span class="nb">document</span><span class="p">.</span><span class="nx">onmouseup</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span></code></pre></div>
+<h3 id="写一个工厂函数用于生成对象">写一个工厂函数用于生成对象<a href="#写一个工厂函数用于生成对象" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">//工厂模式？
+</span><span class="c1"></span><span class="kd">function</span> <span class="nx">createPerson</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span><span class="nx">age</span><span class="p">,</span><span class="nx">job</span><span class="p">){</span>
+  <span class="kd">let</span> <span class="nx">o</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Object</span><span class="p">();</span>
+  <span class="nx">o</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+  <span class="nx">o</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="nx">age</span><span class="p">;</span>
+  <span class="nx">o</span><span class="p">.</span><span class="nx">job</span> <span class="o">=</span> <span class="nx">job</span><span class="p">;</span>
+  <span class="nx">o</span><span class="p">.</span><span class="nx">sayName</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">o</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="实现一个mylog函数">实现一个mylog函数<a href="#实现一个mylog函数" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">//step1 mylog(str) 控制台输出str
+</span><span class="c1"></span><span class="k">const</span> <span class="nx">mylog</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">str</span><span class="p">){</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">//step2 mylog(str1,str2,str3...) 控制台输出str1 str2 str3
+</span><span class="c1"></span><span class="k">const</span> <span class="nx">mylog</span> <span class="o">=</span> <span class="p">(...</span><span class="nx">args</span><span class="p">)=&gt;{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(...</span><span class="nx">args</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">//step3 不适用es6的语法，如何实现
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">mylog</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">join</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">arguments</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">))</span>
+<span class="p">}</span>
+
+<span class="c1">//step4 更简单的方法
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">mylog</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span><span class="nx">arguments</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="弹出框-1">弹出框<a href="#弹出框-1" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>一个弹出框，最外面一层遮罩，然后遮罩中间有一个弹出框的div，点击非弹框外的部分，弹框就会关闭。</p>
+
+<p>tips:阻止事件冒泡</p>
+
+<h3 id="手写题">手写题<a href="#手写题" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="o">&lt;</span><span class="nx">ul</span> <span class="nx">id</span><span class="o">=</span><span class="s1">&#39;ul&#39;</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;</span><span class="mi">1</span><span class="o">&lt;</span><span class="err">/li&gt;</span>
+  <span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;</span><span class="mi">2</span><span class="o">&lt;</span><span class="err">/li&gt;</span>
+  <span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;</span><span class="mi">3</span><span class="o">&lt;</span><span class="err">/li&gt;</span>
+<span class="o">&lt;</span><span class="err">/ul&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+  <span class="kd">let</span> <span class="nx">list</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;li&#39;</span><span class="p">);</span>
+
+  <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="nx">len</span><span class="o">=</span><span class="nx">list</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="nx">len</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+    <span class="nx">list</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">index</span> <span class="o">=</span> <span class="nx">i</span><span class="p">;</span>
+    <span class="nx">list</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">onclick</span><span class="o">=</span><span class="kd">function</span><span class="p">(){</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">index</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+</code></pre></div>
+<h3 id="常用的手写">常用的手写<a href="#常用的手写" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>bind,call,apply</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nb">Function</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">_call</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">context</span><span class="o">=</span><span class="nb">window</span><span class="p">){</span>
+  <span class="nx">context</span><span class="p">.</span><span class="nx">fn</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">args</span> <span class="o">=</span> <span class="p">[...</span><span class="nx">arguments</span><span class="p">].</span><span class="nx">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="kd">let</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">fn</span><span class="p">(...</span><span class="nx">args</span><span class="p">);</span>
+  <span class="k">delete</span> <span class="nx">context</span><span class="p">.</span><span class="nx">fn</span><span class="p">;</span>
+  <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nb">Function</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">_apply</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">context</span><span class="o">=</span><span class="nb">window</span><span class="p">){</span>
+  <span class="nx">context</span><span class="p">.</span><span class="nx">fn</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">result</span><span class="p">;</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">arguments</span><span class="p">[</span><span class="mi">1</span><span class="p">]){</span>
+    <span class="nx">result</span> <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">fn</span><span class="p">(...</span><span class="nx">arguments</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+  <span class="p">}</span>
+  <span class="k">else</span><span class="p">{</span>
+    <span class="nx">result</span> <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">fn</span><span class="p">()</span>
+  <span class="p">}</span>
+  <span class="k">delete</span> <span class="nx">context</span><span class="p">.</span><span class="nx">fn</span><span class="p">;</span>
+  <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nb">Function</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">_bind</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">context</span><span class="p">){</span>
+  <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="k">this</span> <span class="o">!==</span> <span class="s1">&#39;function&#39;</span><span class="p">){</span>
+    <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;not a function&#39;</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="kd">let</span> <span class="nx">fn</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">args</span> <span class="o">=</span> <span class="p">[...</span><span class="nx">arguments</span><span class="p">].</span><span class="nx">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="kd">let</span> <span class="nx">bindFn</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="kd">let</span> <span class="nx">bindArgs</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">arguments</span><span class="p">);</span>
+    <span class="c1">// this的实例是bindFn，说明使用了new
+</span><span class="c1"></span>    <span class="k">return</span> <span class="nx">fn</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span> <span class="k">instanceof</span> <span class="nx">bindFn</span> <span class="o">?</span> <span class="k">this</span> <span class="o">:</span> <span class="nx">context</span><span class="p">,</span><span class="nx">args</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">bindArgs</span><span class="p">));</span>
+  <span class="p">}</span>
+  <span class="c1">// bindFn继承this
+</span><span class="c1"></span>  <span class="kd">function</span> <span class="nx">tem</span><span class="p">(){}</span>
+  <span class="nx">tem</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">prototype</span><span class="p">;</span>
+  <span class="nx">bindFn</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">tem</span><span class="p">();</span>
+  <span class="k">return</span> <span class="nx">bindFn</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>new</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// myNew(fn, args) --&gt; new fn(args)
+</span><span class="c1"></span><span class="cm">/*
+</span><span class="cm">fn是构造函数
+</span><span class="cm">1、创建一个新对象；
+</span><span class="cm">2、将构造函数的作用域赋给新对象（因此this就指向了这个新对象）；
+</span><span class="cm">3、执行构造函数中的代码（为这个新对象添加属性）；
+</span><span class="cm">4、返回新对象。
+</span><span class="cm">*/</span>
+<span class="kd">function</span> <span class="nx">myNew</span><span class="p">(</span><span class="nx">fn</span><span class="p">,</span> <span class="p">...</span><span class="nx">args</span><span class="p">){</span>
+  <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">fn</span> <span class="o">!==</span> <span class="s1">&#39;function&#39;</span><span class="p">){</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;not a function&#39;</span><span class="p">)</span>
+  <span class="p">}</span>
+  <span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{};</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">fn</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">){</span>
+    <span class="nx">obj</span><span class="p">.</span><span class="nx">__proto__</span> <span class="o">===</span> <span class="nx">fn</span><span class="p">.</span><span class="nx">prototype</span>
+  <span class="p">}</span>
+  <span class="kd">let</span> <span class="nx">res</span> <span class="o">=</span> <span class="nx">fn</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span><span class="nx">args</span><span class="p">);</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">res</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">res</span> <span class="o">===</span> <span class="s1">&#39;object&#39;</span> <span class="o">||</span> <span class="k">typeof</span> <span class="nx">res</span> <span class="o">===</span> <span class="s1">&#39;function&#39;</span><span class="p">)){</span>
+    <span class="k">return</span> <span class="nx">res</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">obj</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>Object.create</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// Object.create()方法创建一个新对象，使用现有的对象来提供新创建的对象的__proto__。 
+</span><span class="c1">// var b = Object.create(obj)
+</span><span class="c1"></span><span class="kd">function</span> <span class="nx">create</span><span class="p">(</span><span class="nx">obj</span><span class="p">){</span>
+  <span class="kd">function</span> <span class="nx">F</span><span class="p">(){}</span>
+  <span class="nx">F</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="nx">obj</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="nx">F</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>instanceOf</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="cm">/*
+</span><span class="cm">一直遍历 left的__proto__，一直遍历到null。
+</span><span class="cm">如果到null之前都没有proto等于prototype就返回false
+</span><span class="cm">*/</span>
+<span class="kd">function</span> <span class="nx">instanceOf</span><span class="p">(</span><span class="nx">left</span><span class="p">,</span><span class="nx">right</span><span class="p">){</span>
+  <span class="kd">let</span> <span class="nx">proto</span> <span class="o">=</span> <span class="nx">left</span><span class="p">.</span><span class="nx">__proto__</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">prototype</span> <span class="o">=</span> <span class="nx">right</span><span class="p">.</span><span class="nx">prototype</span><span class="p">;</span>
+  <span class="k">while</span><span class="p">(</span><span class="kc">true</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">proto</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">proto</span> <span class="o">===</span> <span class="nx">prototype</span><span class="p">)</span> <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="nx">proto</span> <span class="o">=</span> <span class="nx">proto</span><span class="p">.</span><span class="nx">__proto__</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">//这种写法更简洁吧
+</span><span class="c1"></span><span class="kd">function</span> <span class="nx">instanceOf</span><span class="p">(</span><span class="nx">left</span><span class="p">,</span><span class="nx">right</span><span class="p">){</span>
+  <span class="k">while</span><span class="p">(</span><span class="nx">left</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">left</span><span class="p">.</span><span class="nx">__proto__</span> <span class="o">===</span> <span class="nx">right</span><span class="p">.</span><span class="nx">prototye</span><span class="p">)</span> <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="nx">left</span> <span class="o">=</span> <span class="nx">left</span><span class="p">.</span><span class="nx">__proto__</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="kc">false</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>Promise</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// todo 手写promise
+</span><span class="c1"></span><span class="k">const</span> <span class="nx">PENDING</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="k">const</span> <span class="nx">FULFILLED</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="k">const</span> <span class="nx">REJECTED</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">MyPromise</span><span class="p">(</span><span class="nx">fn</span><span class="p">){</span>
+  <span class="kd">let</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+  <span class="nx">self</span><span class="p">.</span><span class="nx">val</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+  <span class="nx">self</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="nx">PENDING</span><span class="p">;</span>
+  <span class="nx">self</span><span class="p">.</span><span class="nx">resolveQueue</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="nx">self</span><span class="p">.</span><span class="nx">rejectQueue</span> <span class="o">=</span> <span class="p">[];</span>
+
+  <span class="kd">function</span> <span class="nx">resolve</span><span class="p">(</span><span class="nx">val</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">state</span> <span class="o">===</span> <span class="nx">PENGDING</span><span class="p">){</span>
+      <span class="nx">setTimeout</span><span class="p">(()=&gt;{</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="nx">FULFILLED</span><span class="p">;</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">val</span> <span class="o">=</span> <span class="nx">val</span><span class="p">;</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">resolveQueue</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">cb</span><span class="p">=&gt;</span><span class="nx">cb</span><span class="p">(</span><span class="nx">val</span><span class="p">))</span>
+      <span class="p">})</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">reject</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">state</span> <span class="o">===</span> <span class="nx">REJECTED</span><span class="p">){</span>
+      <span class="nx">setTimeout</span><span class="p">(()=&gt;{</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="nx">REJECTED</span><span class="p">;</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">val</span> <span class="o">=</span> <span class="nx">err</span><span class="p">;</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">rejectQueue</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">cb</span><span class="p">=&gt;</span><span class="nx">cb</span><span class="p">(</span><span class="nx">err</span><span class="p">))</span>
+      <span class="p">})</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="k">try</span><span class="p">{</span>
+    <span class="nx">fn</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span><span class="nx">reject</span><span class="p">)</span>
+  <span class="p">}</span>
+  <span class="k">catch</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">reject</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">MyPromise</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">then</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">resolveFn</span><span class="p">,</span><span class="nx">rejectFn</span><span class="p">){</span>
+  <span class="nx">resolveFn</span> <span class="o">=</span> <span class="k">typeof</span> <span class="nx">resolveFn</span> <span class="o">===</span> <span class="s1">&#39;function&#39;</span> <span class="o">?</span> <span class="nx">resolveFn</span> <span class="o">:</span> <span class="p">(</span><span class="nx">v</span><span class="p">=&gt;</span><span class="nx">v</span><span class="p">);</span>
+  <span class="nx">rejectFn</span> <span class="o">=</span> <span class="k">typeof</span> <span class="nx">rejectFn</span> <span class="o">===</span> <span class="s1">&#39;function&#39;</span> <span class="o">?</span> <span class="nx">rejectFn</span> <span class="o">:</span> <span class="p">(</span><span class="nx">e</span><span class="p">=&gt;{</span><span class="k">throw</span> <span class="nx">e</span><span class="p">});</span>
+
+  <span class="k">if</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">state</span> <span class="o">===</span> <span class="nx">FULFILLED</span><span class="p">){</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nx">MyPromise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span><span class="nx">reject</span><span class="p">)=&gt;{</span>
+      <span class="nx">setTimeout</span><span class="p">(()=&gt;{</span>
+        <span class="k">try</span> <span class="p">{</span>
+          <span class="kd">let</span> <span class="nx">x</span> <span class="o">=</span> <span class="nx">resolveFn</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">val</span><span class="p">);</span>
+          <span class="k">if</span><span class="p">(</span><span class="nx">x</span> <span class="k">instanceof</span> <span class="nx">MyPromise</span><span class="p">){</span>
+            <span class="nx">x</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">resolve</span><span class="p">)</span>
+          <span class="p">}</span>
+          <span class="k">else</span><span class="p">{</span>
+            <span class="nx">resolve</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">reject</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span>
+        <span class="p">}</span>
+      <span class="p">})</span>
+    <span class="p">})</span>
+  <span class="p">}</span>
+
+  <span class="k">if</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">state</span> <span class="o">===</span> <span class="nx">REJECTED</span><span class="p">){</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nx">MyPromise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span><span class="nx">reject</span><span class="p">)=&gt;{</span>
+      <span class="nx">setTimeout</span><span class="p">(()=&gt;{</span>
+        <span class="k">try</span> <span class="p">{</span>
+          <span class="kd">let</span> <span class="nx">x</span> <span class="o">=</span> <span class="nx">rejectFn</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">val</span><span class="p">);</span>
+          <span class="k">if</span><span class="p">(</span><span class="nx">x</span> <span class="k">instanceof</span> <span class="nx">MyPromise</span><span class="p">){</span>
+            <span class="nx">x</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">reject</span><span class="p">)</span>
+          <span class="p">}</span>
+          <span class="k">else</span><span class="p">{</span>
+            <span class="nx">resolve</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+          <span class="k">throw</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span>
+        <span class="p">}</span>
+      <span class="p">})</span>
+    <span class="p">})</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>flat</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">flat</span> <span class="o">=</span> <span class="nx">array</span><span class="p">=&gt;</span><span class="nx">array</span><span class="p">.</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">p</span><span class="p">,</span><span class="nx">c</span><span class="p">)=&gt;</span><span class="nx">p</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span> <span class="o">?</span> <span class="nx">flat</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span> <span class="o">:</span> <span class="nx">c</span><span class="p">),[])</span>
+</code></pre></div>
+<ul>
+<li>节流</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">throttle</span><span class="p">(</span><span class="nx">fn</span><span class="p">,</span><span class="nx">delay</span><span class="p">){</span>
+  <span class="kd">let</span> <span class="nx">prev</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">();</span>
+  <span class="k">return</span> <span class="kd">function</span> <span class="p">(){</span>
+    <span class="kd">let</span> <span class="nx">now</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">();</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">now</span><span class="o">-</span><span class="nx">prev</span><span class="o">&gt;</span><span class="nx">delay</span><span class="p">){</span>
+      <span class="nx">fn</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="nx">arguments</span><span class="p">);</span>
+      <span class="nx">prev</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">();</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>防抖</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">debounce</span><span class="p">(</span><span class="nx">fn</span><span class="p">,</span><span class="nx">delay</span><span class="p">,</span><span class="nx">immediate</span><span class="p">){</span>
+  <span class="kd">let</span> <span class="nx">timer</span><span class="p">;</span>
+  <span class="k">return</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">immediate</span><span class="p">){</span>
+      <span class="nx">fn</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="nx">arguments</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">timer</span><span class="p">)</span> <span class="nx">clearTimeout</span><span class="p">(</span><span class="nx">timer</span><span class="p">);</span>
+    <span class="nx">timer</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(()=&gt;{</span>
+      <span class="nx">fn</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="nx">arguments</span><span class="p">);</span>
+    <span class="p">},</span><span class="nx">delay</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>继承</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">Father</span><span class="p">(</span><span class="nx">name</span><span class="p">){</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nx">Father</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">sayName</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;my name is &#39;</span><span class="p">,</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">Son</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span><span class="nx">fatherName</span><span class="p">){</span>
+  <span class="c1">//step 1
+</span><span class="c1"></span>  <span class="nx">Father</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="nx">fatherName</span><span class="p">);</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">create</span><span class="p">(</span><span class="nx">Father</span><span class="p">){</span>
+  <span class="c1">//step 2
+</span><span class="c1"></span>  <span class="kd">function</span> <span class="nx">F</span><span class="p">(){};</span>
+  <span class="nx">F</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="nx">Father</span><span class="p">.</span><span class="nx">prototype</span><span class="p">;</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="nx">F</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="nx">Son</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="nx">create</span><span class="p">(</span><span class="nx">Father</span><span class="p">);</span>
+<span class="nx">Son</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">say</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;hello boy&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nx">Son</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">constructor</span> <span class="o">=</span> <span class="nx">Son</span><span class="p">;</span>
+</code></pre></div>
+<ul>
+<li>参考链接
+<a href="https://juejin.im/post/5c9edb066fb9a05e267026dc">传送门-掘金-【前端面试】同学，你会手写代码吗？</a>
+<a href="https://juejin.im/post/5c9c3989e51d454e3a3902b6">传送门-「中高级前端面试」JavaScript手写代码无敌秘籍</a></li>
+</ul>
+
+<h2 id="vue部分">Vue部分<a href="#vue部分" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+
+<h3 id="mvvm">MVVM<a href="#mvvm" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p><img src="https://blog-pics.pek3b.qingstor.com/006tNc79ly1g2rmjd1xy1j30fg0brwei.jpg" alt="" /></p>
+
+<ul>
+<li><p>M:Model层
+数据模型</p></li>
+
+<li><p>V:View层
+视图层</p></li>
+
+<li><p>VM:ViewModel层
+是Model和Controller之间的一座桥梁。</p></li>
+
+<li><p>双向数据绑定
+V和VM之间采用双向数据绑定，View的变动，会自动反映在ViewModel。反之亦然。</p></li>
+
+<li><p>各部分之间的通讯都是双向的。
+MVVM的设计思想：关注Model的变化，让MVVM框架去自动更新DOM的状态，从而把开发者从操作DOM的繁琐步骤中解脱出来。</p></li>
+</ul>
+
+<h3 id="单向数据流">单向数据流<a href="#单向数据流" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>M，VM和V中，数据流从M流向VM，再由VM去修改V。</li>
+</ul>
+
+<h3 id="vue提倡的是单向数据流-但是v-model是双向数据流-为什么">Vue提倡的是单向数据流，但是v-model是双向数据流，为什么?<a href="#vue提倡的是单向数据流-但是v-model是双向数据流-为什么" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>v-model只是一个语法糖，本质还是单向数据流</li>
+<li>v-bind:value和v-on:input</li>
+</ul>
+
+<h3 id="vue-use">vue.use()<a href="#vue-use" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>全局注入一个插件</p>
+
+<h3 id="vue双向绑定实现原理-数据响应系统原理">Vue双向绑定实现原理/数据响应系统原理<a href="#vue双向绑定实现原理-数据响应系统原理" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<blockquote>
+<p>Vue.js 是采用 Object.defineProperty 的 getter 和 setter，并结合观察者模式来实现数据绑定的。当把一个普通 Javascript 对象传给 Vue 实例来作为它的 data 选项时，Vue 将遍历它的属性，用 Object.defineProperty 将它们转为 getter/setter。getter 做的事情是依赖收集，setter 做的事情是派发更新</p>
+</blockquote>
+
+<h3 id="vue中-数组的操作是如何实现数据响应的-push等原型函数以及为什么用-set">Vue中，数组的操作是如何实现数据响应的(push等原型函数以及为什么用$set)<a href="#vue中-数组的操作是如何实现数据响应的-push等原型函数以及为什么用-set" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>todo</li>
+</ul>
+
+<h3 id="vue父组件向子组件通信-子组件向父组件通信-兄弟组件通信">Vue父组件向子组件通信，子组件向父组件通信，兄弟组件通信<a href="#vue父组件向子组件通信-子组件向父组件通信-兄弟组件通信" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li><code>props</code> <code>$emit</code></li>
+</ul>
+
+<h3 id="vue-3有哪些新的东西知道吗">vue 3有哪些新的东西知道吗<a href="#vue-3有哪些新的东西知道吗" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>可以着重聊聊数据响应系统使用Proxy和原来的区别，<a href="https://www.html.cn/archives/10052">传送门</a></li>
+<li>对Vue确实需要比较深的了解，推荐把这个看完 Vue技术内幕，不过这个里面没有AST的东西</li>
+</ul>
+
+<h3 id="以下代码经过模板渲染后变成了什么样子简单讲一下">以下代码经过模板渲染后变成了什么样子简单讲一下<a href="#以下代码经过模板渲染后变成了什么样子简单讲一下" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<pre><code>&lt;parent :prop1=&quot;data1&quot;&gt;
+  &lt;child :prop2=&quot;data2&quot;&gt;&lt;/child&gt;
+&lt;/parent&gt;
+</code></pre>
+
+<h3 id="provide-inject能解决什么问题">provide/inject能解决什么问题<a href="#provide-inject能解决什么问题" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>todo</li>
+</ul>
+
+<h3 id="computed和props-data的区别-其实现原理是什么">computed和props/data的区别，其实现原理是什么<a href="#computed和props-data的区别-其实现原理是什么" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>todo</li>
+</ul>
+
+<h3 id="vue-router">Vue Router<a href="#vue-router" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>主要有两种模式 <strong>hash模式</strong> <strong>history模式</strong></li>
+<li><strong>本质</strong>就是监听url的变化，然后匹配路由规则，显示相应的页面，并且无需刷新</li>
+<li>hash模式    点击跳转通过hashchange事件来监听到url的变化    手动刷新通过load事件</li>
+<li>history模式     点击跳转通过pushState 浏览器动作 回退等 popState      刷新或者输入url 会向服务器发送请求 <strong>需要后端配合重定向</strong></li>
+</ul>
+
+<h3 id="vue-router中query和param的区别">Vue Router中query和param的区别<a href="#vue-router中query和param的区别" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>都可以在两个页面之间进行传值</li>
+<li>query path?id=1 ; param path/1</li>
+<li>param如果不在router中配置的话，页面刷新，param会丢失</li>
+</ul>
+
+<h3 id="vuex数据周期-如何使用-有什么好处">Vuex数据周期 如何使用 有什么好处<a href="#vuex数据周期-如何使用-有什么好处" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>state &ndash; dispatch &ndash;&gt; actions &ndash; commit &ndash;&gt; mutations</p>
+
+<h3 id="vue-nexttick的原理-如何找到dom-依赖收集过程">vue.nextTick的原理 如何找到dom 依赖收集过程<a href="#vue-nexttick的原理-如何找到dom-依赖收集过程" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>nextTick是Vue的一个全局函数，用于处理dom更新操作。Vue里面有一个watcher，用于观察数据的变化，然后更新dom。Vue里面并不是每次数据变化都会触发更新dom，而是将这些操作都缓存在一个队列，在一个事件循环结束之后，刷新队列，统一执行dom操作。</li>
+<li>watch的实现，当某个响应式数据发生变化的时候，它的setter函数会通知闭包中的Dep，Dep则会调用它管理的所有Watch对象。触发Watch对象的update实现。<strong>Watch对象并不是立即更新视图，而是被push进了一个队列queue，此时状态处于waiting的状态，这时候继续会有Watch对象被push进这个队列queue，等待下一个tick时，这些Watch对象才会被遍历取出，更新视图。</strong>同时，id重复的Watcher不会被多次加入到queue中去，因为在最终渲染时，我们只需要关心数据的最终结果。</li>
+<li>Vue 实现响应式并不是数据发生变化之后 DOM 立即变化，而是按一定的策略进行 DOM 的更新。</li>
+<li>Vue是异步执行dom更新的</li>
+<li>Vue 在修改数据后，视图不会立刻更新，而是等同一事件循环中的所有数据变化完成之后，再统一进行视图更新。</li>
+<li>源码中
+
+<ul>
+<li>2.5版本使用宏任务和微任务组合</li>
+<li>源码中依次判断的逻辑：先看是否可以使用Promise，MutationObserver，setImmediate，setTimeout</li>
+</ul></li>
+</ul>
+
+<h3 id="virtual-dom-diff算法具体实现过程">virtual-dom diff算法具体实现过程<a href="#virtual-dom-diff算法具体实现过程" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>diff算法源于snabbdom，复杂度为O(n)</li>
+<li>只会在同层级比较，不会跨层级比较</li>
+<li>重点是patch方法</li>
+</ul>
+
+<h3 id="patch方法详解">patch方法详解<a href="#patch方法详解" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>注释：vnode：新的虚拟节点 oldVnode：旧的虚拟节点</p>
+
+<blockquote>
+<ul>
+<li>vnode不存在但是oldVnode存在，需要销毁oldVnode</li>
+<li>oldVnode不存在但是vnode存在，创建新节点</li>
+<li>oldVnode和vnode都存在
+
+<ul>
+<li>oldVnode和vnode是同一个节点 执行patchVnode方法</li>
+<li>vnode创建真实dom并替换oldVnode.elm</li>
+</ul></li>
+</ul>
+</blockquote>
+
+<h3 id="patchvnode方法详解">patchVnode方法详解<a href="#patchvnode方法详解" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<blockquote>
+<ul>
+<li>oldVnode和vnode完全一致，则不需要做任何事情</li>
+<li>oldVnode和vnode都是静态节点，且具有相同的key，当vnode是克隆节点或是v-once指令控制的节点时，只需要把oldVnode.elm和oldVnode.child都复制到vnode上即可</li>
+<li>vnode不是文本节点或注释节点
+
+<ul>
+<li>如果oldVnode和vnode都有子节点，且2方的子节点不完全一致，就执行updateChildren方法</li>
+<li>只有oldVnode有子节点，那就把这些节点都删除</li>
+<li>如果只有vnode有子节点，那就创建这些子节点</li>
+<li>如果oldVnode和vnode都没有子节点，但是oldVnode是文本节点或注释节点，就把vnode.elm的文本设置为空字符串</li>
+</ul></li>
+<li>vnode是文本节点或注释节点，但是vnode.text != oldVnode.text时，只需要更新vnode.elm的文本内容就可以</li>
+</ul>
+</blockquote>
+
+<h3 id="updatechildren方法详解">updateChildren方法详解<a href="#updatechildren方法详解" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<blockquote>
+<ul>
+<li>oldStartIdx&gt;oldEndIdx
+oldCh已经遍历完了，但是newCh还没有，把newStartIdx-newEndIdx之间的vnode都是新增的，把这些vnode添加到oldCh末尾</li>
+<li>newStartIdx&gt;newEndIdx
+newCh已经遍历完了，但是oldCh还没有，把oldCh中oldStartIdx-oldEndIdx之间的vnode删除</li>
+<li>oldStartIdx &lt;= oldEndIdx &amp;&amp; newStartIdx &lt;= newEndIdx
+
+<ul>
+<li>oldVnode第一个child不存在，oldStart索引右移</li>
+<li>oldVnode最后一个child不存在，oldEnd索引左移</li>
+<li>oldStartVnode和newStartVnode是同一个节点，patchVnode两个节点，索引右移</li>
+<li>oldEndVnode和newEndVnode是同一个节点，patchVnode两个节点，索引左移</li>
+<li>oldStartVnode和newEndVnode是同一个节点，移动oldStartVnode到oldEndVnode节点后面</li>
+<li>oldEndVnode和newStartVnode是同一个节点，移动oldEndVnode到oldStartVnode前面</li>
+<li>oldChildren中寻找跟newStartVnode具有相同key的节点，如果找不到相同key的节点，说明newStartVnode是一个新节点，就创建一个，然后把newStartVnode设置为下一个节点</li>
+<li>如果找到了相同key的节点，比较两个节点是否属于同一个节点，如果属于同一节点，就patchVnode，否则新创建节点</li>
+</ul></li>
+</ul>
+</blockquote>
+
+<h3 id="为什么要使用key">为什么要使用key？<a href="#为什么要使用key" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>不设key，newCh和oldCh只会进行头尾两端的相互比较，设key后，除了头尾两端的比较外，还会从用key生成的对象oldKeyToIdx中查找匹配的节点，所以为节点设置key可以更高效的利用dom。</p>
+
+<h3 id="vue-react-angular区别">Vue,React,Angular区别<a href="#vue-react-angular区别" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<h3 id="vue多端框架">Vue多端框架<a href="#vue多端框架" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>uni-app</li>
+</ul>
+
+<h3 id="axios-拦截器">axios 拦截器<a href="#axios-拦截器" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>axios.interceptors.request.use</li>
+<li>axios.interceptors.response.use</li>
+<li>axios.default.header</li>
+</ul>
+
+<h2 id="wepack以及项目优化">Wepack以及项目优化<a href="#wepack以及项目优化" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+
+<h3 id="webpack打包原理">webpack打包原理<a href="#webpack打包原理" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<h3 id="module和chunk的区别">module和chunk的区别<a href="#module和chunk的区别" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<h3 id="loader和plugin的区别">loader和plugin的区别<a href="#loader和plugin的区别" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>loader
+loaders是在打包构建过程中用来处理源文件的(JSX,Scss,Less)，一次处理一个；</li>
+<li>plugin
+plugins并不直接操作单个文件，它直接对整个构建过程起作用。</li>
+</ul>
+
+<h3 id="webpack-4相比3有什么变化">webpack 4相比3有什么变化<a href="#webpack-4相比3有什么变化" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<h3 id="webpack构建速度优化有哪些方式-这个能扯半个小时">webpack构建速度优化有哪些方式(这个能扯半个小时)<a href="#webpack构建速度优化有哪些方式-这个能扯半个小时" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<h3 id="tree-shaking-scope-hoisting-code-spliting-都有什么作用">tree-shaking/scope-hoisting/code-spliting 都有什么作用<a href="#tree-shaking-scope-hoisting-code-spliting-都有什么作用" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<h3 id="webpack热更新的模块">webpack热更新的模块<a href="#webpack热更新的模块" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>HotModuleReplacementPlugin</li>
+<li>该模块是如何做到监听代码修改然后刷新页面的</li>
+</ul>
+
+<h3 id="webpack配置压缩一个js如何配置">webpack配置压缩一个js如何配置<a href="#webpack配置压缩一个js如何配置" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>webpack.base.conf.js  entry output module loaders</li>
+</ul>
+
+<h3 id="webpack编译后图片名为什么会改变">webpack编译后图片名为什么会改变<a href="#webpack编译后图片名为什么会改变" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<h2 id="浏览器及安全">浏览器及安全<a href="#浏览器及安全" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+
+<h3 id="浏览器中支持最大的请求并发数">浏览器中支持最大的请求并发数<a href="#浏览器中支持最大的请求并发数" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>chrome中是6</p>
+
+<h3 id="阻止冒泡">阻止冒泡<a href="#阻止冒泡" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>stopPropagation<br /></li>
+<li>cancelBubble</li>
+</ul>
+
+<h3 id="常见的浏览器安全问题">常见的浏览器安全问题<a href="#常见的浏览器安全问题" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>XSS 跨站脚本攻击</li>
+</ul>
+
+<blockquote>
+<p>XSS 的原理是恶意攻击者往 Web 页面里插入恶意可执行网页脚本代码，当用户浏览该页之时，嵌入其中 Web 里面的脚本代码会被执行，从而可以达到攻击者盗取用户信息或其他侵犯用户安全隐私的目的。</p>
+</blockquote>
+
+<ul>
+<li>CSRF 跨站请求伪造攻击</li>
+</ul>
+
+<blockquote>
+<p>1.浏览器登录信任网站A</p>
+
+<p>2.通过验证，在浏览器中产生cookie</p>
+
+<p>3.用户在没有登出A的情况下，访问危险网站B</p>
+
+<p>4.B要求访问A网站，并发一个请求</p>
+
+<p>5.根据B的要求，浏览器待着cookie访问A</p>
+</blockquote>
+
+<ul>
+<li>SQL注入</li>
+<li>命令行注入</li>
+<li>DDos攻击</li>
+</ul>
+
+<blockquote>
+<p>原理就是利用大量的请求造成资源过载，导致服务不可用</p>
+</blockquote>
+
+<ul>
+<li>流量劫持
+
+<ul>
+<li>DNS劫持
+<br /></li>
+</ul></li>
+</ul>
+
+<blockquote>
+<p>&ldquo;你打了一辆车想去商场吃饭，结果你打的车是小作坊派来的，直接给你拉到小作坊去了&rdquo;</p>
+</blockquote>
+
+<ul>
+<li>HTTP劫持
+<br /></li>
+</ul>
+
+<blockquote>
+<p>&ldquo;你打了一辆车想去商场吃饭，结果司机跟你一路给你递小作坊的广告&rdquo;</p>
+</blockquote>
+
+<h3 id="chrome跨标签通信">chrome跨标签通信<a href="#chrome跨标签通信" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>获取句柄 postMessage</li>
+<li>localStorage</li>
+<li>cookie</li>
+<li>SharedWorker</li>
+</ul>
+
+<h3 id="跨域">跨域<a href="#跨域" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>jsonp</li>
+<li>CORS</li>
+<li>WebSocket</li>
+<li>Nginx代理</li>
+<li>Node中间件代理 <code>http-proxy-middleware</code> <code>proxy-middleware</code></li>
+</ul>
+
+<h3 id="输入网址回车之后浏览器做了什么">输入网址回车之后浏览器做了什么<a href="#输入网址回车之后浏览器做了什么" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>以chrome为例：</p>
+
+<ul>
+<li>输入地址
+会从历史记录，书签等地方智能提示补全url。查找缓存。</li>
+<li>NDS解析</li>
+<li>TCP请求</li>
+<li>浏览器向服务器发送一个 HTTP 请求</li>
+<li>服务器的永久重定向相应(如果有的话)</li>
+<li>浏览器跟踪重定向地址</li>
+<li>服务器处理请求</li>
+<li>服务器返回一个 HTTP 响应</li>
+
+<li><p>浏览器显示HTML</p></li>
+
+<li><p>浏览器发送请求获取嵌入在 HTML 中的资源(图片，CSS，JS，音频，视频)</p></li>
+</ul>
+
+<p><a href="https://xianyulaodi.github.io/2017/03/22/%E8%80%81%E7%94%9F%E5%B8%B8%E8%B0%88-%E4%BB%8E%E8%BE%93%E5%85%A5url%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%B1%95%E7%A4%BA%E5%88%B0%E5%BA%95%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/">传送门-老生常谈-从输入url到页面展示到底发生了什么</a></p>
+
+<h3 id="进程和线程">进程和线程<a href="#进程和线程" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>进程是cpu资源分配的最小单位（是能拥有资源和独立运行的最小单位）</li>
+<li>线程是cpu调度的最小单位（线程是建立在进程的基础上的一次程序运行单位，一个进程中可以有多个线程）</li>
+<li>进程是一个工厂，拥有独立的资源（独立的一块内存），进程之间相互独立，工厂中有一个或者多个工人（一个进程由一个或者多个线程组成）。</li>
+<li>线程是工厂中的工人，工人共享空间（同一进程下的各个线程之间共享程序的内存空间）</li>
+</ul>
+
+<h3 id="chrome是多进程吗-为什么是多进程而不是多线程-包括哪些进程">Chrome是多进程吗，为什么是多进程而不是多线程，包括哪些进程<a href="#chrome是多进程吗-为什么是多进程而不是多线程-包括哪些进程" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>是多进程的。一个网页相当一个进程</li>
+</ul>
+
+<p>包括以下四个进程：</p>
+
+<ul>
+<li>Browser进程:浏览器的主进程（负责协调、主控），只有一个</li>
+</ul>
+
+<blockquote>
+<p>负责浏览器界面显示，与用户交互。如前进，后退等
+负责各个页面的管理，创建和销毁其他进程
+将Renderer进程得到的内存中的Bitmap，绘制到用户界面上
+网络资源的管理，下载等</p>
+</blockquote>
+
+<ul>
+<li>第三方插件进程</li>
+</ul>
+
+<blockquote>
+<p>每种类型的插件对应一个进程，仅当使用该插件时才创建看上面的图片中的“扩展程序”就是了</p>
+</blockquote>
+
+<ul>
+<li><p>GPU进程:最多一个，用于3D绘制等</p></li>
+
+<li><p>浏览器渲染进程（浏览器内核）:重点</p></li>
+</ul>
+
+<blockquote>
+<p>Renderer进程，内部是多线程的
+页面渲染，脚本执行，事件处理等</p>
+</blockquote>
+
+<h3 id="浏览器多进程的优势">浏览器多进程的优势<a href="#浏览器多进程的优势" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>单个tab奔溃不会影响整个浏览器</li>
+<li>避免第三方插件影响浏览器</li>
+<li>多进程充分利用多核优势</li>
+</ul>
+
+<h3 id="chrome-渲染-render-进程包含哪些线程">Chrome 渲染(render)进程包含哪些线程<a href="#chrome-渲染-render-进程包含哪些线程" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>GUI渲染线程</li>
+</ul>
+
+<blockquote>
+<p>负责渲染浏览器界面，解析HTML、CSS
+当界面需要重绘（Repaint）或由于某种操作引发回流(Reflow)时，该线程就会执行
+GUI渲染线程与JS引擎线程是互斥的，因为JS可以操作DOM元素， 从而影响到GUI的渲染结果，当JS引擎执行时GUI线程会被挂起，GUI更新会被保存在一个队列中等到JS引擎空闲时立即被执行</p>
+</blockquote>
+
+<ul>
+<li>JS引擎线程</li>
+</ul>
+
+<blockquote>
+<p>JS内核（例如V8引擎），负责处理Javascript脚本程序
+JS引擎一直等待着任务队列中任务的到来，然后加以处理
+GUI渲染线程与JS引擎线程是互斥的，所以如果JS执行时间过长，页面渲染就不连贯，造成页面渲染加载阻塞</p>
+</blockquote>
+
+<ul>
+<li>事件触发线程</li>
+</ul>
+
+<blockquote>
+<p>由于JS引擎这个单线程的家伙自己都忙不过来，所以需要浏览器另开一个线程协助它
+待处理队列中的事件都得排队等待JS引擎处理（当JS引擎空闲时才会去执行）</p>
+</blockquote>
+
+<ul>
+<li>定时触发器线程</li>
+</ul>
+
+<blockquote>
+<p>setInterval与setTimeout所在线程
+JS引擎阻塞状态下计时不准确，所以由浏览器另开线程单独计时
+计时完毕后，添加到事件队列中，等待JS引擎空闲后执行
+W3C规定，setTimeout中低于4ms的时间间隔算为4ms</p>
+</blockquote>
+
+<ul>
+<li>异步HTTP请求线程</li>
+</ul>
+
+<blockquote>
+<p>如果请求有回调事件，异步线程就产生状态变更事件，将这个回调再放入事件队列中，等JS引擎空闲后执行</p>
+</blockquote>
+
+<p><a href="https://github.com/amandakelake/blog/issues/55">传送门-浏览器工作原理：从输入URL到页面加载完成</a></p>
+
+<h3 id="chrome是如何实现settimout的">Chrome是如何实现setTimout的<a href="#chrome是如何实现settimout的" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p><strong>todo</strong></p>
+
+<h3 id="如何监控前端性能">如何监控前端性能<a href="#如何监控前端性能" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p><strong>todo</strong></p>
+
+<h3 id="前端性能优化">前端性能优化<a href="#前端性能优化" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p><strong>todo</strong></p>
+
+<h3 id="浏览器缓存机制">浏览器缓存机制<a href="#浏览器缓存机制" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>强制缓存</li>
+<li>协商缓存</li>
+<li>先判断是否命中强缓存，如果命中，则不请求服务器，直接从缓存中返回数据；</li>
+<li>如果未命中，则向服务器发送一个请求，再判断是否命中协商缓存，如果命中，更新缓存，然后缓存中返回数据</li>
+<li>如果均未命中，则向服务器发送请求，服务器返回数据。</li>
+</ul>
+
+<h2 id="网络相关">网络相关<a href="#网络相关" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+
+<h3 id="http状态码">Http状态码<a href="#http状态码" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>1**   信息类</li>
+<li>2**   成功</li>
+<li>3**   重定向类    301永久重定向 302临时重定向</li>
+<li>4**   客户端出错</li>
+<li>5**   服务器出错</li>
+<li>200成功/204无内容</li>
+<li>301永久重定向/302临时重定向/304未修改</li>
+<li>401未授权/403禁止访问/404未找到/405请求方式不对</li>
+<li>500服务器内部错误/502错误网关/503服务不可用/504服务器超时</li>
+</ul>
+
+<h3 id="http常见请求方法以及简单描述">Http常见请求方法以及简单描述<a href="#http常见请求方法以及简单描述" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p><code>get</code> <code>post</code> <code>head</code> <code>options</code> <code>delete</code> <code>put</code></p>
+
+<h3 id="http-header中都有哪些信息">Http header中都有哪些信息<a href="#http-header中都有哪些信息" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p><code>Accept</code>，<code>Connection</code>，<code>Content-Type</code>，<code>Expires</code>，<code>Server</code>，<code>Etag</code>，<code>Last-Modified</code>，<code>Server</code>，<code>Date</code>，<code>Cache-Control</code>，<code>User-Agent</code>等。</p>
+
+<h3 id="http和https的区别">Http和Https的区别<a href="#http和https的区别" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>Http主要有三点不足。</p>
+
+<ul>
+<li>通信使用明文，未加密。导致内容可能会被窃听。</li>
+<li>不验证通讯方的身份。有可能遭遇伪装。</li>
+<li>无法证明报文的完整性。有可能已遭篡改。</li>
+</ul>
+
+<p>Https的出现也是为了解决上述问题。因此：
+Http+加密+认证+完整新保护 = Https。
+Https是身披SSL外壳的Http。SSL协议在Http和Tcp协议之间。</p>
+
+<h3 id="tcp三次握手过程">TCP三次握手过程<a href="#tcp三次握手过程" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p><img src="https://blog-pics.pek3b.qingstor.com/006tNc79ly1g2w0tmm5q9j30rs0a8gpa.jpg" alt="" /></p>
+
+<ul>
+<li>第一次握手。client发送一个<strong>SYN(J)</strong>包给server，等待server的ACK回复，进入<code>SYN-SENT</code>状态。</li>
+<li>第二次握手。server接收到SYN(seq=J)包后就返回一个<strong>ACK(J+1)</strong>包以及一个自己的<strong>SYN(K)</strong>包，然后等待client的ACK回复，server进入<code>SYN-RECIVED</code>状态。</li>
+<li>第三次握手。client接收到server发回的ACK(J+1)包后，进入<code>ESTABLISHED</code>状态。然后根据server发来的SYN(K)包，返回给等待中的server一个<strong>ACK(K+1)</strong>包。等待中的server收到ACK回复，也把自己的状态设置为<code>ESTABLISHED</code>。</li>
+</ul>
+
+<h3 id="为什么要三次握手">为什么要三次握手<a href="#为什么要三次握手" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>为了确保通讯双方都有收发信息的能力。</p>
+
+<h3 id="tcp四次挥手">TCP四次挥手<a href="#tcp四次挥手" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p><img src="https://blog-pics.pek3b.qingstor.com/006tNc79ly1g2w0vh8dq6j30rs0cwq6e.jpg" alt="" /></p>
+
+<ul>
+<li>第一次挥手。client发送一个<strong>FIN(M)</strong>包，此时client进入<code>FIN-WAIT-1</code>状态，这表明client已经没有数据要发送了。</li>
+<li>第二次挥手。server收到了client发来的FIN(M)包后，向client发回一个<strong>ACK(M+1)</strong>包，此时server进入<code>CLOSE-WAIT</code>状态，client进入<code>FIN-WAIT-2</code>状态。</li>
+<li>第三次挥手。server向client发送<strong>FIN(N)</strong>包，请求关闭连接，同时server进入<code>LAST-ACK</code>状态。</li>
+<li>第四次挥手。client收到server发送的FIN(N)包，进入<code>TIME-WAIT</code>状态。向server发送<strong>ACK(N+1)</strong>包，server收到client的ACK(N+1)包以后，进入<code>CLOSE</code>状态；client等待一段时间还没有得到回复后判断server已正式关闭，进入<code>CLOSE</code>状态。</li>
+</ul>
+
+<h3 id="为什么tcp建立连接是三次而关闭连接要多一次">为什么TCP建立连接是三次而关闭连接要多一次<a href="#为什么tcp建立连接是三次而关闭连接要多一次" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>因为server的ACK和FIN是分开发送了，因此关闭多了一次。
+client发送一个FIN包，表示client已经没有数据要发送了。但是此时server可能还会有未发送的数据，因此server也要发送一个FIN包。</p>
+
+<h3 id="https认证过程">Https认证过程<a href="#https认证过程" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>浏览器发送一个连接请求给安全服务器。</li>
+<li>服务器将自己的证书，以及同证书相关的信息发送给客户浏览器。</li>
+<li>客户浏览器检查服务器送过来的证书是否是由自己信赖的 CA 中心所签发的。如果是，就继续执行协议；如果不是，客户浏览器就给客户一个警告消息：警告客户这个证书不是可以信赖的，询问客户是否需要继续。</li>
+<li>接着客户浏览器比较证书里的消息，例如域名和公钥，与服务器刚刚发送的相关消息是否一致，如果是一致的，客户浏览器认可这个服务器的合法身份。</li>
+<li>服务器要求客户发送客户自己的证书。收到后，服务器验证客户的证书，如果没有通过验证，拒绝连接；如果通过验证，服务器获得用户的公钥。</li>
+<li>客户浏览器告诉服务器自己所能够支持的通讯对称密码方案。</li>
+<li>服务器从客户发送过来的密码方案中，选择一种加密程度最高的密码方案，用客户的公钥加过密后通知浏览器。</li>
+<li>浏览器针对这个密码方案，选择一个通话密钥，接着用服务器的公钥加过密后发送给服务器。</li>
+<li>服务器接收到浏览器送过来的消息，用自己的私钥解密，获得通话密钥。</li>
+<li>服务器、浏览器接下来的通讯都是用对称密码方案，对称密钥是加过密的。</li>
+</ul>
+
+<h3 id="http2相比http1多了什么">HTTP2相比HTTP1多了什么<a href="#http2相比http1多了什么" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li><p><strong>新的二进制格式</strong>（Binary Format），HTTP1.x的解析是基于文本。
+基于文本协议的格式解析存在天然缺陷，文本的表现形式有多样性，要做到健壮性考虑的场景必然很多，二进制则不同，只认0和1的组合。基于这种考虑HTTP2.0的协议解析决定采用二进制格式，实现方便且健壮。</p></li>
+
+<li><p><strong>多路复用</strong>（MultiPlexing）
+即连接共享，即每一个request都是是用作连接共享机制的。一个request对应一个id，这样一个连接上可以有多个request，每个连接的request可以随机的混杂在一起，接收方可以根据request的 id将request再归属到各自不同的服务端请求里面。</p></li>
+
+<li><p><strong>header压缩</strong>
+如上文中所言，对前面提到过HTTP1.x的header带有大量信息，而且每次都要重复发送，HTTP2.0使用encoder来减少需要传输的header大小，通讯双方各自cache一份header fields表，既避免了重复header的传输，又减小了需要传输的大小。</p></li>
+
+<li><p><strong>服务端推送</strong>（server push）
+同SPDY一样，HTTP2.0也具有server push功能。</p></li>
+</ul>
+
+<h3 id="http2的多路复用和http-1-1的keep-alive有什么区别">HTTP2的多路复用和HTTP 1.1的keep-alive有什么区别<a href="#http2的多路复用和http-1-1的keep-alive有什么区别" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li><p>HTTP/1.0 一次请求-响应，建立一个连接，用完关闭；每一个请求都要建立一个连接；</p></li>
+
+<li><p>HTTP/1.1 Pipeling解决方式为，若干个请求排队串行化单线程处理，后面的请求等待前面请求的返回才能获得执行机会，一旦有某请求超时等，后续请求只能被阻塞，毫无办法，也就是人们常说的线头阻塞；</p></li>
+
+<li><p>HTTP/2多个请求可同时在一个连接上并行执行。某个请求任务耗时严重，不会影响到其它连接的正常执行。</p></li>
+</ul>
+
+<h3 id="cookie">cookie<a href="#cookie" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>expires   过期时间</li>
+<li>domain    域名</li>
+<li>path  路径</li>
+<li>security  安全情况下才传输给服务器 https</li>
+<li>httponly  js是否可以操作</li>
+<li>如何防止js访问cookie，如何限制只能在https中才能访问cookie(set-cookie相关字段)</li>
+</ul>
+
+<h3 id="websocket是如何建立连接的">websocket是如何建立连接的<a href="#websocket是如何建立连接的" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<h2 id="算法">算法<a href="#算法" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+
+<h3 id="递归的复杂度">递归的复杂度<a href="#递归的复杂度" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<h3 id="快排的时间复杂度和空间复杂度">快排的时间复杂度和空间复杂度<a href="#快排的时间复杂度和空间复杂度" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<h3 id="冒泡排序">冒泡排序<a href="#冒泡排序" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="nx">a</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+  <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nx">j</span><span class="o">&lt;</span><span class="nx">a</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="nx">i</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="nx">j</span><span class="o">++</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">a</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span><span class="o">&gt;</span><span class="nx">a</span><span class="p">[</span><span class="nx">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]){</span>
+      <span class="p">[</span><span class="nx">a</span><span class="p">[</span><span class="nx">j</span><span class="p">],</span><span class="nx">a</span><span class="p">[</span><span class="nx">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="nx">a</span><span class="p">[</span><span class="nx">j</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span><span class="nx">a</span><span class="p">[</span><span class="nx">j</span><span class="p">]];</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="给个数组和n-找到数组里的三个数相加是n-复杂度要求o-n-2-logn">给个数组和n，找到数组里的三个数相加是n，复杂度要求O(n^2*logn)<a href="#给个数组和n-找到数组里的三个数相加是n-复杂度要求o-n-2-logn" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<h3 id="对数组-2-3-3-2-5-进行多重相邻去重-第一次去重后结果-2-2-5-然后得到-5-复杂度要求o-n">对数组[2, 3, 3, 2, 5]进行多重相邻去重(第一次去重后结果[2, 2, 5]，然后得到[ 5 ])，复杂度要求O(n)<a href="#对数组-2-3-3-2-5-进行多重相邻去重-第一次去重后结果-2-2-5-然后得到-5-复杂度要求o-n" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<h3 id="给一个二叉树-每个节点有value-找到是否存在一条路径-从根路径到叶节点的value相加为n">给一个二叉树，每个节点有value，找到是否存在一条路径，从根路径到叶节点的value相加为n<a href="#给一个二叉树-每个节点有value-找到是否存在一条路径-从根路径到叶节点的value相加为n" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<h3 id="给一个二叉树-找到深度为n的一层-这一层的节点是所有层中最多的一层">给一个二叉树，找到深度为n的一层，这一层的节点是所有层中最多的一层<a href="#给一个二叉树-找到深度为n的一层-这一层的节点是所有层中最多的一层" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<h3 id="二叉树广度优先遍历">二叉树广度优先遍历<a href="#二叉树广度优先遍历" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<h3 id="给一个二维数组-写一个函数-回字形走法-走过的节点不能再走-走到不能走为止">给一个二维数组，写一个函数，回字形走法，走过的节点不能再走，走到不能走为止<a href="#给一个二维数组-写一个函数-回字形走法-走过的节点不能再走-走到不能走为止" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<h3 id="给一个二维数组-如-0-0-0-1-0-0-0-1-0-1不能经过0能经过-给一个起点和一个终点-找到一条到终点的路径">给一个二维数组，如[[0, 0, 0], [1, 0, 0], [0, 1, 0]]，1不能经过0能经过，给一个起点和一个终点，找到一条到终点的路径<a href="#给一个二维数组-如-0-0-0-1-0-0-0-1-0-1不能经过0能经过-给一个起点和一个终点-找到一条到终点的路径" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<h3 id="反转链表">反转链表<a href="#反转链表" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<h3 id="数组类">数组类<a href="#数组类" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="cm">/*
+</span><span class="cm">一个数组arr，不新建变量，过滤掉arr中大于5的，并输出arr
+</span><span class="cm">*/</span>
+<span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="nx">len</span><span class="o">=</span><span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="nx">len</span><span class="p">;){</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">5</span><span class="p">){</span>
+    <span class="nx">arr</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">else</span><span class="p">{</span>
+    <span class="nx">i</span><span class="o">++</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="其他">其他<a href="#其他" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+
+<h3 id="项目优化的点">项目优化的点<a href="#项目优化的点" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>html标签语义化</li>
+<li>高效的css</li>
+<li>图片压缩，尽可能不用图片</li>
+<li>js等代码优化</li>
+<li>减少http请求</li>
+<li>打包后的代码压缩</li>
+<li>PWA</li>
+<li>webpack按需加载</li>
+<li>cdn</li>
+<li>骨架屏</li>
+</ul>
+
+<h3 id="项目中做过比较复杂的东西如何解决">项目中做过比较复杂的东西如何解决<a href="#项目中做过比较复杂的东西如何解决" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<h3 id="mysql">MySQL<a href="#mysql" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<h3 id="鸡兔同笼-70脚-20头">鸡兔同笼 70脚 20头<a href="#鸡兔同笼-70脚-20头" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>20只动物都收起两只脚，这个时候，就剩下了30只脚</li>
+<li>30只脚全是兔子的，这个时候每只兔子只有2只脚，所以有15个兔子</li>
+</ul>
+
+<h3 id="两个村庄-a村庄一定生两个不管男女-b村庄生出第一个男孩就不生了-这俩村庄的男女比例">两个村庄 A村庄一定生两个不管男女，B村庄生出第一个男孩就不生了 这俩村庄的男女比例<a href="#两个村庄-a村庄一定生两个不管男女-b村庄生出第一个男孩就不生了-这俩村庄的男女比例" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<h3 id="推荐几个链接">推荐几个链接<a href="#推荐几个链接" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p><a href="https://juejin.im/post/5c9edb066fb9a05e267026dc">传送门-【前端面试】同学，你会手写代码吗？</a></p>
+
+<p><a href="https://juejin.im/post/5c9c3989e51d454e3a3902b6">传送门-「中高级前端面试」JavaScript手写代码无敌秘籍</a></p>
+
+<p><a href="https://juejin.im/post/5c71434a6fb9a049fa10633c">传送门-前端笔试之手写代码(一)</a></p>
+
+<p>小米 百度 猿辅导 瓜子 VIPKide 爱奇艺 阿里 滴滴 美团</p>
+
+			</div>
+			<hr class="post-end">
+			<footer class="post-info">
+				<p>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://caychance.github.io/tags/%E9%9D%A2%E8%AF%95">面试</a></span><span class="tag"><a href="https://caychance.github.io/tags/%E6%9D%82%E8%B4%A7%E9%93%BA">杂货铺</a></span>
+				</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>2012 Words</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2019-04-12 23:53 &#43;0000</p>
+			</footer>
+		</article>
+		<div class="post-nav thin">
+			<a class="next-post" href="https://caychance.github.io/posts/webpack4-0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+				<span class="post-nav-label"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>&nbsp;Newer</span><br><span>webpack4.0学习笔记</span>
+			</a>
+			<a class="prev-post" href="https://caychance.github.io/posts/diff%E7%AE%97%E6%B3%95/">
+				<span class="post-nav-label">Older&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span><br><span>diff算法</span>
+			</a>
+		</div>
+		<div id="comments" class="thin">
+</div>
+	</main>
+
+	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
+		<p>&copy; 2019 <a href="https://caychance.github.io">CayChance</a> &#183; <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></p>
+		<p>
+			Made with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &#183; Theme <a href="https://github.com/Track3/hermit" target="_blank" rel="noopener">Hermit</a> &#183; <a href="https://caychance.github.io/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a>
+		</p>
+	</footer>
+
+
+	<script src="https://caychance.github.io/js/main.min.35ccbf1cdceb91e4c64c06b5d009d6e2977fafe56beda7762febd4e67528d2ac.js" integrity="sha256-Ncy/HNzrkeTGTAa10AnW4pd/r+Vr7ad2L+vU5nUo0qw="></script>
+
+</body>
+
+</html>

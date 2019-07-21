@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="theme-color" content="#494f5c">
+	<meta name="msapplication-TileColor" content="#494f5c">
+
+<meta itemprop="name" content="JSX in Vue">
+<meta itemprop="description" content=" 使用Vue的template遇到的问题 前几天接了一个需求-APP首页配置化。大体思路就是，后台做一个页面，这个页面上提供了N个模板，然后运营人员可以动态的添加模板，并且给每个模板进行不同的配置。比如，轮播图模板，轮播图模板可以配置一个标题，以及描述，模板可以配置多张图片，图片可以调整顺序，点击图片跳转的链接等。
+我们第一期提供了10个模板。
+&lt;template&gt; &lt;template v-if=&#34;templateCode===&#39;SCOELL_IMG_01&#39;&#34;&gt; &lt;c-scroll-img&gt;&lt;/c-scroll-img&gt; &lt;/template&gt; &lt;template v-if=&#34;templateCode===&#39;TWO_IMG_01&#39;&#34;&gt; &lt;c-two-img&gt;&lt;/c-two-img&gt; &lt;/template&gt; &lt;template v-if=&#34;templateCode===&#39;TWO_IMG_02&#39;&#34;&gt; &lt;c-two-img&gt;&lt;/c-two-img&gt; &lt;/template&gt; &lt;template v-if=&#34;templateCode===&#39;THREE_IMG_01&#39;&#34;&gt; &lt;c-three-img&gt;&lt;/c-three-img&gt; &lt;/template&gt; &lt;template v-if=&#34;templateCode===&#39;THREE_IMG_02&#39;&#34;&gt; &lt;c-three-img&gt;&lt;/c-three-img&gt; &lt;/template&gt; &lt;/template&gt; 我举例说明，先写5个说明一下问题。有一个比较严重的问题，就是v-if用的太多了。这里面不能嵌入js，如果以后提供20个模板甚至更多呢？template这种方式肯定会写的很痛苦！
+可以尝试使用JSX解决 所以，我们可以试试用另一种方式去写组件-JSX，在Vue中使用JSX。JSX是React的核心组成部分。Vue2.0以后才开始支持JSX的。
+JSX介绍 JSX其实就是使用JavaScript去表示dom元素结构。
+所谓的 JSX 其实就是 JavaScript 对象。
+ JSX 是 JavaScript 语言的一种语法扩展，长得像 HTML，但并不是 HTML。 React.js 可以用 JSX 来描述你的组件长什么样的。 JSX 在编译的时候会变成相应的 JavaScript 对象描述。 react-dom 负责把这个用来描述 UI 信息的 JavaScript 对象变成 DOM 元素，并且渲染到页面上。  从 JSX 到页面到底经过了什么样的过程
+JSX基本语法 在Vue中使用JSX首先需要保证Vue的版本大于2.0，然后官方的jsx包,这个包支持的是Babel 7&#43;； 如果是Babel 6，则需要安装babel-plugin-transform-vue-jsx包。
+然后根据文档安装完以后。
+JSX VS Template  JSX其实就是JavaScript对象，Template是Vue组件中render方法的输入。 JSX特别利于理解，相比较Template而言。（虽然写惯了Template，JSX的语法还需要慢慢适应。） Tempplate对初学者比较友好。  ">
+
+
+<meta itemprop="datePublished" content="2019-03-08T23:53:26&#43;00:00" />
+<meta itemprop="dateModified" content="2019-03-08T23:53:26&#43;00:00" />
+<meta itemprop="wordCount" content="72">
+
+
+
+<meta itemprop="keywords" content="jsx," />
+<meta property="og:title" content="JSX in Vue" />
+<meta property="og:description" content=" 使用Vue的template遇到的问题 前几天接了一个需求-APP首页配置化。大体思路就是，后台做一个页面，这个页面上提供了N个模板，然后运营人员可以动态的添加模板，并且给每个模板进行不同的配置。比如，轮播图模板，轮播图模板可以配置一个标题，以及描述，模板可以配置多张图片，图片可以调整顺序，点击图片跳转的链接等。
+我们第一期提供了10个模板。
+&lt;template&gt; &lt;template v-if=&#34;templateCode===&#39;SCOELL_IMG_01&#39;&#34;&gt; &lt;c-scroll-img&gt;&lt;/c-scroll-img&gt; &lt;/template&gt; &lt;template v-if=&#34;templateCode===&#39;TWO_IMG_01&#39;&#34;&gt; &lt;c-two-img&gt;&lt;/c-two-img&gt; &lt;/template&gt; &lt;template v-if=&#34;templateCode===&#39;TWO_IMG_02&#39;&#34;&gt; &lt;c-two-img&gt;&lt;/c-two-img&gt; &lt;/template&gt; &lt;template v-if=&#34;templateCode===&#39;THREE_IMG_01&#39;&#34;&gt; &lt;c-three-img&gt;&lt;/c-three-img&gt; &lt;/template&gt; &lt;template v-if=&#34;templateCode===&#39;THREE_IMG_02&#39;&#34;&gt; &lt;c-three-img&gt;&lt;/c-three-img&gt; &lt;/template&gt; &lt;/template&gt; 我举例说明，先写5个说明一下问题。有一个比较严重的问题，就是v-if用的太多了。这里面不能嵌入js，如果以后提供20个模板甚至更多呢？template这种方式肯定会写的很痛苦！
+可以尝试使用JSX解决 所以，我们可以试试用另一种方式去写组件-JSX，在Vue中使用JSX。JSX是React的核心组成部分。Vue2.0以后才开始支持JSX的。
+JSX介绍 JSX其实就是使用JavaScript去表示dom元素结构。
+所谓的 JSX 其实就是 JavaScript 对象。
+ JSX 是 JavaScript 语言的一种语法扩展，长得像 HTML，但并不是 HTML。 React.js 可以用 JSX 来描述你的组件长什么样的。 JSX 在编译的时候会变成相应的 JavaScript 对象描述。 react-dom 负责把这个用来描述 UI 信息的 JavaScript 对象变成 DOM 元素，并且渲染到页面上。  从 JSX 到页面到底经过了什么样的过程
+JSX基本语法 在Vue中使用JSX首先需要保证Vue的版本大于2.0，然后官方的jsx包,这个包支持的是Babel 7&#43;； 如果是Babel 6，则需要安装babel-plugin-transform-vue-jsx包。
+然后根据文档安装完以后。
+JSX VS Template  JSX其实就是JavaScript对象，Template是Vue组件中render方法的输入。 JSX特别利于理解，相比较Template而言。（虽然写惯了Template，JSX的语法还需要慢慢适应。） Tempplate对初学者比较友好。  " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://caychance.github.io/posts/jsx-in-vue/" /><meta property="article:published_time" content="2019-03-08T23:53:26&#43;00:00"/>
+<meta property="article:modified_time" content="2019-03-08T23:53:26&#43;00:00"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="JSX in Vue"/>
+<meta name="twitter:description" content=" 使用Vue的template遇到的问题 前几天接了一个需求-APP首页配置化。大体思路就是，后台做一个页面，这个页面上提供了N个模板，然后运营人员可以动态的添加模板，并且给每个模板进行不同的配置。比如，轮播图模板，轮播图模板可以配置一个标题，以及描述，模板可以配置多张图片，图片可以调整顺序，点击图片跳转的链接等。
+我们第一期提供了10个模板。
+&lt;template&gt; &lt;template v-if=&#34;templateCode===&#39;SCOELL_IMG_01&#39;&#34;&gt; &lt;c-scroll-img&gt;&lt;/c-scroll-img&gt; &lt;/template&gt; &lt;template v-if=&#34;templateCode===&#39;TWO_IMG_01&#39;&#34;&gt; &lt;c-two-img&gt;&lt;/c-two-img&gt; &lt;/template&gt; &lt;template v-if=&#34;templateCode===&#39;TWO_IMG_02&#39;&#34;&gt; &lt;c-two-img&gt;&lt;/c-two-img&gt; &lt;/template&gt; &lt;template v-if=&#34;templateCode===&#39;THREE_IMG_01&#39;&#34;&gt; &lt;c-three-img&gt;&lt;/c-three-img&gt; &lt;/template&gt; &lt;template v-if=&#34;templateCode===&#39;THREE_IMG_02&#39;&#34;&gt; &lt;c-three-img&gt;&lt;/c-three-img&gt; &lt;/template&gt; &lt;/template&gt; 我举例说明，先写5个说明一下问题。有一个比较严重的问题，就是v-if用的太多了。这里面不能嵌入js，如果以后提供20个模板甚至更多呢？template这种方式肯定会写的很痛苦！
+可以尝试使用JSX解决 所以，我们可以试试用另一种方式去写组件-JSX，在Vue中使用JSX。JSX是React的核心组成部分。Vue2.0以后才开始支持JSX的。
+JSX介绍 JSX其实就是使用JavaScript去表示dom元素结构。
+所谓的 JSX 其实就是 JavaScript 对象。
+ JSX 是 JavaScript 语言的一种语法扩展，长得像 HTML，但并不是 HTML。 React.js 可以用 JSX 来描述你的组件长什么样的。 JSX 在编译的时候会变成相应的 JavaScript 对象描述。 react-dom 负责把这个用来描述 UI 信息的 JavaScript 对象变成 DOM 元素，并且渲染到页面上。  从 JSX 到页面到底经过了什么样的过程
+JSX基本语法 在Vue中使用JSX首先需要保证Vue的版本大于2.0，然后官方的jsx包,这个包支持的是Babel 7&#43;； 如果是Babel 6，则需要安装babel-plugin-transform-vue-jsx包。
+然后根据文档安装完以后。
+JSX VS Template  JSX其实就是JavaScript对象，Template是Vue组件中render方法的输入。 JSX特别利于理解，相比较Template而言。（虽然写惯了Template，JSX的语法还需要慢慢适应。） Tempplate对初学者比较友好。  "/>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
+	<link rel="shortcut icon" href="/favicon.ico">
+
+	<title>JSX in Vue</title>
+	<link rel="stylesheet" href="https://caychance.github.io/css/style.min.568c54a56780af2a70c45272522247710b69dbfc080b315211fb98381e3796f8.css" integrity="sha256-VoxUpWeArypwxFJyUiJHcQtp2/wICzFSEfuYOB43lvg=">
+	
+</head>
+
+<body id="page">
+	
+	<header id="site-header" class="animated slideInUp faster">
+		<div class="hdr-wrapper section-inner">
+			<div class="hdr-left">
+				<div class="site-branding">
+					<a href="https://caychance.github.io">CayChance の Blog</a>
+				</div>
+				<nav class="site-nav hide-in-mobile">
+					
+				<a href="https://caychance.github.io/posts/">Posts</a>
+				<a href="https://caychance.github.io/about-hugo/">About</a>
+
+				</nav>
+			</div>
+			<div class="hdr-right hdr-icons">
+				<span class="hdr-social hide-in-mobile"><a href="https://twitter.com/" target="_blank" rel="noopener me" title="Twitter"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg></a><a href="https://instagram.com/" target="_blank" rel="noopener me" title="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-instagram"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line></svg></a><a href="https://github.com/" target="_blank" rel="noopener me" title="Github"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a></span><button id="menu-btn" class="hdr-btn" title="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+			</div>
+		</div>
+	</header>
+	<div id="mobile-menu" class="animated fast">
+		<ul>
+			<li><a href="https://caychance.github.io/posts/">Posts</a></li>
+			<li><a href="https://caychance.github.io/about-hugo/">About</a></li>
+		</ul>
+	</div>
+
+
+	<main class="site-main section-inner animated fadeIn faster">
+		<article class="thin">
+			<header class="post-header">
+				<div class="post-meta"><span>Mar 8, 2019</span></div>
+				<h1>JSX in Vue</h1>
+			</header>
+			<div class="content">
+				
+
+<hr />
+
+<h3 id="使用vue的template遇到的问题">使用Vue的template遇到的问题<a href="#使用vue的template遇到的问题" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>前几天接了一个需求-APP首页配置化。大体思路就是，后台做一个页面，这个页面上提供了N个模板，然后运营人员可以动态的添加模板，并且给每个模板进行不同的配置。比如，轮播图模板，轮播图模板可以配置一个标题，以及描述，模板可以配置多张图片，图片可以调整顺序，点击图片跳转的链接等。</p>
+
+<p>我们第一期提供了10个模板。</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">template</span> <span class="na">v-if</span><span class="o">=</span><span class="s">&#34;templateCode===&#39;SCOELL_IMG_01&#39;&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">c-scroll-img</span><span class="p">&gt;&lt;/</span><span class="nt">c-scroll-img</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+
+  <span class="p">&lt;</span><span class="nt">template</span> <span class="na">v-if</span><span class="o">=</span><span class="s">&#34;templateCode===&#39;TWO_IMG_01&#39;&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">c-two-img</span><span class="p">&gt;&lt;/</span><span class="nt">c-two-img</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+
+  <span class="p">&lt;</span><span class="nt">template</span> <span class="na">v-if</span><span class="o">=</span><span class="s">&#34;templateCode===&#39;TWO_IMG_02&#39;&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">c-two-img</span><span class="p">&gt;&lt;/</span><span class="nt">c-two-img</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+
+  <span class="p">&lt;</span><span class="nt">template</span> <span class="na">v-if</span><span class="o">=</span><span class="s">&#34;templateCode===&#39;THREE_IMG_01&#39;&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">c-three-img</span><span class="p">&gt;&lt;/</span><span class="nt">c-three-img</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+
+  <span class="p">&lt;</span><span class="nt">template</span> <span class="na">v-if</span><span class="o">=</span><span class="s">&#34;templateCode===&#39;THREE_IMG_02&#39;&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">c-three-img</span><span class="p">&gt;&lt;/</span><span class="nt">c-three-img</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span></code></pre></div>
+<p>我举例说明，先写5个说明一下问题。有一个比较严重的问题，就是<code>v-if</code>用的太多了。这里面不能嵌入js，如果以后提供20个模板甚至更多呢？template这种方式肯定会写的很痛苦！</p>
+
+<h3 id="可以尝试使用jsx解决">可以尝试使用JSX解决<a href="#可以尝试使用jsx解决" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>所以，我们可以试试用另一种方式去写组件-JSX，在Vue中使用JSX。JSX是React的核心组成部分。Vue2.0以后才开始支持JSX的。</p>
+
+<h3 id="jsx介绍">JSX介绍<a href="#jsx介绍" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>JSX其实就是使用JavaScript去表示dom元素结构。</p>
+
+<p><strong>所谓的 JSX 其实就是 JavaScript 对象。</strong></p>
+
+<ol>
+<li>JSX 是 JavaScript 语言的一种语法扩展，长得像 HTML，但并不是 HTML。</li>
+<li>React.js 可以用 JSX 来描述你的组件长什么样的。</li>
+<li>JSX 在编译的时候会变成相应的 JavaScript 对象描述。</li>
+<li>react-dom 负责把这个用来描述 UI 信息的 JavaScript 对象变成 DOM 元素，并且渲染到页面上。</li>
+</ol>
+
+<p>从 JSX 到页面到底经过了什么样的过程</p>
+
+<p><img src="https://blog-pics.pek3b.qingstor.com/006tKfTcly1g11dfngojkj30hm075aaq.jpg" alt="" /></p>
+
+<h4 id="jsx基本语法">JSX基本语法<a href="#jsx基本语法" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h4>
+
+<p>在Vue中使用JSX首先需要保证Vue的版本大于2.0，然后官方的<a href="https://github.com/vuejs/jsx">jsx</a>包,这个包支持的是Babel 7+；
+如果是Babel 6，则需要安装<a href="https://github.com/vuejs/babel-plugin-transform-vue-jsx">babel-plugin-transform-vue-jsx</a>包。</p>
+
+<p>然后根据文档安装完以后。</p>
+
+<h3 id="jsx-vs-template">JSX VS Template<a href="#jsx-vs-template" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ol>
+<li>JSX其实就是JavaScript对象，Template是Vue组件中render方法的输入。</li>
+<li>JSX特别利于理解，相比较Template而言。（虽然写惯了Template，JSX的语法还需要慢慢适应。）</li>
+<li>Tempplate对初学者比较友好。</li>
+</ol>
+
+			</div>
+			<hr class="post-end">
+			<footer class="post-info">
+				<p>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://caychance.github.io/tags/jsx">jsx</a></span>
+				</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>72 Words</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2019-03-08 23:53 &#43;0000</p>
+			</footer>
+		</article>
+		<div class="post-nav thin">
+			<a class="next-post" href="https://caychance.github.io/posts/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8%E6%A1%86%E6%9E%B6/">
+				<span class="post-nav-label"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>&nbsp;Newer</span><br><span>为什么要用框架</span>
+			</a>
+			<a class="prev-post" href="https://caychance.github.io/posts/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+				<span class="post-nav-label">Older&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span><br><span>docker学习笔记</span>
+			</a>
+		</div>
+		<div id="comments" class="thin">
+</div>
+	</main>
+
+	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
+		<p>&copy; 2019 <a href="https://caychance.github.io">CayChance</a> &#183; <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></p>
+		<p>
+			Made with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &#183; Theme <a href="https://github.com/Track3/hermit" target="_blank" rel="noopener">Hermit</a> &#183; <a href="https://caychance.github.io/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a>
+		</p>
+	</footer>
+
+
+	<script src="https://caychance.github.io/js/main.min.35ccbf1cdceb91e4c64c06b5d009d6e2977fafe56beda7762febd4e67528d2ac.js" integrity="sha256-Ncy/HNzrkeTGTAa10AnW4pd/r+Vr7ad2L+vU5nUo0qw="></script>
+
+</body>
+
+</html>

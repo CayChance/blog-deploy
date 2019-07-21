@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://caychance.github.io/posts/socket/</loc>
+    <lastmod>2019-07-15T20:25:14+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/posts/postmessage%E4%BD%BF%E7%94%A8/</loc>
+    <lastmod>2019-07-11T16:47:15+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/posts/vue%E7%BB%84%E4%BB%B6%E9%97%B4%E9%80%9A%E4%BF%A1%E7%9A%84%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93/</loc>
+    <lastmod>2019-07-05T18:48:17+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/posts/%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/</loc>
+    <lastmod>2019-06-21T08:03:50+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/posts/vue%E4%B8%AD%E7%9B%B8%E5%90%8C%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC%E7%9A%84%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</loc>
+    <lastmod>2019-06-19T17:31:40+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/posts/%E5%9C%A8vue%E4%B8%AD%E4%BD%BF%E7%94%A8swiper%E9%81%87%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/</loc>
+    <lastmod>2019-06-16T16:40:47+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/posts/css3%E7%9A%84%E5%8A%A8%E7%94%BB/</loc>
+    <lastmod>2019-06-13T19:54:06+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/posts/%E5%85%B3%E4%BA%8Ecss%E4%B8%AD%E7%9A%84z-index%E7%9A%84%E4%BD%BF%E7%94%A8/</loc>
+    <lastmod>2019-06-12T10:05:20+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/posts/todolist/</loc>
+    <lastmod>2019-06-06T13:07:46+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/posts/%E9%9A%8F%E6%84%9F2019-06/</loc>
+    <lastmod>2019-06-05T20:11:34+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/posts/node%E4%BD%BF%E7%94%A8%E4%B8%89%E4%B8%A4%E4%BA%8B%E4%B9%8B%E7%88%AC%E5%8F%96/</loc>
+    <lastmod>2019-05-29T23:48:31+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/posts/node%E4%BD%BF%E7%94%A8%E4%B8%89%E4%B8%A4%E4%BA%8B%E4%B9%8B%E5%9B%BE%E5%BA%8A%E6%9B%B4%E6%8D%A2/</loc>
+    <lastmod>2019-05-24T16:34:15+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/posts/webpack4-0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2019-04-26T16:21:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/posts/%E9%9D%A2%E8%AF%95%E5%B0%8F%E8%AE%B0/</loc>
+    <lastmod>2019-04-12T23:53:48+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/posts/diff%E7%AE%97%E6%B3%95/</loc>
+    <lastmod>2019-04-02T19:08:09+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/posts/vuex%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2019-03-28T16:21:30+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/posts/vue%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2019-03-27T19:09:06+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/posts/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8%E6%A1%86%E6%9E%B6/</loc>
+    <lastmod>2019-03-22T23:14:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/posts/jsx-in-vue/</loc>
+    <lastmod>2019-03-08T23:53:26+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/posts/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2019-03-06T19:26:50+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/posts/%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE/</loc>
+    <lastmod>2019-02-26T17:10:20+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/posts/mongodb%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/</loc>
+    <lastmod>2019-02-01T10:23:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/posts/vue%E9%A1%B9%E7%9B%AE%E7%9A%84%E6%95%B4%E4%BD%93%E8%AE%A4%E8%AF%86/</loc>
+    <lastmod>2019-01-25T21:08:20+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/posts/vuex%E5%AD%98%E5%82%A8%E7%9A%84%E6%97%B6%E5%80%99%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</loc>
+    <lastmod>2019-01-22T19:40:06+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/posts/find-%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%94%9F%E4%BA%A7%E7%9A%84bug%E6%8E%92%E6%9F%A5/</loc>
+    <lastmod>2019-01-18T21:14:12+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/posts/git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2019-01-16T13:52:57+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/posts/bfc/</loc>
+    <lastmod>2019-01-11T20:31:59+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/posts/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E4%B8%83%E7%89%9B%E4%BA%91/</loc>
+    <lastmod>2019-01-05T23:59:38+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/posts/js%E7%BB%A7%E6%89%BF%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/</loc>
+    <lastmod>2018-12-13T20:31:20+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/posts/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/</loc>
+    <lastmod>2018-12-06T16:43:58+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/posts/js-event-loop/</loc>
+    <lastmod>2018-12-06T15:45:40+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/posts/markdown/</loc>
+    <lastmod>2018-12-05T14:13:45+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/posts/github%E6%B2%A1%E6%9C%89%E8%AE%B0%E5%BD%95%E4%BD%A0%E7%9A%84contributions/</loc>
+    <lastmod>2018-12-04T10:51:31+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/posts/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%B8%B2%E6%9F%93vs%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%B8%B2%E6%9F%93/</loc>
+    <lastmod>2018-12-02T22:25:08+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/posts/%E8%B7%A8%E5%9F%9F/</loc>
+    <lastmod>2018-12-02T22:20:50+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/posts/label%E6%A0%87%E7%AD%BE%E8%AF%AD%E4%B9%89%E5%8C%96/</loc>
+    <lastmod>2018-11-30T16:17:03+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/posts/%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0%E7%9A%84%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC%E5%92%8C%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0%E7%9A%84%E9%BB%98%E8%AE%A4%E5%80%BC/</loc>
+    <lastmod>2018-11-30T10:58:47+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/posts/flex%E5%B8%83%E5%B1%80/</loc>
+    <lastmod>2018-11-28T17:06:01+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/posts/%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A/</loc>
+    <lastmod>2018-11-27T18:20:25+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/posts/hello-world/</loc>
+    <lastmod>2018-11-26T16:17:03+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/about-hugo/</loc>
+    <lastmod>2014-04-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/async-await/</loc>
+    <lastmod>2018-11-27T18:20:25+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/bfc/</loc>
+    <lastmod>2019-01-11T20:31:59+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/bug/</loc>
+    <lastmod>2019-01-18T21:14:12+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/</loc>
+    <lastmod>2019-07-15T20:25:14+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/csr/</loc>
+    <lastmod>2018-12-02T22:25:08+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/css/</loc>
+    <lastmod>2019-06-13T19:54:06+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/diff%E7%AE%97%E6%B3%95/</loc>
+    <lastmod>2019-04-02T19:08:09+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/docker/</loc>
+    <lastmod>2019-03-06T19:26:50+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/es6/</loc>
+    <lastmod>2018-11-30T10:58:47+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/event-loop/</loc>
+    <lastmod>2018-12-06T15:45:40+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/flex/</loc>
+    <lastmod>2018-11-28T17:06:01+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/generator/</loc>
+    <lastmod>2018-11-27T18:20:25+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/github/</loc>
+    <lastmod>2019-01-16T13:52:57+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/hexo/</loc>
+    <lastmod>2018-11-26T16:17:03+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/html/</loc>
+    <lastmod>2018-11-30T16:17:03+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/js/</loc>
+    <lastmod>2019-02-26T17:10:20+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/jsx/</loc>
+    <lastmod>2019-03-08T23:53:26+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/label/</loc>
+    <lastmod>2018-11-30T16:17:03+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/markdown/</loc>
+    <lastmod>2018-12-05T14:13:45+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/mongodb/</loc>
+    <lastmod>2019-02-01T10:23:29+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/node/</loc>
+    <lastmod>2019-05-29T23:48:31+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/postmessage/</loc>
+    <lastmod>2019-07-11T16:47:15+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/posts/</loc>
+    <lastmod>2019-07-15T20:25:14+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/promise/</loc>
+    <lastmod>2018-11-27T18:20:25+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/socket/</loc>
+    <lastmod>2019-07-15T20:25:14+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/ssr/</loc>
+    <lastmod>2018-12-02T22:25:08+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/swiper/</loc>
+    <lastmod>2019-06-16T16:40:47+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/</loc>
+    <lastmod>2018-11-27T18:20:25+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/vue/</loc>
+    <lastmod>2019-07-05T18:48:17+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/vuex/</loc>
+    <lastmod>2019-07-05T18:48:17+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/webpack/</loc>
+    <lastmod>2019-04-26T16:21:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/z-index/</loc>
+    <lastmod>2019-06-12T10:05:20+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/%E4%B8%83%E7%89%9B%E4%BA%91/</loc>
+    <lastmod>2019-01-05T23:59:38+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0%E9%BB%98%E8%AE%A4%E5%80%BC/</loc>
+    <lastmod>2018-11-30T10:58:47+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/%E5%8E%9F%E5%9E%8B/</loc>
+    <lastmod>2019-02-26T17:10:20+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/%E5%8E%9F%E5%9E%8B%E9%93%BE/</loc>
+    <lastmod>2019-02-26T17:10:20+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0/</loc>
+    <lastmod>2018-11-27T18:20:25+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/%E5%B7%A5%E5%85%B7/</loc>
+    <lastmod>2019-04-26T16:21:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/</loc>
+    <lastmod>2018-11-27T18:20:25+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
+    <lastmod>2019-02-01T10:23:29+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/%E6%9D%82%E8%B4%A7%E9%93%BA/</loc>
+    <lastmod>2019-06-21T08:03:50+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/%E6%A1%86%E6%9E%B6/</loc>
+    <lastmod>2019-03-22T23:14:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/</loc>
+    <lastmod>2018-12-06T16:43:58+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/%E7%BB%84%E4%BB%B6/</loc>
+    <lastmod>2019-06-16T16:40:47+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/</loc>
+    <lastmod>2019-07-05T18:48:17+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/%E7%BB%A7%E6%89%BF/</loc>
+    <lastmod>2018-12-13T20:31:20+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/%E7%BC%93%E5%AD%98/</loc>
+    <lastmod>2018-12-06T16:43:58+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/%E8%A7%A3%E6%9E%84/</loc>
+    <lastmod>2018-11-30T10:58:47+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/%E8%B7%A8%E5%9F%9F/</loc>
+    <lastmod>2019-07-11T16:47:15+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://caychance.github.io/tags/%E9%9D%A2%E8%AF%95/</loc>
+    <lastmod>2019-04-12T23:53:48+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+</urlset>

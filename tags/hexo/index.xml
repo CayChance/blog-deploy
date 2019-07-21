@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hexo on CayChance の Blog</title>
+    <link>https://caychance.github.io/tags/hexo/</link>
+    <description>Recent content in Hexo on CayChance の Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Mon, 26 Nov 2018 16:17:03 +0000</lastBuildDate>
+    
+	<atom:link href="https://caychance.github.io/tags/hexo/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Hello World</title>
+      <link>https://caychance.github.io/posts/hello-world/</link>
+      <pubDate>Mon, 26 Nov 2018 16:17:03 +0000</pubDate>
+      
+      <guid>https://caychance.github.io/posts/hello-world/</guid>
+      <description>Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
+Quick Start Create a new post $ hexo new &amp;#34;My New Post&amp;#34; More info: Writing
+Run server $ hexo server More info: Server
+Generate static files $ hexo generate More info: Generating
+Deploy to remote sites $ hexo deploy More info: Deployment</description>
+    </item>
+    
+  </channel>
+</rss>

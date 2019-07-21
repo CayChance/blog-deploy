@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>杂货铺 on CayChance の Blog</title>
+    <link>https://caychance.github.io/tags/%E6%9D%82%E8%B4%A7%E9%93%BA/</link>
+    <description>Recent content in 杂货铺 on CayChance の Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Fri, 21 Jun 2019 08:03:50 +0800</lastBuildDate>
+    
+	<atom:link href="https://caychance.github.io/tags/%E6%9D%82%E8%B4%A7%E9%93%BA/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>项目总结</title>
+      <link>https://caychance.github.io/posts/%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Fri, 21 Jun 2019 08:03:50 +0800</pubDate>
+      
+      <guid>https://caychance.github.io/posts/%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/</guid>
+      <description>本来想总结一下刚来做的这个项目中，遇到的一些问题，或者说，下次在做类似的项目，有哪些地方可以做的更好。结果周五周六团建两天再回来，发现忘得差不多了。(PS:下次应该随手就记下来)
+暂时能想到的：
+ 常用的简单动画，最好使用css去完成，不要一想起来动画就想到js。 页面的内容部分，左右padding最好有一些留白，这样子可以保证页面在小屏幕上，左右也会有一些留白。 页面header添加scroll事件，监听页面滚动距离来动态修改header的透明度。监听页面的子元素页面溢出，监听页面设置overflow-y: scroll;，获取该页面的scrollTop值。(PS:这一块老忘记)  this.$refs.home.scrollIntoView(true); const homeParent = this.$refs.home.parentElement; const header = this.$refs.home.firstChild; homeParent.addEventListener(&amp;#34;scroll&amp;#34;, () =&amp;gt; { if (homeParent.scrollTop &amp;lt; 80) { header.style.background = &amp;#34;none&amp;#34;; } else { header.style.backgroundImage = &amp;#34;url(&amp;#39;http://******/swiper.png&amp;#39;)&amp;#34;; } });   使用transform: scale(0.5);，即使你配合transform-origin: 0 0;一起使用，虽然元素被缩小了一倍，但是原本的位置还是在的，会自动预留出来，周围的元素并不能覆盖上去。(PS:这里挺疑惑的)   为啥会用到transform: scale(0.5);？设计童鞋在切图的时候，同一个功能块切出来的图大小不一，导致我们需要给每个img标签设定尺寸。(PS:就算同一个功能块，设计的icon大小不一，但是切图的时候，还是可以切成尺寸一样的，就是切出来的icon周围留白多少的问题了)  </description>
+    </item>
+    
+    <item>
+      <title>Todolist</title>
+      <link>https://caychance.github.io/posts/todolist/</link>
+      <pubDate>Thu, 06 Jun 2019 13:07:46 +0800</pubDate>
+      
+      <guid>https://caychance.github.io/posts/todolist/</guid>
+      <description>刚接触新项目，有不少疑惑。在此列出来，后续做完项目或者做项目的过程当中，要把这些问题弄明白。
+ 之前都是用vue做的spa应用，这边使用vue做的是单/多页模板。这一块怎么配置的 使用的是hash的路由配置规则 脚手架是在vue cli3的基础上做的。需要深入学习一下vue cli3 项目中的sass只需要 npm install -D sass-loader node-sass 即可用。不需要webpack手动配置？ 改进一下自己的编程风格。主要就是平时写代码的时候，加上详细的注释。  /** * get 提交 * @param {String} url 请求的url * @param {any} params 请求的参数 * @param {Obejct} config 请求配置 * @returns Promise */ export function get(url, params = {}, config = {}) { let opts = {...config} opts.params = params return fetch.get(url, opts) } </description>
+    </item>
+    
+    <item>
+      <title>随感2019-06</title>
+      <link>https://caychance.github.io/posts/%E9%9A%8F%E6%84%9F2019-06/</link>
+      <pubDate>Wed, 05 Jun 2019 20:11:34 +0800</pubDate>
+      
+      <guid>https://caychance.github.io/posts/%E9%9A%8F%E6%84%9F2019-06/</guid>
+      <description>辗转许久，最终还是换了份工作。
+希望可以在新公司和新岗位上更进一步成长。</description>
+    </item>
+    
+    <item>
+      <title>面试小记</title>
+      <link>https://caychance.github.io/posts/%E9%9D%A2%E8%AF%95%E5%B0%8F%E8%AE%B0/</link>
+      <pubDate>Fri, 12 Apr 2019 23:53:48 +0000</pubDate>
+      
+      <guid>https://caychance.github.io/posts/%E9%9D%A2%E8%AF%95%E5%B0%8F%E8%AE%B0/</guid>
+      <description>CSS部分 css三列布局，两边固定宽度，中间自适应 两栏布局(至少三种，float/absolute/flex) 三栏布局(双飞翼/圣杯/flex) BFC(产生条件、用途) 产生条件：
+ body根元素 float元素 float不等于none 绝对定位 absolute fixed display等于inline-block、table-cells、flex overflow除了visible以外的值hidden、auto、scroll  BFC的用途/特性：
+ 同一个BFC中的margin会重叠 浮动的元素会脱离普通文档流，但是BFC却可以包含浮动的元素，即消除浮动。 BFC可以阻止元素被浮动元素覆盖。  传送门-BFC详细了解
+用border画一个半圆/三角形  三角形  width: 0; height: 0; border-top: 50px solid blue; border-right: 50px solid red; border-bottom: 50px solid green; border-left: 50px solid yellow;  半圆  width: 100px; height: 50px; border-radius: 50px 50px 0 0; background: pink; 弹出框 实现向内旋转的效果(transform: rotateY) css3如何开启动画的GPU加速(translate3d(0, 0, 0)) 行内元素padding margin有用吗  padding有用 margin左右有用，上下无效。  盒模型有哪两种，区别是啥  IE盒模型 border-box width = content宽度+padding+border W3C盒模型 content-box width = content宽度  常用移动端适配方案，border 1px在dpr比较大的手机上咋解决  传送门-掘金-移动端适配总结 感觉这篇文章里的适配代码是个无敌的答案  css水平垂直居中  table-cell absolute transform:translate flex grid  flex align-item align-content的区别  容器属性  flex-direction 主轴的方向 flex-wrap 主轴一行展示不下，如何换行 justify-content 项目在主轴上的对齐方式 align-items 项目在交叉轴上的对齐方式 align-content 多根轴线如何对齐  项目属性  order 项目的排列顺序 越小越靠前 默认0 flex-grow 项目的放大比例 默认为0 等于0不会放大。大于0，如果有剩余空间的情况下，项目1为x1，项目2为x2，则项目1占剩余空间的x1/(x1+x2) flex-shrink 项目的缩小比例 默认为1 等于0不参与缩小。ul width 100px。两个li宽100px，默认每个li都会被缩小1/(1+1)=1/2。第一个li 2，第二个li 3，则第一个li被缩小2/(2+3)=2/5，被缩小的实际宽度为2/5*100=40，剩余宽度为60。第一个li 为0，如果第二个li为0，那么两者都不缩小，第二个li 大于0，那么li实际宽度，第一个li不缩小。 flex-basis 项目的占据主轴的空间 默认auto flex-self 该项目单独的对齐方式   单行，多行文本超出省略号  单行文本溢出  width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;  多行文本溢出  :和::代表啥  :伪类 ::伪元素  JS部分 基本类型和引用类型在内存中是如何存储的  基本类型存储在栈内存 引用类型存储在堆内存 栈内存中存的是引用类型在堆内存中的地址 或者说存的是引用类型的引用  事件委托和事件代理 一个ul里面有很多个li的时候，如果想让每个li都有一个点击事件，不需要给每个li都去添加，只需要给ul添加一个就行了。</description>
+    </item>
+    
+    <item>
+      <title>为什么要用框架</title>
+      <link>https://caychance.github.io/posts/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8%E6%A1%86%E6%9E%B6/</link>
+      <pubDate>Fri, 22 Mar 2019 23:14:00 +0000</pubDate>
+      
+      <guid>https://caychance.github.io/posts/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8%E6%A1%86%E6%9E%B6/</guid>
+      <description>一直在用Vue，但是也没有想过框架的出现是为了解决什么痛点？
+实现一个点赞功能 首先，实现一个简单的点赞功能，不考虑使用任何框架。
+&amp;lt;body&amp;gt; &amp;lt;div class=&amp;#39;wrapper&amp;#39;&amp;gt; &amp;lt;button class=&amp;#39;like-btn&amp;#39;&amp;gt; &amp;lt;span class=&amp;#39;like-text&amp;#39;&amp;gt;点赞&amp;lt;/span&amp;gt; &amp;lt;span&amp;gt;👍&amp;lt;/span&amp;gt; &amp;lt;/button&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;script&amp;gt; // 实现一个简单的点赞按钮，点击按钮的同时按钮的文字会变换。demo1难以复用  const button = document.querySelector(&amp;#39;.like-btn&amp;#39;) const buttonText = button.querySelector(&amp;#39;.like-text&amp;#39;) let isLiked = false button.addEventListener(&amp;#39;click&amp;#39;, () =&amp;gt; { isLiked = !isLiked if (isLiked) { buttonText.innerHTML = &amp;#39;取消&amp;#39; } else { buttonText.innerHTML = &amp;#39;点赞&amp;#39; } }, false) &amp;lt;/script&amp;gt; &amp;lt;/body&amp;gt; 以上代码实现了点赞的功能，但是有一个问题——难以复用。
+结构复用 经过改造，我们也仅仅只能复用html部分，并且没有添加事件
+&amp;lt;body&amp;gt; &amp;lt;div class=&amp;#39;wrapper&amp;#39;&amp;gt;&amp;lt;/div&amp;gt; &amp;lt;script&amp;gt; // 仅仅可以复用html部分，没有添加事件  class LikeButton { render(){ return ` &amp;lt;button id=&amp;#39;like-btn&amp;#39;&amp;gt; &amp;lt;span class=&amp;#39;like-text&amp;#39;&amp;gt;赞&amp;lt;/span&amp;gt; &amp;lt;span&amp;gt;👍&amp;lt;/span&amp;gt; &amp;lt;/button&amp;gt; ` } } const wrapper = document.</description>
+    </item>
+    
+  </channel>
+</rss>

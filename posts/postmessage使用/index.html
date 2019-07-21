@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="theme-color" content="#494f5c">
+	<meta name="msapplication-TileColor" content="#494f5c">
+
+<meta itemprop="name" content="PostMessage使用">
+<meta itemprop="description" content="跨域的问题有一种postMessage的解决方案，之前也一直是听过但是没有用过。
+用法  发送消息:otherWindow.postMessage(message, targetOrigin, [transfer]); 接收消息:window.addEventListener(&ldquo;message&rdquo;, (event)=&gt;{}, false); postMessage方法的入参:  message:要发送的数据 targetOrigin:数据接收方。设置为&rsquo;*&lsquo;，则不限制。不建议这么设置。 transfer:可选参数。是一串和message 同时传递的 Transferable 对象.这些对象的所有权将被转移给消息的接收方，而发送一方将不再保有所有权。  event对象的几个属性:  data:从其他窗口发送过来的消息对象 type:发型消息的类型 source:发送消息的窗口对象 origin:发送消息的窗口的源   举个栗子🌰 下面的写了一个小demo，page one (http://10.161.114.80:8080/index.html/#/test) 和page two (http://10.161.114.80:8082/index.html/#/test)。
+ page one在mounted的时候，新打开了一个窗口，然后8秒后了一条消息给page two； page one在mounted的时候，监听postMessage回来的消息；并判断如果当前发消息的窗口对象，不是当前窗口对象(window)的话，就发送一条消息给page two。 page two在mounted的时候，监听postMessage回来的消息。 page two在mounted的时候，发送一个消息给page one。  //page one &lt;template&gt; &lt;div&gt; &lt;h3&gt;page one&lt;/h3&gt; &lt;input v-model=&#34;message&#34; placeholder=&#34;edit me&#34; /&gt; &lt;button @click=&#34;handleClick&#34;&gt;sendMessage&lt;/button&gt; &lt;/div&gt; &lt;/template&gt; &lt;script&gt; export default { data() { return { message: &#34;&#34;, popup: null }; }, methods: { /** * 打开新窗口 */ openWindow() { this.">
+
+
+<meta itemprop="datePublished" content="2019-07-11T16:47:15&#43;08:00" />
+<meta itemprop="dateModified" content="2019-07-11T16:47:15&#43;08:00" />
+<meta itemprop="wordCount" content="226">
+
+
+
+<meta itemprop="keywords" content="跨域,postMessage," />
+<meta property="og:title" content="PostMessage使用" />
+<meta property="og:description" content="跨域的问题有一种postMessage的解决方案，之前也一直是听过但是没有用过。
+用法  发送消息:otherWindow.postMessage(message, targetOrigin, [transfer]); 接收消息:window.addEventListener(&ldquo;message&rdquo;, (event)=&gt;{}, false); postMessage方法的入参:  message:要发送的数据 targetOrigin:数据接收方。设置为&rsquo;*&lsquo;，则不限制。不建议这么设置。 transfer:可选参数。是一串和message 同时传递的 Transferable 对象.这些对象的所有权将被转移给消息的接收方，而发送一方将不再保有所有权。  event对象的几个属性:  data:从其他窗口发送过来的消息对象 type:发型消息的类型 source:发送消息的窗口对象 origin:发送消息的窗口的源   举个栗子🌰 下面的写了一个小demo，page one (http://10.161.114.80:8080/index.html/#/test) 和page two (http://10.161.114.80:8082/index.html/#/test)。
+ page one在mounted的时候，新打开了一个窗口，然后8秒后了一条消息给page two； page one在mounted的时候，监听postMessage回来的消息；并判断如果当前发消息的窗口对象，不是当前窗口对象(window)的话，就发送一条消息给page two。 page two在mounted的时候，监听postMessage回来的消息。 page two在mounted的时候，发送一个消息给page one。  //page one &lt;template&gt; &lt;div&gt; &lt;h3&gt;page one&lt;/h3&gt; &lt;input v-model=&#34;message&#34; placeholder=&#34;edit me&#34; /&gt; &lt;button @click=&#34;handleClick&#34;&gt;sendMessage&lt;/button&gt; &lt;/div&gt; &lt;/template&gt; &lt;script&gt; export default { data() { return { message: &#34;&#34;, popup: null }; }, methods: { /** * 打开新窗口 */ openWindow() { this." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://caychance.github.io/posts/postmessage%E4%BD%BF%E7%94%A8/" /><meta property="article:published_time" content="2019-07-11T16:47:15&#43;08:00"/>
+<meta property="article:modified_time" content="2019-07-11T16:47:15&#43;08:00"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="PostMessage使用"/>
+<meta name="twitter:description" content="跨域的问题有一种postMessage的解决方案，之前也一直是听过但是没有用过。
+用法  发送消息:otherWindow.postMessage(message, targetOrigin, [transfer]); 接收消息:window.addEventListener(&ldquo;message&rdquo;, (event)=&gt;{}, false); postMessage方法的入参:  message:要发送的数据 targetOrigin:数据接收方。设置为&rsquo;*&lsquo;，则不限制。不建议这么设置。 transfer:可选参数。是一串和message 同时传递的 Transferable 对象.这些对象的所有权将被转移给消息的接收方，而发送一方将不再保有所有权。  event对象的几个属性:  data:从其他窗口发送过来的消息对象 type:发型消息的类型 source:发送消息的窗口对象 origin:发送消息的窗口的源   举个栗子🌰 下面的写了一个小demo，page one (http://10.161.114.80:8080/index.html/#/test) 和page two (http://10.161.114.80:8082/index.html/#/test)。
+ page one在mounted的时候，新打开了一个窗口，然后8秒后了一条消息给page two； page one在mounted的时候，监听postMessage回来的消息；并判断如果当前发消息的窗口对象，不是当前窗口对象(window)的话，就发送一条消息给page two。 page two在mounted的时候，监听postMessage回来的消息。 page two在mounted的时候，发送一个消息给page one。  //page one &lt;template&gt; &lt;div&gt; &lt;h3&gt;page one&lt;/h3&gt; &lt;input v-model=&#34;message&#34; placeholder=&#34;edit me&#34; /&gt; &lt;button @click=&#34;handleClick&#34;&gt;sendMessage&lt;/button&gt; &lt;/div&gt; &lt;/template&gt; &lt;script&gt; export default { data() { return { message: &#34;&#34;, popup: null }; }, methods: { /** * 打开新窗口 */ openWindow() { this."/>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
+	<link rel="shortcut icon" href="/favicon.ico">
+
+	<title>PostMessage使用</title>
+	<link rel="stylesheet" href="https://caychance.github.io/css/style.min.568c54a56780af2a70c45272522247710b69dbfc080b315211fb98381e3796f8.css" integrity="sha256-VoxUpWeArypwxFJyUiJHcQtp2/wICzFSEfuYOB43lvg=">
+	
+</head>
+
+<body id="page">
+	
+	<header id="site-header" class="animated slideInUp faster">
+		<div class="hdr-wrapper section-inner">
+			<div class="hdr-left">
+				<div class="site-branding">
+					<a href="https://caychance.github.io">CayChance の Blog</a>
+				</div>
+				<nav class="site-nav hide-in-mobile">
+					
+				<a href="https://caychance.github.io/posts/">Posts</a>
+				<a href="https://caychance.github.io/about-hugo/">About</a>
+
+				</nav>
+			</div>
+			<div class="hdr-right hdr-icons">
+				<span class="hdr-social hide-in-mobile"><a href="https://twitter.com/" target="_blank" rel="noopener me" title="Twitter"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg></a><a href="https://instagram.com/" target="_blank" rel="noopener me" title="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-instagram"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line></svg></a><a href="https://github.com/" target="_blank" rel="noopener me" title="Github"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a></span><button id="menu-btn" class="hdr-btn" title="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+			</div>
+		</div>
+	</header>
+	<div id="mobile-menu" class="animated fast">
+		<ul>
+			<li><a href="https://caychance.github.io/posts/">Posts</a></li>
+			<li><a href="https://caychance.github.io/about-hugo/">About</a></li>
+		</ul>
+	</div>
+
+
+	<main class="site-main section-inner animated fadeIn faster">
+		<article class="thin">
+			<header class="post-header">
+				<div class="post-meta"><span>Jul 11, 2019</span></div>
+				<h1>PostMessage使用</h1>
+			</header>
+			<div class="content">
+				
+
+<hr />
+
+<p>跨域的问题有一种postMessage的解决方案，之前也一直是听过但是没有用过。</p>
+
+<h3 id="用法">用法<a href="#用法" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<ul>
+<li>发送消息:otherWindow.postMessage(message, targetOrigin, [transfer]);</li>
+<li>接收消息:window.addEventListener(&ldquo;message&rdquo;, (event)=&gt;{}, false);</li>
+<li>postMessage方法的入参:
+
+<ul>
+<li>message:要发送的数据</li>
+<li>targetOrigin:数据接收方。设置为&rsquo;*&lsquo;，则不限制。不建议这么设置。</li>
+<li>transfer:可选参数。是一串和message 同时传递的 Transferable 对象.这些对象的所有权将被转移给消息的接收方，而发送一方将不再保有所有权。</li>
+</ul></li>
+<li>event对象的几个属性:
+
+<ul>
+<li>data:从其他窗口发送过来的消息对象</li>
+<li>type:发型消息的类型</li>
+<li>source:发送消息的窗口对象</li>
+<li>origin:发送消息的窗口的源</li>
+</ul></li>
+</ul>
+
+<h3 id="举个栗子">举个栗子🌰<a href="#举个栗子" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>下面的写了一个小demo，page one (<a href="http://10.161.114.80:8080/index.html/#/test">http://10.161.114.80:8080/index.html/#/test</a>) 和page two (<a href="http://10.161.114.80:8082/index.html/#/test)。">http://10.161.114.80:8082/index.html/#/test)。</a></p>
+
+<ol>
+<li>page one在mounted的时候，新打开了一个窗口，然后8秒后了一条消息给page two；</li>
+<li>page one在mounted的时候，监听postMessage回来的消息；并判断如果当前发消息的窗口对象，不是当前窗口对象(window)的话，就发送一条消息给page two。</li>
+<li>page two在mounted的时候，监听postMessage回来的消息。</li>
+<li>page two在mounted的时候，发送一个消息给page one。</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">//page one
+</span><span class="c1"></span><span class="o">&lt;</span><span class="nx">template</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">h3</span><span class="o">&gt;</span><span class="nx">page</span> <span class="nx">one</span><span class="o">&lt;</span><span class="err">/h3&gt;</span>
+    <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">v</span><span class="o">-</span><span class="nx">model</span><span class="o">=</span><span class="s2">&#34;message&#34;</span> <span class="nx">placeholder</span><span class="o">=</span><span class="s2">&#34;edit me&#34;</span> <span class="err">/&gt;</span>
+    <span class="o">&lt;</span><span class="nx">button</span> <span class="err">@</span><span class="nx">click</span><span class="o">=</span><span class="s2">&#34;handleClick&#34;</span><span class="o">&gt;</span><span class="nx">sendMessage</span><span class="o">&lt;</span><span class="err">/button&gt;</span>
+  <span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="o">&lt;</span><span class="err">/template&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="nx">message</span><span class="o">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+      <span class="nx">popup</span><span class="o">:</span> <span class="kc">null</span>
+    <span class="p">};</span>
+  <span class="p">},</span>
+  <span class="nx">methods</span><span class="o">:</span> <span class="p">{</span>
+    <span class="cm">/**
+</span><span class="cm">     * 打开新窗口
+</span><span class="cm">     */</span>
+    <span class="nx">openWindow</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">popup</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span>
+        <span class="s2">&#34;http://10.161.114.80:8082/index.html/#/test&#34;</span><span class="p">,</span>
+        <span class="s2">&#34;title&#34;</span>
+      <span class="p">);</span>
+      <span class="nx">setTimeout</span><span class="p">(()=&gt;{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">sendMess</span><span class="p">(</span><span class="s2">&#34;Hello World!&#34;</span><span class="p">);</span>
+      <span class="p">},</span><span class="mi">8000</span><span class="p">)</span>
+    <span class="p">},</span>
+
+    <span class="cm">/**
+</span><span class="cm">     * 使用postMessage发送消息
+</span><span class="cm">     */</span>
+    <span class="nx">sendMess</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">popup</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span>
+        <span class="nx">message</span><span class="p">,</span>
+        <span class="s2">&#34;http://10.161.114.80:8082/index.html/#/test&#34;</span>
+      <span class="p">);</span>
+    <span class="p">},</span>
+
+    <span class="cm">/**
+</span><span class="cm">     * 点击按钮 发送消息
+</span><span class="cm">     */</span>
+    <span class="nx">handleClick</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">message</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">sendMess</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+    <span class="p">},</span>
+
+    <span class="cm">/**
+</span><span class="cm">     * 接收消息
+</span><span class="cm">     */</span>
+    <span class="nx">receiveMess</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span>
+        <span class="s2">&#34;message&#34;</span><span class="p">,</span>
+        <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+          <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">source</span> <span class="o">!=</span> <span class="nb">window</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// 如果当前source不是window(当前窗口)的话，再发送一条消息出去
+</span><span class="c1"></span>            <span class="nx">e</span><span class="p">.</span><span class="nx">source</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span>
+              <span class="s2">&#34;hello cc&#34;</span><span class="p">,</span>
+              <span class="s2">&#34;http://10.161.114.80:8082/index.html/#/test&#34;</span>
+            <span class="p">);</span>
+          <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="kc">false</span>
+      <span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nx">mounted</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">openWindow</span><span class="p">();</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">receiveMess</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+
+<span class="c1">//page two 
+</span><span class="c1"></span><span class="o">&lt;</span><span class="nx">template</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">h3</span><span class="o">&gt;</span><span class="nx">page</span> <span class="nx">two</span><span class="o">&lt;</span><span class="err">/h3&gt;</span>
+    <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">v</span><span class="o">-</span><span class="nx">model</span><span class="o">=</span><span class="s2">&#34;message&#34;</span> <span class="nx">placeholder</span><span class="o">=</span><span class="s2">&#34;edit me&#34;</span> <span class="err">/&gt;</span>
+    <span class="o">&lt;</span><span class="nx">button</span> <span class="err">@</span><span class="nx">click</span><span class="o">=</span><span class="s2">&#34;handleClick&#34;</span><span class="o">&gt;</span><span class="nx">sendMessage</span><span class="o">&lt;</span><span class="err">/button&gt;</span>
+  <span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="o">&lt;</span><span class="err">/template&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="nx">message</span><span class="o">:</span> <span class="s2">&#34;&#34;</span>
+    <span class="p">};</span>
+  <span class="p">},</span>
+  <span class="nx">methods</span><span class="o">:</span> <span class="p">{</span>
+    <span class="cm">/**
+</span><span class="cm">     * 点击按钮 发送消息
+</span><span class="cm">     */</span>
+    <span class="nx">handleClick</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">message</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">sendMess</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+    <span class="p">},</span>
+
+    <span class="cm">/**
+</span><span class="cm">     * 使用postMessage发送消息
+</span><span class="cm">     */</span>
+    <span class="nx">sendMess</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nb">window</span><span class="p">.</span><span class="nx">opener</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span>
+        <span class="nx">message</span><span class="p">,</span>
+        <span class="s2">&#34;http://10.161.114.80:8080/index.html/#/test&#34;</span>
+      <span class="p">);</span>
+    <span class="p">},</span>
+
+    <span class="cm">/**
+</span><span class="cm">     * 接收消息
+</span><span class="cm">     */</span>
+    <span class="nx">receive</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span>
+        <span class="s2">&#34;message&#34;</span><span class="p">,</span>
+        <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+        <span class="p">},</span>
+        <span class="kc">false</span>
+      <span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nx">mounted</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">receive</span><span class="p">();</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">sendMess</span><span class="p">(</span><span class="s2">&#34;Nice to see you&#34;</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+</code></pre></div>
+<h3 id="postmessage的应用场景">postMessage的应用场景<a href="#postmessage的应用场景" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>最近在看之前同事留下来的代码，其中有一个功能大量用到postMessage。</p>
+
+<p>postMessage常用于两个页面之间通讯。或者页面中引入了iframe，想让当前页面和iframe窗口页面进行通讯。可以使用postMessage。应用场景就是，一般不依赖后台服务，就单纯的前端页面之间的交互。</p>
+
+			</div>
+			<hr class="post-end">
+			<footer class="post-info">
+				<p>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://caychance.github.io/tags/%E8%B7%A8%E5%9F%9F">跨域</a></span><span class="tag"><a href="https://caychance.github.io/tags/postmessage">postMessage</a></span>
+				</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>226 Words</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2019-07-11 08:47 &#43;0000</p>
+			</footer>
+		</article>
+		<div class="post-nav thin">
+			<a class="next-post" href="https://caychance.github.io/posts/socket/">
+				<span class="post-nav-label"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>&nbsp;Newer</span><br><span>Socket</span>
+			</a>
+			<a class="prev-post" href="https://caychance.github.io/posts/vue%E7%BB%84%E4%BB%B6%E9%97%B4%E9%80%9A%E4%BF%A1%E7%9A%84%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93/">
+				<span class="post-nav-label">Older&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span><br><span>Vue组件间通信的方式总结</span>
+			</a>
+		</div>
+		<div id="comments" class="thin">
+</div>
+	</main>
+
+	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
+		<p>&copy; 2019 <a href="https://caychance.github.io">CayChance</a> &#183; <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></p>
+		<p>
+			Made with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &#183; Theme <a href="https://github.com/Track3/hermit" target="_blank" rel="noopener">Hermit</a> &#183; <a href="https://caychance.github.io/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a>
+		</p>
+	</footer>
+
+
+	<script src="https://caychance.github.io/js/main.min.35ccbf1cdceb91e4c64c06b5d009d6e2977fafe56beda7762febd4e67528d2ac.js" integrity="sha256-Ncy/HNzrkeTGTAa10AnW4pd/r+Vr7ad2L+vU5nUo0qw="></script>
+
+</body>
+
+</html>

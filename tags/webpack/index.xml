@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Webpack on CayChance の Blog</title>
+    <link>https://caychance.github.io/tags/webpack/</link>
+    <description>Recent content in Webpack on CayChance の Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Fri, 26 Apr 2019 16:21:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://caychance.github.io/tags/webpack/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>webpack4.0学习笔记</title>
+      <link>https://caychance.github.io/posts/webpack4-0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Fri, 26 Apr 2019 16:21:00 +0000</pubDate>
+      
+      <guid>https://caychance.github.io/posts/webpack4-0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+      <description> webpack是什么 为什么要用webpack 常用的loader loader是有执行顺序的，默认的执行顺序是从右至左，从下至上执行。 loader的类型：
+ 前置loader pre 普通loader normal 后置loader post 内联loader  css-loader style-loader less-loader less less-loader
+sass-loader node-sass sass-loader
+stylus-loader stylus stylus-loader
+postcss-loader postcss-loader autoprefixer
+babel babel-loader @babel/core @babel/preset-env
+eslint eslint-loader
+expose-loader 代码中引入第三方模块，例如jquery，把jquery暴露给window
+file-loder 图片打包 file-loader默认会在内部生成一张图片到build目录下，并且把生成的图片名字返回回来
+常用的plugin html-webpack-plugin mini-css-extract-plugin optimize-css-assets-webpack-plugin 压缩css 并且js还需要去压缩 使用uglifyjs-webpack-plugin
+webpack.ProvidePlugin 在代码中引入第三方模块，例如jquery，可以在每个模块中引入jquery
+ProvidePlugin
+在代码中引入第三方模块  expose-loader webpack.ProvidePlugin 引入不打包  图片如何打包  在js中引入 在css中 在html中  loader和plugin的区别 module和chunk的区别 </description>
+    </item>
+    
+  </channel>
+</rss>
