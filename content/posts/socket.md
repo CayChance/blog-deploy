@@ -9,8 +9,6 @@ tags:
 ---
 ----
 
-test blog
-
 之前在做业务的时候，有一种情况，前端需要写一个定时器，每个2秒去请求一遍后台的接口，这样子做其实很耗费性能的，现在计划改成使用socket的形式。
 
 其实之前就简单了解一下WebSocket的基本概念，并没有深入的去做过。此处并不会记录一些基本的概念，而且介绍在实际的业务中，如何使用现成的工具去处理。
@@ -76,8 +74,6 @@ socket.disconnect = () => {
 
 export default socket;
 ```
-
-test
 
 ### 参考链接
 [WebSocket 教程](http://www.ruanyifeng.com/blog/2017/05/websocket.html)
