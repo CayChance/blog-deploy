@@ -9,36 +9,33 @@
 	<meta name="msapplication-TileColor" content="#494f5c">
 
 <meta itemprop="name" content="Socket">
-<meta itemprop="description" content="test blog
-之前在做业务的时候，有一种情况，前端需要写一个定时器，每个2秒去请求一遍后台的接口，这样子做其实很耗费性能的，现在计划改成使用socket的形式。
+<meta itemprop="description" content="之前在做业务的时候，有一种情况，前端需要写一个定时器，每个2秒去请求一遍后台的接口，这样子做其实很耗费性能的，现在计划改成使用socket的形式。
 其实之前就简单了解一下WebSocket的基本概念，并没有深入的去做过。此处并不会记录一些基本的概念，而且介绍在实际的业务中，如何使用现成的工具去处理。
 sockjs-client和stompjs sockjs-client和stompjs是两个现成的库，配合使用，可以帮助我们省很多事情。这样子的不好的地方也很明显，开发变得只是去使用现成的库。
-/** * 背景：由于业务需求，多个模块需要每隔2s去轮询一下接口 * 方案：使用socket来通讯，可避免前端耗费性能的去轮询接口 */ import SockJS from &#34;sockjs-client&#34;; import Stomp from &#34;stompjs&#34;; import Bus from &#34;./bus&#34;; let socket = {}; let stompClient = null; // 建立通讯地址 const DefaultConnectUrl = &#34;http://xxx.com/endpointWisely&#34;; const SubscribePath = &#34;/topic/pod1&#34; /** * connect 建立连接 */ socket.connect = () =&gt; { // 声明一个stomp客户端  stompClient = Stomp.over(new SockJS(DefaultConnectUrl)); // stomp客户端建立通讯  stompClient.connect({}, frame =&gt; { // stomp订阅  stompClient.">
+/** * 背景：由于业务需求，多个模块需要每隔2s去轮询一下接口 * 方案：使用socket来通讯，可避免前端耗费性能的去轮询接口 */ import SockJS from &#34;sockjs-client&#34;; import Stomp from &#34;stompjs&#34;; import Bus from &#34;./bus&#34;; let socket = {}; let stompClient = null; // 建立通讯地址 const DefaultConnectUrl = &#34;http://xxx.com/endpointWisely&#34;; const SubscribePath = &#34;/topic/pod1&#34; /** * connect 建立连接 */ socket.connect = () =&gt; { // 声明一个stomp客户端  stompClient = Stomp.over(new SockJS(DefaultConnectUrl)); // stomp客户端建立通讯  stompClient.connect({}, frame =&gt; { // stomp订阅  stompClient.subscribe(SubscribePath, response =&gt; { // 使用Bus.">
 
 
 <meta itemprop="datePublished" content="2019-07-15T20:25:14&#43;08:00" />
 <meta itemprop="dateModified" content="2019-07-15T20:25:14&#43;08:00" />
-<meta itemprop="wordCount" content="154">
+<meta itemprop="wordCount" content="151">
 
 
 
 <meta itemprop="keywords" content="socket," />
 <meta property="og:title" content="Socket" />
-<meta property="og:description" content="test blog
-之前在做业务的时候，有一种情况，前端需要写一个定时器，每个2秒去请求一遍后台的接口，这样子做其实很耗费性能的，现在计划改成使用socket的形式。
+<meta property="og:description" content="之前在做业务的时候，有一种情况，前端需要写一个定时器，每个2秒去请求一遍后台的接口，这样子做其实很耗费性能的，现在计划改成使用socket的形式。
 其实之前就简单了解一下WebSocket的基本概念，并没有深入的去做过。此处并不会记录一些基本的概念，而且介绍在实际的业务中，如何使用现成的工具去处理。
 sockjs-client和stompjs sockjs-client和stompjs是两个现成的库，配合使用，可以帮助我们省很多事情。这样子的不好的地方也很明显，开发变得只是去使用现成的库。
-/** * 背景：由于业务需求，多个模块需要每隔2s去轮询一下接口 * 方案：使用socket来通讯，可避免前端耗费性能的去轮询接口 */ import SockJS from &#34;sockjs-client&#34;; import Stomp from &#34;stompjs&#34;; import Bus from &#34;./bus&#34;; let socket = {}; let stompClient = null; // 建立通讯地址 const DefaultConnectUrl = &#34;http://xxx.com/endpointWisely&#34;; const SubscribePath = &#34;/topic/pod1&#34; /** * connect 建立连接 */ socket.connect = () =&gt; { // 声明一个stomp客户端  stompClient = Stomp.over(new SockJS(DefaultConnectUrl)); // stomp客户端建立通讯  stompClient.connect({}, frame =&gt; { // stomp订阅  stompClient." />
+/** * 背景：由于业务需求，多个模块需要每隔2s去轮询一下接口 * 方案：使用socket来通讯，可避免前端耗费性能的去轮询接口 */ import SockJS from &#34;sockjs-client&#34;; import Stomp from &#34;stompjs&#34;; import Bus from &#34;./bus&#34;; let socket = {}; let stompClient = null; // 建立通讯地址 const DefaultConnectUrl = &#34;http://xxx.com/endpointWisely&#34;; const SubscribePath = &#34;/topic/pod1&#34; /** * connect 建立连接 */ socket.connect = () =&gt; { // 声明一个stomp客户端  stompClient = Stomp.over(new SockJS(DefaultConnectUrl)); // stomp客户端建立通讯  stompClient.connect({}, frame =&gt; { // stomp订阅  stompClient.subscribe(SubscribePath, response =&gt; { // 使用Bus." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://caychance.github.io/posts/socket/" /><meta property="article:published_time" content="2019-07-15T20:25:14&#43;08:00"/>
 <meta property="article:modified_time" content="2019-07-15T20:25:14&#43;08:00"/>
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Socket"/>
-<meta name="twitter:description" content="test blog
-之前在做业务的时候，有一种情况，前端需要写一个定时器，每个2秒去请求一遍后台的接口，这样子做其实很耗费性能的，现在计划改成使用socket的形式。
+<meta name="twitter:description" content="之前在做业务的时候，有一种情况，前端需要写一个定时器，每个2秒去请求一遍后台的接口，这样子做其实很耗费性能的，现在计划改成使用socket的形式。
 其实之前就简单了解一下WebSocket的基本概念，并没有深入的去做过。此处并不会记录一些基本的概念，而且介绍在实际的业务中，如何使用现成的工具去处理。
 sockjs-client和stompjs sockjs-client和stompjs是两个现成的库，配合使用，可以帮助我们省很多事情。这样子的不好的地方也很明显，开发变得只是去使用现成的库。
-/** * 背景：由于业务需求，多个模块需要每隔2s去轮询一下接口 * 方案：使用socket来通讯，可避免前端耗费性能的去轮询接口 */ import SockJS from &#34;sockjs-client&#34;; import Stomp from &#34;stompjs&#34;; import Bus from &#34;./bus&#34;; let socket = {}; let stompClient = null; // 建立通讯地址 const DefaultConnectUrl = &#34;http://xxx.com/endpointWisely&#34;; const SubscribePath = &#34;/topic/pod1&#34; /** * connect 建立连接 */ socket.connect = () =&gt; { // 声明一个stomp客户端  stompClient = Stomp.over(new SockJS(DefaultConnectUrl)); // stomp客户端建立通讯  stompClient.connect({}, frame =&gt; { // stomp订阅  stompClient."/>
+/** * 背景：由于业务需求，多个模块需要每隔2s去轮询一下接口 * 方案：使用socket来通讯，可避免前端耗费性能的去轮询接口 */ import SockJS from &#34;sockjs-client&#34;; import Stomp from &#34;stompjs&#34;; import Bus from &#34;./bus&#34;; let socket = {}; let stompClient = null; // 建立通讯地址 const DefaultConnectUrl = &#34;http://xxx.com/endpointWisely&#34;; const SubscribePath = &#34;/topic/pod1&#34; /** * connect 建立连接 */ socket.connect = () =&gt; { // 声明一个stomp客户端  stompClient = Stomp.over(new SockJS(DefaultConnectUrl)); // stomp客户端建立通讯  stompClient.connect({}, frame =&gt; { // stomp订阅  stompClient.subscribe(SubscribePath, response =&gt; { // 使用Bus."/>
 
 	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -90,8 +87,6 @@ sockjs-client和stompjs sockjs-client和stompjs是两个现成的库，配合使
 				
 
 <hr />
-
-<p>test blog</p>
 
 <p>之前在做业务的时候，有一种情况，前端需要写一个定时器，每个2秒去请求一遍后台的接口，这样子做其实很耗费性能的，现在计划改成使用socket的形式。</p>
 
@@ -157,8 +152,6 @@ sockjs-client和stompjs sockjs-client和stompjs是两个现成的库，配合使
 
 <span class="k">export</span> <span class="k">default</span> <span class="nx">socket</span><span class="p">;</span>
 </code></pre></div>
-<p>test</p>
-
 <h3 id="参考链接">参考链接<a href="#参考链接" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
 
 <p><a href="http://www.ruanyifeng.com/blog/2017/05/websocket.html">WebSocket 教程</a></p>
@@ -171,7 +164,7 @@ sockjs-client和stompjs sockjs-client和stompjs是两个现成的库，配合使
 				<p>
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://caychance.github.io/tags/socket">socket</a></span>
 				</p>
-				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>154 Words</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>151 Words</p>
 				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2019-07-15 12:25 &#43;0000</p>
 			</footer>
 		</article>

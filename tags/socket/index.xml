@@ -18,11 +18,10 @@
       <pubDate>Mon, 15 Jul 2019 20:25:14 +0800</pubDate>
       
       <guid>https://caychance.github.io/posts/socket/</guid>
-      <description>test blog
-之前在做业务的时候，有一种情况，前端需要写一个定时器，每个2秒去请求一遍后台的接口，这样子做其实很耗费性能的，现在计划改成使用socket的形式。
+      <description>之前在做业务的时候，有一种情况，前端需要写一个定时器，每个2秒去请求一遍后台的接口，这样子做其实很耗费性能的，现在计划改成使用socket的形式。
 其实之前就简单了解一下WebSocket的基本概念，并没有深入的去做过。此处并不会记录一些基本的概念，而且介绍在实际的业务中，如何使用现成的工具去处理。
 sockjs-client和stompjs sockjs-client和stompjs是两个现成的库，配合使用，可以帮助我们省很多事情。这样子的不好的地方也很明显，开发变得只是去使用现成的库。
-/** * 背景：由于业务需求，多个模块需要每隔2s去轮询一下接口 * 方案：使用socket来通讯，可避免前端耗费性能的去轮询接口 */ import SockJS from &amp;#34;sockjs-client&amp;#34;; import Stomp from &amp;#34;stompjs&amp;#34;; import Bus from &amp;#34;./bus&amp;#34;; let socket = {}; let stompClient = null; // 建立通讯地址 const DefaultConnectUrl = &amp;#34;http://xxx.com/endpointWisely&amp;#34;; const SubscribePath = &amp;#34;/topic/pod1&amp;#34; /** * connect 建立连接 */ socket.connect = () =&amp;gt; { // 声明一个stomp客户端  stompClient = Stomp.over(new SockJS(DefaultConnectUrl)); // stomp客户端建立通讯  stompClient.connect({}, frame =&amp;gt; { // stomp订阅  stompClient.</description>
+/** * 背景：由于业务需求，多个模块需要每隔2s去轮询一下接口 * 方案：使用socket来通讯，可避免前端耗费性能的去轮询接口 */ import SockJS from &amp;#34;sockjs-client&amp;#34;; import Stomp from &amp;#34;stompjs&amp;#34;; import Bus from &amp;#34;./bus&amp;#34;; let socket = {}; let stompClient = null; // 建立通讯地址 const DefaultConnectUrl = &amp;#34;http://xxx.com/endpointWisely&amp;#34;; const SubscribePath = &amp;#34;/topic/pod1&amp;#34; /** * connect 建立连接 */ socket.connect = () =&amp;gt; { // 声明一个stomp客户端  stompClient = Stomp.over(new SockJS(DefaultConnectUrl)); // stomp客户端建立通讯  stompClient.connect({}, frame =&amp;gt; { // stomp订阅  stompClient.subscribe(SubscribePath, response =&amp;gt; { // 使用Bus.</description>
     </item>
     
   </channel>
