@@ -1,3 +1,6 @@
 [submodule "themes/hermit"]
 	path = themes/hermit
 	url = https://github.com/Track3/hermit
+[submodule "themes/hermit-caychance"]
+	path = themes/hermit-caychance
+	url = https://github.com/CayChance/hermit-caychance.git
