@@ -175,3 +175,10 @@ export default {
 最近在看之前同事留下来的代码，其中有一个功能大量用到postMessage。
 
 postMessage常用于两个页面之间通讯。或者页面中引入了iframe，想让当前页面和iframe窗口页面进行通讯。可以使用postMessage。应用场景就是，一般不依赖后台服务，就单纯的前端页面之间的交互。
+
+### !!!注意事项
+
+- 直接在浏览器中打开A和B两个页面，之间是无法使用postMessage通讯的。符合通讯的有两种情况：
+- 情况一：必须其中一个页面是另一个页面通过window.open()打开的；
+- 情况二：A、B两个页面是页面嵌套iframe的关系。可以在iframe的load事件回调中发送请求。
+- 监听message事件的时候需要对event.origin进行过滤。
