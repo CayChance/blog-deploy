@@ -105,31 +105,40 @@ file-loader默认会在内部生成一张图片到build目录下，并且把生�
 
 [ProvidePlugin](https://webpack.docschina.org/plugins/provide-plugin/)
 
-## 在代码中引入第三方模块
+## 常用功能
 
-1. expose-loader
-2. webpack.ProvidePlugin
-3. 引入不打包 
+- 错误代码定位
 
-## 图片如何打包
+source map: 方便追踪错误代码或者警告在源代码中的原始位置。
 
-1. 在js中引入
-2. 在css中
-3. 在html中
+- devServer
 
-## 常用的一些dev功能
+webpack-dev-server: 提供一个简单的web服务器，并且能够实时重新加载。
 
-1. source map 
+- 模块热替换
 
-方便追踪错误代码或者警告在源代码中的原始位置。
+Hot Module Replacement: 热更新
 
-2. webpack-dev-server
+- 压缩代码
 
-提供一个简单的web服务器，并且能够实时重新加载。
+设置mode为production
 
-3. Hot Module Replacement 
+uglifyjs-webpack-plugin
 
-模块热替换
+- 打包后自动生成html
+
+html-webpack-plugin 
+
+html-webpack-template
+
+- bundle分析
+
+webpack-chart: webpack 数据交互饼图。
+
+webpack-visualizer: 可视化并分析你的 bundle，检查哪些模块占用空间，哪些可能是重复使用的。
+
+webpack-bundle-analyzer: 一款分析 bundle 内容的插件及 CLI 工具，以便捷的、交互式、可缩放的树状图形式展现给用户。
+
 
 ## loader和plugin的区别
 
