@@ -6,8 +6,12 @@ tags:
   - webpack
   - 工具
 ---
-
 ----
+
+
+webpack是个大学问，此处仅记录自己学习webpack的笔记。最好的方法就是撸文档。
+
+[webpack官网](https://www.webpackjs.com/)
 
 ## webpack是什么
 
@@ -37,6 +41,8 @@ tags:
 
 
 ## 常用的loader
+
+[常见loader](https://www.webpackjs.com/loaders/)
 loader是有执行顺序的，默认的执行顺序是从右至左，从下至上执行。
 loader的类型：
 
