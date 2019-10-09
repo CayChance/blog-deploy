@@ -55,6 +55,28 @@ loader的类型：
 
 ### style-loader
 
+作用：在 `DOM` 里插入一个 `<style>` 标签，并且将 `CSS` 写入这个标签内。
+
+其中 `options` 的选项是：
+
+|name|含义|
+|:---|:---|
+|injectType|Allows to setup how styles will be injected into the DOM|
+|attributes|Adds custom attributes to tag|
+|insert|Inserts tag at the given position into the DOM|
+|base|Sets module ID base (DLLPlugin)|
+
+
+injectType 的可选值包括：
+
+|injectType可选值|含义|
+|:---|:---|
+|styleTag|每一次处理引入的样式文件都会在 DOM 上创建一个 `<style>` 标签|
+|singletonStyleTag|将所有样式文件打在同一个 `<style>` 标签|
+|linkTag|会通过 `<link rel="stylesheet" href="">` 的形式将样式插入到 `DOM` 中，需配合`file-loader`使用|
+|lazyStyleTag|延迟加载|
+|lazySingletonStyleTag|延迟加载|
+
 ### less-loader
 
 less less-loader
