@@ -83,7 +83,7 @@ less less-loader
 
 ### sass-loader
 
-加载sass/scss文件，并将其编译为css
+加载sass/scss文件，并将其编译为css。
 
 node-sass sass-loader
 
