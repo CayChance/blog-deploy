@@ -1,7 +1,7 @@
 ---
 title: "修改elementUI样式"
 date: 2019-10-12T19:06:29+08:00
-draft: true
+draft: false
 toc: false
 images:
 tags: 
@@ -15,13 +15,37 @@ tags:
 
 有两种思路：
 
-1. 在全局写一个element-ui的样式，xxx.css或者xxx.scss，在全局引入该文件。
+1. 不考虑scoped的话，在全局写一个element-ui的样式，xxx.css或者xxx.scss，在全局引入该文件。
 
-2. 使用 /deep/ 或者 ???
+2. 考虑scoped的话，可以使用 /deep/ 或者 >>> 操作符。
 
-
-
-
+因为开发的系统基本全部使用的element-ui的样式，基本没有自己写css，所以可以使用方法1。
 
 
+使用 >>> 或者 /deep/ 示例
 
+``` scss
+<style lang="scss" scoped>
+.home {
+  // ***
+}
+.home /deep/ .skeleton{
+  background: red;
+  /deep/ .header {
+    background: pink;
+  }
+  /deep/ .like-wrapper {
+    background: #fff;
+    /deep/ .title{
+      /deep/ .img{
+        border: 1px solid red;
+      }
+      /deep/ .text{
+        width: 300px;
+        border-top: 1px solid green;
+      }
+    }
+  }
+}
+</style>
+```
