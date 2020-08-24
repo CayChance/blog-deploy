@@ -63,6 +63,10 @@ enableEmoji = true  # Shorthand emojis in content files - https://gohugo.io/func
     name = "github"
     url = "https://github.com/"
 
+  [[params.social]]
+    name = "卡拉搜索"
+    url = "https://kalasearch.cn/"
+
 [menu]
 
   [[menu.main]]
