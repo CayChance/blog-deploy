@@ -1,5 +1,10 @@
 # blog-deploy
 
+### 添加新的内容
+```
+hugo new posts/.md
+```
+
 ### 启动本地服务
 ```
 hugo server -D
@@ -10,9 +15,12 @@ hugo server -D
 hugo -D
 ```
 
-### 添加新的内容
+### 部署
+将代码提交后，Travis CI会自动部署
 ```
-hugo new posts/my-first-post.md
+git add .
+git commit -m 'xx'
+git push origin matser
 ```
 
-[官网文档](https://gohugo.io/getting-started/quick-start/)
+[hugo官网文档](https://gohugo.io/getting-started/quick-start/)
