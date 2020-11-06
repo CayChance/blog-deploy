@@ -2,7 +2,7 @@
 
 ### 添加新的内容
 ```
-hugo new posts/.md
+hugo new posts/xxx.md
 ```
 
 ### 启动本地服务
