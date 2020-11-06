@@ -42,7 +42,7 @@ Son.prototype.getSubValue = function() {
 var instance = new Son();
 console.log(instance.getSuperValue()); // true
 ```
-![](https://blog-pics.pek3b.qingstor.com/006tNbRwly1fy5eirt2pxj30m80bldjb.jpg)
+![](https://blog-pics.pek3b.qingstor.com/es5.png)
 
 原型链方案存在的缺点：
 
@@ -342,3 +342,5 @@ function _inherits(son, father) {
 
 * ES5的继承实质上是先创建子类的实例对象，然后再将父类的方法添加到this上（Parent.call(this)）.
 * ES6的继承有所不同，实质上是先创建父类的实例对象this，然后再用子类的构造函数修改this。因为子类没有自己的this对象，所以必须先调用父类的super()方法，否则新建实例报错。
+
+![](https://blog-pics.pek3b.qingstor.com/compare.png)
