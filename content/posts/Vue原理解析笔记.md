@@ -17,6 +17,57 @@ tags:
 * 通过 Object.defineProperty 设置 setter 与 getter 函数，用来实现「响应式」以及「依赖收集」
 * 如果有el属性，就调用vm.$mount方法挂载vm。(PS:vm就是Vue的实例)
 
+### 响应式，依赖收集，派发更新
+
+* 响应式对象，核心就是利用 Object.defineProperty 给数据添加了 getter 和 setter，目的就是为了在我们访问数据以及写数据的时候能自动执行一些逻辑：getter 做的事情是依赖收集，setter 做的事情是派发更新
+
+* 收集依赖的目的是为了当这些响应式数据发生变化，触发它们的 setter 的时候，能知道应该通知哪些订阅者去做相应的逻辑处理
+
+* 当数据发生变化的时候，触发 setter 逻辑，把在依赖过程中订阅的的所有观察者，也就是 watcher，都触发它们的 update 过程
+
+``` js
+//响应式
+function defineReactive (obj,key,val) {
+  let dep = new Dep();
+  Object.defineProperty(obj, key, {
+    get(){
+      // 依赖收集
+      dep.depend();
+      return val;
+    },
+    set(newVal){
+      val = newVal;
+      // 派发更新；数据变化通知所有订阅者
+      dep.notify()
+    }
+  })
+}
+// Dep是整个getter依赖收集的核心
+class Dep {
+  constructor(){
+    this.subs = []
+  },
+  //增加订阅者
+  addSub(sub){
+    this.subs.push(sub);
+  },
+  //判断是否增加订阅者
+  depend () {
+    if (Dep.target) {
+      this.addSub(Dep.target)
+    }
+  },
+
+  //通知订阅者更新
+  notify(){
+    this.subs.forEach((sub) =>{
+      sub.update()
+    })
+  }
+}
+Dep.target = null;
+```
+
 ### $mount挂载组件
 **作用：** 挂载的目标就是把模板渲染成最终的 DOM
 
@@ -101,6 +152,26 @@ Vue.prototype._update = function (vnode: VNode, hydrating?: boolean) {
 [参考diff算法](https://caychance.github.io/2019/04/03/diff%E7%AE%97%E6%B3%95/#patch%E6%96%B9%E6%B3%95)
 
 ### 小结
+1. new Vue()
+2. init初始化 （合并配置，初始化生命周期，事件中心，渲染，data、 props、 methods、 computed 与 watcher等）
+  - 通过 Object.defineProperty 设置 setter 与 getter 函数
+  - 如果有el属性，就调用vm.$mount方法挂载vue实例。
+3. 响应式，依赖收集，派发更新
+  - 响应式对象，核心就是利用 Object.defineProperty 给数据添加了 getter 和 setter，目的就是为了在我们访问数据以及写数据的时候能自动执行一些逻辑：getter 做的事情是依赖收集，setter 做的事情是派发更新
+  - 收集依赖的目的是为了当这些响应式数据发生变化，触发它们的 setter 的时候，能知道应该通知哪些订阅者去做相应的逻辑处理
+  - 当数据发生变化的时候，触发 setter 逻辑，把在依赖过程中订阅的的所有观察者，也就是 watcher，都触发它们的 update 过程
+4. mount挂载组件 （挂载的目标就是把模板渲染成最终的 DOM）
+5. compile编译 （compile编译步骤不一定是必有的。如果没有使用template，统一都用的render，会跳过此步骤。)
+  - parse 把模板template解析为AST
+  - optimize 优化AST，标记静态根，静态节点
+  - genarate 把优化后的AST转换成可执行的代码，生成render function
+6. render渲染函数 （把实例渲染成一个虚拟DOM）
+7. update方法 （把虚拟DOM渲染成真实的DOM）
+8. patch方法
+  - patch
+  - patchVnode
+  - updateChildren
+
 new Vue() => init => mount => compile => render => VNode => update => patch => dom
 
 ![](https://blog-pics.pek3b.qingstor.com/006tNc79ly1g2v2c39ruvj311e0rudpq.jpg)
